@@ -1,4 +1,4 @@
-import { now } from "@/data/content";
+import { now } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Now() {

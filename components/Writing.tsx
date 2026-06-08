@@ -1,4 +1,4 @@
-import { writing } from "@/data/content";
+import { writing } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Writing() {

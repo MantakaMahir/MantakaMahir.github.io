@@ -1,4 +1,4 @@
-import { projects } from "@/data/content";
+import { projects } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Projects() {

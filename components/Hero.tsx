@@ -1,4 +1,4 @@
-import { hero } from "@/data/content";
+import { hero } from "@/data/loader";
 
 export function Hero() {
   return (

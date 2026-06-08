@@ -1,4 +1,4 @@
-import { contact } from "@/data/content";
+import { contact } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Contact() {

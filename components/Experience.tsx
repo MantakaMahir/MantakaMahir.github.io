@@ -1,4 +1,4 @@
-import { experience } from "@/data/content";
+import { experience } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Experience() {

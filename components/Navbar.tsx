@@ -1,4 +1,4 @@
-import { navItems } from "@/data/content";
+import { navItems } from "@/data/loader";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {

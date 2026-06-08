@@ -1,4 +1,4 @@
-import { about } from "@/data/content";
+import { about } from "@/data/loader";
 import { Section } from "./Section";
 
 export function About() {

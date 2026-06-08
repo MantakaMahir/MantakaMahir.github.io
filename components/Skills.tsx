@@ -1,4 +1,4 @@
-import { skills } from "@/data/content";
+import { skills } from "@/data/loader";
 import { Section } from "./Section";
 
 export function Skills() {
