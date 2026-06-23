@@ -1,0 +1,11 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#fbfaf7"/>
+  <rect x="60" y="60" width="1080" height="510" rx="28" fill="#fffefa" stroke="#ded8cf"/>
+  <text x="110" y="185" fill="#171717" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700">Mantaka Mahir</text>
+  <text x="110" y="260" fill="#6f6a62" font-family="Georgia, 'Times New Roman', serif" font-size="34">AI Engineer</text>
+  <text x="110" y="340" fill="#171717" font-family="Georgia, 'Times New Roman', serif" font-size="30">RAG systems • AI agents • automation workflows</text>
+  <text x="110" y="395" fill="#171717" font-family="Georgia, 'Times New Roman', serif" font-size="30">Next.js • Flutter • FastAPI</text>
+  <circle cx="980" cy="315" r="120" fill="#1f4bd8" opacity="0.10"/>
+  <circle cx="980" cy="315" r="74" fill="#1f4bd8" opacity="0.18"/>
+  <text x="923" y="328" fill="#1f4bd8" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700">M</text>
+</svg>
