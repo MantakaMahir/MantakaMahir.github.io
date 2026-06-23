@@ -13,9 +13,6 @@ export function Experience() {
             <div>
               <p className="text-sm font-semibold">{item.org}</p>
               <p className="text-xs text-[var(--muted)]">{item.period}</p>
-              <span className="mt-1 inline-block rounded-full border border-[var(--line)] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--muted)]">
-                {item.type}
-              </span>
             </div>
             <div>
               <h3 className="text-lg font-semibold">{item.role}</h3>
