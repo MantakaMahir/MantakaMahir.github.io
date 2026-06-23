@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mantakamahir.github.io"),
   title: "Mantaka Mahir",
   description: "AI Engineer building agentic systems and end-to-end automation.",
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({

@@ -6,12 +6,13 @@
     { "label": "Projects", "href": "#projects" },
     { "label": "Skills", "href": "#skills" },
     { "label": "Writing", "href": "#writing" },
+    { "label": "Education", "href": "#education" },
     { "label": "Contact", "href": "#contact" }
   ],
   "hero": {
     "eyebrow": "Mantaka Mahir",
     "headline": "AI Engineer",
-    "subheadline": "I build agentic AI systems and end-to-end automation that turn manual work into recurring revenue. Dhaka-based, remote-first.",
+    "subheadline": "I build agentic AI systems and end-to-end automation that turn manual work into recurring revenue.",
     "snapshot": [
       { "label": "Role", "value": "AI Engineer" },
       { "label": "Location", "value": "Dhaka (Remote)" },
@@ -20,7 +21,7 @@
     ]
   },
   "about": {
-    "body": "Computer Science & Engineering student at MIST with hands-on experience building RAG systems, AI job-matching tools, multimodal model comparison apps, and freelance automation workflows. I design and deploy AI agents and automation that deliver measurable profit uplift — reducing costs, freeing teams, and accelerating growth."
+    "body": "Goal-driven AI Engineer building RAG systems, AI agents, job-matching platforms, multimodal model comparison tools, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes."
   },
   "experience": [
     {
@@ -51,19 +52,19 @@
       "period": "Feb 2025 - Present",
       "type": "Freelance",
       "highlights": [
-        "Rising Talent, 100% Job Success, $1,300+ total earnings",
+        "Rising Talent, 100% Job Success",
         "Diagnosed 20+ workflow issues: context loss, data-formatting, handoffs",
         "Built automation workflows using n8n, APIs, Python, and LLM tools"
       ]
     },
     {
-      "role": "BSc Engineering, Computer Science",
-      "org": "Military Institute of Science and Technology (MIST)",
-      "period": "Undergraduate",
-      "type": "Education",
+      "role": "Mobile Application Developer",
+      "org": "Flutter iOS and Android",
+      "period": "2023 - 2025",
+      "type": "Cross-platform",
       "highlights": [
-        "Activities: Competitive Programming, Hackathons, Business Case Studies",
-        "Strong engineering foundation in data structures, algorithms, and software architecture"
+        "Built cross-platform mobile applications with Flutter",
+        "Developed and shipped iOS and Android app experiences"
       ]
     }
   ],
