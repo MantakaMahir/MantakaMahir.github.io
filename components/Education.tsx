@@ -4,7 +4,7 @@ const courses = ["DSA", "OOP", "DBMS", "Networking"];
 
 export function Education() {
   return (
-    <Section id="education" eyebrow="Education" title="Computer Science">
+    <Section id="education" eyebrow="Education" title="Bachelor of Engineering Computer Science">
       <div className="border-y border-[var(--line)] py-7">
         <p className="text-2xl font-normal tracking-[-0.02em]">Military Institute of Science and Technology (MIST)</p>
         <div className="mt-4 flex flex-wrap gap-2">
