@@ -4,7 +4,7 @@ import { Section } from "./Section";
 export function Contact() {
   return (
     <Section id="contact" eyebrow="Contact" title="Let's connect">
-      <p className="max-w-2xl text-xl leading-9 text-[var(--muted)]">{contact.cta}</p>
+      <p className="max-w-3xl text-2xl leading-10 tracking-[-0.015em] text-[var(--foreground)] text-pretty">{contact.cta}</p>
       <div className="mt-8 flex flex-wrap gap-3">
         {contact.links.map((link) => (
           <a

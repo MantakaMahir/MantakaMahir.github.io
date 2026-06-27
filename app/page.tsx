@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main id="home" className="mx-auto w-full max-w-5xl px-5 py-10 sm:px-8 lg:px-10">
+      <main id="home" className="mx-auto w-full max-w-6xl px-5 py-8 sm:px-8 lg:px-10">
         <Hero />
         <About />
         <Experience />

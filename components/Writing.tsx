@@ -14,7 +14,7 @@ export function Writing() {
             className="flex items-center justify-between gap-6 py-5 transition hover:bg-[var(--paper)]"
           >
             <div>
-              <p className="text-xs text-[var(--muted)]">0{index + 1}</p>
+              <p className="text-xs text-[var(--accent)]">0{index + 1}</p>
               <h3 className="mt-1 text-xl font-normal tracking-[-0.02em]">{item.title}</h3>
               <p className="mt-1 text-sm text-[var(--muted)]">{item.detail}</p>
             </div>
