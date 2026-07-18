@@ -4,13 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://mantakamahir.github.io"),
   title: {
-    default: "Mantaka Mahir | AI Engineer",
+    default: "Mantaka Mahir | AI Systems Expert",
     template: "%s | Mantaka Mahir",
   },
-  description: "Goal-driven AI Engineer building RAG systems, AI agents, multimodal tools, and production automation workflows.",
+  description: "Goal-driven AI Systems Expert building RAG systems, AI agents, and production automation workflows.",
   keywords: [
     "Mantaka Mahir",
-    "AI Engineer",
+    "AI Systems Expert",
     "RAG",
     "AI agents",
     "automation",
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     type: "profile",
     url: "/",
     siteName: "Mantaka Mahir",
-    title: "Mantaka Mahir | AI Engineer",
-    description: "Goal-driven AI Engineer building RAG systems, AI agents, multimodal tools, and production automation workflows.",
+    title: "Mantaka Mahir | AI Systems Expert",
+    description: "Goal-driven AI Systems Expert building RAG systems, AI agents, and production automation workflows.",
     images: [
       {
         url: "/og-image.svg",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mantaka Mahir | AI Engineer",
-    description: "Goal-driven AI Engineer building RAG systems, AI agents, multimodal tools, and production automation workflows.",
+    title: "Mantaka Mahir | AI Systems Expert",
+    description: "Goal-driven AI Systems Expert building RAG systems, AI agents, and production automation workflows.",
     images: ["/og-image.svg"],
   },
   robots: {
@@ -74,7 +74,7 @@ export default function RootLayout({
               "@type": "Person",
               name: "Mantaka Mahir",
               url: "https://mantakamahir.github.io/",
-              jobTitle: "AI Engineer",
+              jobTitle: "AI Systems Expert",
               image: "https://github.com/MantakaMahir.png",
               sameAs: [
                 "https://github.com/MantakaMahir",
