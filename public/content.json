@@ -25,16 +25,6 @@
   },
   "experience": [
     {
-      "role": "AI System Developer",
-      "org": "The Earth",
-      "period": "Jul 2026 - Present",
-      "type": "Part-time · Hybrid",
-      "highlights": [
-        "Build AI systems and automation workflows for operational use cases",
-        "Develop production-ready integrations across client tools and AI services"
-      ]
-    },
-    {
       "role": "AI Automation Engineer",
       "org": "Deep Loom",
       "href": "https://deeploom.dev/",
@@ -44,6 +34,17 @@
         "Build agentic workflows and automation systems using FastAPI and GCP",
         "Design document-intelligence workflows processing 1,000+ docs/month",
         "Orchestrate Claude Opus and GPT-Codex workflows (12 min → 3 min runtime)"
+      ]
+    },
+    {
+      "role": "AI System Developer",
+      "org": "The Earth",
+      "href": "https://theearthbd.org/",
+      "period": "Jul 2026 - Present",
+      "type": "Part-time · Hybrid",
+      "highlights": [
+        "Build AI education systems for kids and women",
+        "Create practical learning workflows that make AI tools easier to understand and use"
       ]
     },
     {
@@ -105,7 +106,7 @@
       "name": "Conover Industries multimodal intake automation",
       "description": "Production-ready intake automation that converts manual text, documents, spreadsheets, screenshots, and MP4/audio inputs from Notion into structured JSON, linked action items, review routing, duplicate protection, and audit logs.",
       "techStack": "n8n · Notion API · OpenAI API · GPT-5 Mini · GPT-4.1 · GPT-4.1 Mini",
-      "metric": "All acceptance tests passed · activated in client environment",
+      "metric": "Multimodal intake · review routing · duplicate protection · audit logs",
       "tags": ["multimodal intake", "Notion operations"]
     },
     {
