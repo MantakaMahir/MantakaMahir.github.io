@@ -77,6 +77,20 @@
       "tags": ["Openline", "content infrastructure"]
     },
     {
+      "name": "Conover Industries multimodal intake automation",
+      "description": "Production-ready intake automation that converts manual text, documents, spreadsheets, screenshots, and MP4/audio inputs from Notion into structured JSON, linked action items, review routing, duplicate protection, and audit logs.",
+      "techStack": "n8n · Notion API · OpenAI API · GPT-5 Mini · GPT-4.1 · GPT-4.1 Mini",
+      "metric": "All acceptance tests passed · activated in client environment",
+      "tags": ["multimodal intake", "Notion operations"]
+    },
+    {
+      "name": "Momentum AI Studio",
+      "description": "Invite-only content production dashboard for podcast and video teams, connecting a Next.js app to n8n workflows for AI clip generation, project tracking, clip exports, social scheduling, thumbnails, descriptions, audio cleanup, and trim reports.",
+      "techStack": "Next.js 16 · TypeScript · React 19 · Tailwind CSS · NextAuth · n8n · Reap AI · CleanVoice AI · Google Drive · Google Sheets · Vercel",
+      "metric": "5GB uploads · 14 languages · multi-platform posting · 15s processing refresh",
+      "tags": ["internal AI studio", "video workflows"]
+    },
+    {
       "name": "Multi-agent email attachment processing",
       "description": "Multi-agent pipeline for high-volume attachment processing with structured outputs and error-resistant data handling.",
       "techStack": "Python · LangChain · n8n · API design",
