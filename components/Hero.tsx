@@ -7,10 +7,10 @@ export function Hero() {
       <div>
         <div className="max-w-3xl">
           <p className="inline-flex border border-[var(--line)] bg-[var(--paper)] px-3 py-1 text-sm font-semibold text-[var(--accent)]">{hero.eyebrow}</p>
-          <h1 className="mt-6 max-w-4xl text-6xl font-normal leading-[0.92] tracking-[-0.035em] text-balance sm:text-7xl lg:text-8xl">
+          <h1 className="mt-6 max-w-4xl text-[clamp(3.5rem,8vw,5.75rem)] font-normal leading-[0.96] tracking-[-0.03em] text-balance">
             {hero.headline}
           </h1>
-          <p className="mt-7 max-w-2xl text-xl leading-8 text-[var(--muted)] text-pretty sm:text-2xl sm:leading-9">{hero.subheadline}</p>
+          <p className="mt-7 max-w-2xl text-xl leading-8 text-[var(--muted)] text-pretty sm:text-[1.35rem] sm:leading-9">{hero.subheadline}</p>
         </div>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <a href="#projects" className="inline-flex items-center justify-center border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition hover:-translate-y-0.5">
