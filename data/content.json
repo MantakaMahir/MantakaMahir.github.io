@@ -25,10 +25,21 @@
   },
   "experience": [
     {
+      "role": "AI System Developer",
+      "org": "The Earth",
+      "period": "Jul 2026 - Present",
+      "type": "Part-time · Hybrid",
+      "highlights": [
+        "Build AI systems and automation workflows for operational use cases",
+        "Develop production-ready integrations across client tools and AI services"
+      ]
+    },
+    {
       "role": "AI Automation Engineer",
       "org": "Deep Loom",
+      "href": "https://deeploom.dev/",
       "period": "Nov 2025 - Present",
-      "type": "Contract",
+      "type": "Contract · Netherlands · Remote",
       "highlights": [
         "Build agentic workflows and automation systems using FastAPI and GCP",
         "Design document-intelligence workflows processing 1,000+ docs/month",
@@ -36,35 +47,49 @@
       ]
     },
     {
+      "role": "AI Systems Engineer",
+      "org": "Conover Industries LLC",
+      "href": "https://www.conoverindustries.com/",
+      "period": "Jun 2026 - Present",
+      "type": "Contract · Texas, United States · Remote",
+      "highlights": [
+        "Built multimodal intake automation with Notion, n8n, and OpenAI",
+        "Implemented manual-review routing, duplicate protection, and audit logging",
+        "Passed acceptance tests for text, DOCX, PDF, Excel, image, and MP4/audio paths"
+      ]
+    },
+    {
+      "role": "AI Software Development",
+      "org": "Upwork — Freelance",
+      "period": "Feb 2025 - Present",
+      "type": "Freelance · Remote",
+      "highlights": [
+        "Analyze existing systems to identify operational bottlenecks",
+        "Implement targeted AI and automation solutions that directly increase revenue and efficiency",
+        "Build agentic systems with Next.js, n8n, APIs, Python, and LLM tools"
+      ]
+    },
+    {
       "role": "AI System Developer",
       "org": "Momentum AI Consulting",
-      "period": "Jan 2026 - Present",
-      "type": "Contract",
+      "period": "Jan 2026 - Jun 2026",
+      "type": "Contract · United States · Remote",
       "highlights": [
-        "Build Next.js interfaces and FastAPI/Django backend systems",
-        "Deliver service pipelines, CRM workflows, and reporting systems",
+        "Built Next.js interfaces and FastAPI/Django backend systems",
+        "Delivered service pipelines, CRM workflows, and reporting systems",
         "Full-stack AI implementation with clean client handoff"
       ]
     },
     {
-      "role": "AI Automation Developer",
-      "org": "Upwork — Freelance",
-      "period": "Feb 2025 - Present",
-      "type": "Freelance",
+      "role": "AI Automation Engineer",
+      "org": "Openline",
+      "href": "https://openline.com/",
+      "period": "Mar 2026 - Apr 2026",
+      "type": "Contract · New York, United States · Remote",
       "highlights": [
-        "Rising Talent, 100% Job Success",
-        "Diagnosed 20+ workflow issues: context loss, data-formatting, handoffs",
-        "Built automation workflows using n8n, APIs, Python, and LLM tools"
-      ]
-    },
-    {
-      "role": "Mobile Application Developer",
-      "org": "Flutter iOS and Android",
-      "period": "2023 - 2025",
-      "type": "Cross-platform",
-      "highlights": [
-        "Built cross-platform mobile applications with Flutter",
-        "Developed and shipped iOS and Android app experiences"
+        "Built agentic content operations across research, publishing, translation, and media generation",
+        "Connected Python, LangChain, n8n, FastAPI, Notion, OpenRouter, Claude, GPT, Gemini, and Kling",
+        "Automated 14 daily workflows across eight platforms"
       ]
     }
   ],
