@@ -70,6 +70,13 @@
   ],
   "projects": [
     {
+      "name": "$250K/year content team replacement",
+      "description": "Two AI agents running a full content operation for Openline: trend research, calendar planning, article and social drafting, image generation, multilingual publishing, video generation, and edit sync across eight platforms.",
+      "techStack": "Python · LangChain · n8n · FastAPI · Notion · OpenRouter · Claude · GPT · Gemini · Kling",
+      "metric": "14 daily workflows · 6 languages · 149 translations/run · 0 manual ops",
+      "tags": ["Openline", "content infrastructure"]
+    },
+    {
       "name": "Multi-agent email attachment processing",
       "description": "Multi-agent pipeline for high-volume attachment processing with structured outputs and error-resistant data handling.",
       "techStack": "Python · LangChain · n8n · API design",
