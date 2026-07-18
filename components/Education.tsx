@@ -1,6 +1,6 @@
 import { Section } from "./Section";
 
-const courses = ["DSA", "OOP", "DBMS", "Networking"];
+const courses = ["Coding Competition", "Hackathon", "Business Case Studies"];
 
 export function Education() {
   return (
