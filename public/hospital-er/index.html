@@ -108,9 +108,9 @@
           <rect class="entity" x="270" y="500" width="140" height="58"/><text class="label bold" x="340" y="529">NURSE</text>
           <rect class="entity" x="500" y="500" width="200" height="58"/><text class="label bold small" x="600" y="529">ADMINISTRATIVE</text>
           <text class="label tiny" x="600" y="548">STAFF</text>
-          <ellipse class="attribute" cx="315" cy="635" rx="85" ry="28"/><text class="label small" x="315" y="635">specialization</text>
+          <ellipse class="attribute" cx="835" cy="650" rx="85" ry="28"/><text class="label small" x="835" y="650">specialization</text>
           <ellipse class="attribute" cx="430" cy="590" rx="55" ry="27"/><text class="label small" x="430" y="590">shift</text>
-          <path class="connector thin" d="M331 558 L320 607 M365 558 L410 568"/>
+          <path class="connector thin" d="M365 558 L410 568 M835 560 V622"/>
           <ellipse class="attribute" cx="535" cy="630" rx="55" ry="28"/><text class="label small" x="535" y="630">role</text>
           <path class="connector thin" d="M570 558 L543 602"/>
 
@@ -210,8 +210,8 @@
             <text data-pk="EMPLOYEE.employee_id" class="small key" x="265" y="139">employee_id (PK)</text><text class="small" x="265" y="165">first_name, last_name</text><text class="small" x="265" y="188">salary</text>
           </g>
           <g><rect class="relation-table" x="70" y="210" width="240" height="110"/><rect class="table-head" x="70" y="210" width="240" height="38"/><text class="label bold small" x="190" y="229">EMPLOYEE_PHONE</text><text data-fk="EMPLOYEE.employee_id" class="small key" x="85" y="259">employee_id (PK, FK)</text><text class="small key" x="85" y="292">phone_number (PK)</text></g>
-          <g><rect class="relation-table" x="570" y="210" width="250" height="142"/><rect class="table-head" x="570" y="210" width="250" height="38"/><text class="label bold" x="695" y="229">DOCTOR</text><text data-pk="DOCTOR.employee_id" data-fk="EMPLOYEE.employee_id" class="small key" x="585" y="259">employee_id (PK, FK)</text><text data-fk="DOCTOR.employee_id" class="small" x="585" y="293">supervisor_id (FK, NULL)</text><text class="small" x="585" y="327">supervision_start_date</text></g>
-          <g><rect class="relation-table" x="840" y="210" width="220" height="142"/><rect class="table-head" x="840" y="210" width="220" height="38"/><text class="label bold" x="950" y="229">NURSE</text><text data-fk="EMPLOYEE.employee_id" class="small key" x="855" y="259">employee_id (PK, FK)</text><text class="small" x="855" y="293">specialization</text><text class="small" x="855" y="327">shift</text></g>
+          <g><rect class="relation-table" x="570" y="210" width="250" height="176"/><rect class="table-head" x="570" y="210" width="250" height="38"/><text class="label bold" x="695" y="229">DOCTOR</text><text data-pk="DOCTOR.employee_id" data-fk="EMPLOYEE.employee_id" class="small key" x="585" y="259">employee_id (PK, FK)</text><text class="small" x="585" y="293">specialization</text><text data-fk="DOCTOR.employee_id" class="small" x="585" y="327">supervisor_id (FK, NULL)</text><text class="small" x="585" y="361">supervision_start_date</text></g>
+          <g><rect class="relation-table" x="840" y="210" width="220" height="110"/><rect class="table-head" x="840" y="210" width="220" height="38"/><text class="label bold" x="950" y="229">NURSE</text><text data-fk="EMPLOYEE.employee_id" class="small key" x="855" y="259">employee_id (PK, FK)</text><text class="small" x="855" y="293">shift</text></g>
           <g><rect class="relation-table" x="1130" y="210" width="270" height="110"/><rect class="table-head" x="1130" y="210" width="270" height="38"/><text class="label bold small" x="1265" y="229">ADMINISTRATIVE_STAFF</text><text data-fk="EMPLOYEE.employee_id" class="small key" x="1145" y="259">employee_id (PK, FK)</text><text class="small" x="1145" y="293">role</text></g>
           <g><rect class="relation-table" x="1460" y="210" width="270" height="142"/><rect class="table-head" x="1460" y="210" width="270" height="38"/><text class="label bold" x="1595" y="229">DEPENDENT</text><text data-fk="EMPLOYEE.employee_id" class="small key" x="1475" y="259">employee_id (PK, FK)</text><text class="small key" x="1475" y="293">dependent_name (PK)</text><text class="small" x="1475" y="327">relationship</text></g>
 
