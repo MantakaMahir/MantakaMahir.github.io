@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=1440, initial-scale=1">
   <link rel="icon" href="data:,">
   <title>City Care General Hospital - ER and Relational Schema Solution</title>
   <style>
     :root { --navy:#12346b; --blue:#dceff7; --line:#17202a; --paper:#fff; --page:#e8eef4; --muted:#526273; --gold:#f4e4a4; }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--page); color:#182331; font:16px/1.5 Arial,sans-serif; }
+    body { min-width:1440px; margin:0; background:var(--page); color:#182331; font:16px/1.5 Arial,sans-serif; }
     header, main { width:min(1880px,calc(100% - 32px)); margin:auto; }
     header { padding:32px 8px 22px; }
     h1 { margin:0; color:var(--navy); font-size:clamp(28px,4vw,52px); letter-spacing:-.025em; }
@@ -48,7 +48,7 @@
     .assumptions { columns:2; column-gap:42px; margin:14px 0 0; }
     .assumptions li { break-inside:avoid; margin:0 0 10px; }
     footer { width:min(1880px,calc(100% - 32px)); margin:0 auto 30px; color:var(--muted); font-size:13px; }
-    @media (max-width:700px) { header,main,footer{width:calc(100% - 20px)} section{padding:16px}.assumptions{columns:1}.diagram-export{min-width:1180px} }
+    @media (max-width:700px) { header,main,footer{width:min(1880px,calc(100% - 32px))} section{padding:24px}.assumptions{columns:2}.diagram-export{min-width:1200px} }
     @media print { body{background:white} header,main,footer{width:100%} nav{display:none} section{box-shadow:none;border:0;page-break-after:always}.diagram-scroll{overflow:visible}.diagram-export{min-width:0;padding:0} }
   </style>
 </head>
