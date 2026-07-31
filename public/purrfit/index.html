@@ -3,102 +3,151 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Purrfit</title>
+    <title>Purrfit | Fitness that keeps you company</title>
     <meta
       name="description"
-      content="Purrfit is a gentle fitness app with daily plans, workout tracking, offline reports, and a friendly companion tone."
+      content="Purrfit is a companion-style fitness app with daily planning, guided workouts, offline progress reports, and gentle support from Purr."
     />
+    <meta property="og:title" content="Purrfit | Fitness that keeps you company" />
+    <meta
+      property="og:description"
+      content="A calmer Android fitness app for daily plans, guided movement, progress reports, and companion-style encouragement."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://mantakamahir.github.io/purrfit/assets/app-icon.png" />
+    <link rel="icon" href="./assets/app-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="landing-page">
+    <!--
+      THESIS: Purrfit turns beginner fitness into a companion routine, refusing the generic gym-template hero.
+      OWN-WORLD: midnight training mat, citrus Purr energy, tactile app cards, soft precision, no fake metrics.
+      STORY: visitors see the routine loop, trust the safety/privacy posture, and ask for release updates.
+      FIRST VIEWPORT: oversized promise left, floating app console and Purr companion right, action visible above fold.
+      FORM: premium consumer app landing, static HTML/CSS, finish with detector, build/lint, and live deploy verification.
+    -->
+    <a class="skip-link" href="#hero-title">Skip to content</a>
     <main class="landing-shell">
-      <nav class="site-nav" aria-label="Page sections">
+      <nav class="site-nav" aria-label="Purrfit page sections">
         <a class="brand-mark" href="./" aria-label="Purrfit home">
-          <img src="./assets/app-icon.png" alt="" width="40" height="40" />
+          <img src="./assets/app-icon.png" alt="" width="42" height="42" />
           <span>Purrfit</span>
         </a>
         <ul class="nav-links">
-          <li><a href="#features">Features</a></li>
+          <li><a href="#routine">Routine</a></li>
           <li><a href="#companion">Companion</a></li>
-          <li><a href="#workouts">Workouts</a></li>
-          <li><a href="#reports">Reports</a></li>
+          <li><a href="#progress">Progress</a></li>
           <li><a href="#trust">Trust</a></li>
         </ul>
       </nav>
 
       <header class="hero-section" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="status-pill">Android release page coming soon</p>
-          <h1 id="hero-title">Fitness that feels like a daily companion.</h1>
+        <div class="hero-copy reveal-on-load">
+          <p class="release-note">Android release page coming soon</p>
+          <h1 id="hero-title" tabindex="-1">Train gently. Keep showing up.</h1>
           <p class="hero-lede">
-          Build a calmer routine with guided workouts, progress reports, and gentle encouragement
-          from Purr.
+            A companion-style fitness app for daily plans, guided movement, progress reports, and kind nudges from Purr.
           </p>
-          <p class="hero-actions">
-            <a class="primary-action" href="mailto:mantakamahir86@gmail.com?subject=Purrfit%20release%20updates">Get release updates</a>
-            <a class="secondary-action" href="./privacy.html">Read the privacy policy</a>
+          <p class="hero-actions" aria-label="Primary actions">
+            <a class="primary-action" href="mailto:mantakamahir@gmail.com?subject=Purrfit%20release%20updates">
+              <span>Get updates</span>
+              <span class="action-dot" aria-hidden="true"></span>
+            </a>
+            <a class="secondary-action" href="./support.html">Contact support</a>
           </p>
         </div>
-        <div class="hero-art">
-          <figure class="phone-preview">
-            <div class="phone-card">
-              <img src="./assets/purr-splash.png" alt="Purrfit app preview screen" width="320" height="320" />
+
+        <div class="hero-stage reveal-on-load" aria-label="Purrfit app preview">
+          <figure class="device-shell">
+            <div class="device-screen">
+              <img src="./assets/purr-splash.png" alt="Purrfit app preview with Purr mascot" width="320" height="320" />
             </div>
-            <figcaption>A friendly daily fitness home for plans, timers, and progress.</figcaption>
+            <figcaption>Daily planning, timers, and progress in one calm home.</figcaption>
           </figure>
-          <figure class="hero-cat">
-            <img src="./assets/purr-celebrate.png" alt="Purr celebrating a workout milestone" width="220" height="220" />
-            <figcaption>Purr keeps encouragement light, practical, and kind.</figcaption>
+          <figure class="companion-card">
+            <img src="./assets/purr-celebrate.png" alt="Purr celebrating a completed workout" width="220" height="220" />
+            <figcaption>
+              <strong>Purr checks in softly.</strong>
+              Encouragement stays practical, never pushy.
+            </figcaption>
           </figure>
+          <div class="status-console" aria-label="Purrfit routine summary">
+            <span>today</span>
+            <strong>Plan · Move · Reflect</strong>
+          </div>
         </div>
       </header>
 
-      <section class="feature-strip" id="features" aria-labelledby="features-title">
-        <h2 id="features-title">Four simple places to build momentum</h2>
-        <ul>
-          <li><strong>Today:</strong> see the plan, reminders, and next best action.</li>
-          <li><strong>Workout:</strong> follow your session with a planner and active timer.</li>
-          <li><strong>Report:</strong> review history, body measurements, and progress trends offline.</li>
-          <li><strong>Profile:</strong> manage settings, account options, privacy, and support.</li>
-        </ul>
+      <section class="routine-section" id="routine" aria-labelledby="routine-title">
+        <div class="section-copy">
+          <h2 id="routine-title">The whole routine, without the noise.</h2>
+          <p>
+            Purrfit keeps the daily loop visible: decide what to do, move with focus, then see what changed.
+          </p>
+        </div>
+        <div class="routine-grid" aria-label="Purrfit routine features">
+          <article class="routine-panel routine-panel-large">
+            <span class="panel-kicker">01</span>
+            <h3>Daily plan studio</h3>
+            <p>Open Today and see the next best action, reminders, and the plan you are building toward.</p>
+          </article>
+          <article class="routine-panel routine-panel-photo">
+            <img src="./assets/exercise-plank.webp" alt="Purrfit exercise preview for plank movement" width="320" height="320" loading="lazy" />
+            <div>
+              <span class="panel-kicker">02</span>
+              <h3>Guided movement</h3>
+              <p>Follow workouts with clear previews, session planning, and an active timer.</p>
+            </div>
+          </article>
+          <article class="routine-panel routine-panel-progress">
+            <span class="panel-kicker">03</span>
+            <h3>Offline progress</h3>
+            <p>Review history, body measurements, adherence, BMI, and gentle insights without health-data integrations.</p>
+          </article>
+        </div>
       </section>
 
-      <section class="split-section companion-section" id="companion" aria-labelledby="companion-title">
-        <h2 id="companion-title">Encouragement without pressure</h2>
-        <p>
-          Purr and Buddy notes are small nudges: celebrate the work, remind you to recover, and keep
-          the app feeling personal without turning fitness into noise.
-        </p>
-        <figure>
+      <section class="companion-section" id="companion" aria-labelledby="companion-title">
+        <figure class="body-frame-card">
           <img src="./assets/body-frame.png" alt="Purrfit body progress frame" width="320" height="320" loading="lazy" />
-          <figcaption>Body visuals help progress feel concrete and approachable.</figcaption>
+          <figcaption>Progress visuals are calm, concrete, and easy to revisit.</figcaption>
         </figure>
+        <div class="section-copy companion-copy">
+          <h2 id="companion-title">A fitness app with a softer voice.</h2>
+          <p>
+            Purr and Buddy notes are small moments of support: celebrate the work, remind you to recover, and keep momentum human.
+          </p>
+          <ul class="companion-list">
+            <li>Encouragement that feels personal without becoming noisy.</li>
+            <li>Safety reminders that keep general fitness guidance in bounds.</li>
+            <li>A companion tone that makes returning tomorrow feel easier.</li>
+          </ul>
+        </div>
       </section>
 
-      <section class="split-section workout-section" id="workouts" aria-labelledby="workouts-title">
-        <h2 id="workouts-title">Plan, time, and remember each workout</h2>
-        <p>
-          Choose a workout, follow the timer, and keep a history of completed sessions so your routine
-          has a clear record.
-        </p>
-        <figure>
-          <img src="./assets/exercise-plank.webp" alt="Plank exercise preview" width="320" height="320" loading="lazy" />
-          <figcaption>Exercise previews support simple, focused movement sessions.</figcaption>
-        </figure>
-      </section>
-
-      <section class="split-section report-section" id="reports" aria-labelledby="reports-title">
-        <h2 id="reports-title">Offline reports for steady progress</h2>
-        <p>
-          Reports stay useful without external health integrations: workout history, adherence, BMI,
-          body measurements, and gentle insights are available in the app.
-        </p>
+      <section class="progress-section" id="progress" aria-labelledby="progress-title">
+        <div class="progress-card">
+          <h2 id="progress-title">Reports built for steady effort.</h2>
+          <p>
+            The Report tab stays useful offline: workout history, body measurements, adherence, and simple trends are available without connecting external health services.
+          </p>
+          <div class="progress-track" aria-label="Report areas">
+            <span>History</span>
+            <span>Body</span>
+            <span>Adherence</span>
+            <span>Insights</span>
+          </div>
+        </div>
       </section>
 
       <section class="trust-section" id="trust" aria-labelledby="trust-title">
-        <h2 id="trust-title">Trust and support</h2>
-        <p>Review the policies, manage your data, or contact support before the Android page arrives.</p>
-        <ul class="trust-links">
+        <div>
+          <h2 id="trust-title">Clear about safety, support, and data.</h2>
+          <p>
+            Purrfit is general fitness guidance, not medical advice. Account deletion, privacy, terms, and support stay easy to find before the Android release page arrives.
+          </p>
+        </div>
+        <ul class="trust-links" aria-label="Purrfit legal and support links">
           <li><a href="./privacy.html">Privacy Policy</a></li>
           <li><a href="./delete-account.html">Delete account and data</a></li>
           <li><a href="./terms.html">Terms</a></li>
