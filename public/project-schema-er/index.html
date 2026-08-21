@@ -116,9 +116,9 @@
           <ellipse class="attribute" cx="770" cy="910" rx="65" ry="28"/><text class="label small" x="770" y="910">created_at</text>
           <ellipse class="attribute" cx="800" cy="980" rx="86" ry="30"/><ellipse class="attribute" cx="800" cy="980" rx="77" ry="23"/><text class="label small" x="800" y="980">contact_info</text>
           <ellipse class="attribute" cx="1170" cy="585" rx="88" ry="29"/><text class="label small" x="1170" y="585">full_name</text>
-          <ellipse class="attribute" cx="1030" cy="585" rx="72" ry="25"/><text class="label tiny" x="1030" y="585">first_name</text>
-          <ellipse class="attribute" cx="1310" cy="585" rx="70" ry="25"/><text class="label tiny" x="1310" y="585">last_name</text>
-          <ellipse class="attribute" cx="1535" cy="575" rx="100" ry="28"/><text class="label small" x="1535" y="575">designation</text>
+          <ellipse class="attribute" cx="1000" cy="585" rx="72" ry="25"/><text class="label tiny" x="1000" y="585">first_name</text>
+          <ellipse class="attribute" cx="1340" cy="585" rx="70" ry="25"/><text class="label tiny" x="1340" y="585">last_name</text>
+          <ellipse class="attribute" cx="1535" cy="575" rx="105" ry="28"/><text class="label small" x="1535" y="575">profile_verified</text>
           <ellipse class="attribute" cx="1535" cy="635" rx="92" ry="28"/><text class="label small" x="1535" y="635">profile_picture</text>
           <ellipse class="attribute" cx="1535" cy="695" rx="105" ry="28"/><text class="label small" x="1535" y="695">research_interest</text>
           <ellipse class="attribute" cx="1535" cy="755" rx="115" ry="28"/><text class="label small" x="1535" y="755">google_scholar_link</text>
@@ -134,18 +134,23 @@
           <!-- Attribute connectors to profile, kept behind labels -->
           <path class="connector thin" d="M855 585 H1000 M840 650 H1000 M875 715 H1000 M822 780 H1000 M853 845 H1000 M835 910 L1000 830"/>
           <path class="connector thin" d="M886 980 H1000 V850"/>
-          <path class="connector thin" d="M1170 614 V670 M1065 599 L1100 670 M1350 599 L1240 670"/>
+          <path class="connector thin" d="M1170 614 V670 M1072 585 H1082 M1258 585 H1270"/>
           <path class="connector thin" d="M1435 575 L1340 680 M1443 635 L1340 700 M1430 695 L1340 720 M1420 755 L1340 742 M1465 815 L1340 765 M1440 875 L1340 790 M1435 935 L1340 815 M1440 995 L1340 840 M1479 1055 L1340 840 M1440 1115 L1340 840"/>
           <path class="connector thin" d="M1170 850 V910"/>
 
           <!-- Total disjoint specialization -->
           <path class="connector" d="M1160 670 V470 M1180 670 V470"/>
-          <polygon points="1170,470 1105,390 1235,390" fill="#e7e3f5" stroke="#17202a" stroke-width="2.4"/>
+          <polygon points="1170,390 1105,470 1235,470" fill="#e7e3f5" stroke="#17202a" stroke-width="2.4"/>
           <text class="label bold" x="1170" y="430">ISA</text>
           <text class="label tiny bold" x="1170" y="458" style="fill:#2877a4">SPECIALIZATION</text>
           <path class="connector" d="M1170 390 V330 H890 M1170 330 H1470 M890 330 V275 M1470 330 V275"/>
-          <rect class="entity-subtype" x="720" y="180" width="340" height="95"/><text class="label bold small" x="890" y="212">STUDENT_RESEARCHER</text><text class="label tiny" x="890" y="242">student_no, degree_program</text>
-          <rect class="entity-subtype" x="1300" y="180" width="340" height="95"/><text class="label bold small" x="1470" y="212">FACULTY_RESEARCHER</text><text class="label tiny" x="1470" y="242">faculty_rank, office_room</text>
+          <rect class="entity-subtype" x="720" y="180" width="340" height="95"/><text class="label bold small" x="890" y="227">STUDENT_RESEARCHER</text>
+          <ellipse class="attribute" cx="775" cy="105" rx="82" ry="27"/><text class="label small key" x="775" y="105">student_id</text>
+          <ellipse class="attribute" cx="1005" cy="105" rx="105" ry="27"/><text class="label small" x="1005" y="105">degree_program</text>
+          <path class="connector thin" d="M795 132 L840 180 M990 132 L940 180"/>
+          <rect class="entity-subtype" x="1300" y="180" width="340" height="95"/><text class="label bold small" x="1470" y="227">FACULTY_RESEARCHER</text>
+          <ellipse class="attribute" cx="1470" cy="105" rx="100" ry="27"/><text class="label small" x="1470" y="105">designation</text>
+          <path class="connector thin" d="M1470 132 V180"/>
           <text class="label tiny bold" x="1170" y="350" style="fill:#2877a4">total, disjoint (d)</text>
 
           <!-- Notification -->
@@ -170,13 +175,17 @@
           <text class="label bold small" x="2050" y="320">N</text><text class="label bold small" x="1385" y="650">1</text>
 
           <!-- Ternary contribution inside aggregation -->
-          <rect class="entity" x="670" y="1010" width="260" height="90"/><text class="label bold" x="800" y="1045">PUBLICATION</text><text class="label tiny" x="800" y="1073">title, abstract, DOI</text>
+          <rect class="entity" x="670" y="1010" width="260" height="90"/><text class="label bold" x="800" y="1055">PUBLICATION</text>
           <ellipse class="attribute" cx="600" cy="1145" rx="92" ry="27"/><text class="label small key" x="600" y="1145">publication_id</text>
-          <ellipse class="attribute" cx="875" cy="1170" rx="76" ry="27"/><text class="label small" x="875" y="1170">citation_count</text>
-          <path class="connector thin" d="M670 1050 L650 1130 M885 1100 L875 1143"/>
-          <rect class="entity" x="1440" y="1010" width="300" height="90"/><text class="label bold" x="1590" y="1045">RESEARCH_AREA</text><text class="label tiny" x="1590" y="1073">area_name, description</text>
+          <ellipse class="attribute" cx="720" cy="1185" rx="45" ry="27"/><text class="label small" x="720" y="1185">doi</text>
+          <ellipse class="attribute" cx="825" cy="1185" rx="52" ry="27"/><text class="label small" x="825" y="1185">title</text>
+          <ellipse class="attribute" cx="940" cy="1160" rx="70" ry="27"/><text class="label small" x="940" y="1160">abstract</text>
+          <path class="connector thin" d="M670 1050 L650 1130 M720 1158 V1100 M825 1158 V1100 M920 1138 L880 1100"/>
+          <rect class="entity" x="1440" y="1010" width="300" height="90"/><text class="label bold" x="1590" y="1055">RESEARCH_AREA</text>
           <ellipse class="attribute" cx="1450" cy="1165" rx="105" ry="27"/><text class="label small key" x="1450" y="1165">research_area_id</text>
-          <path class="connector thin" d="M1450 1100 V1138"/>
+          <ellipse class="attribute" cx="1620" cy="1165" rx="105" ry="27"/><text class="label small" x="1620" y="1165">research_area_name</text>
+          <ellipse class="attribute" cx="1745" cy="1125" rx="78" ry="27"/><text class="label small" x="1745" y="1125">description</text>
+          <path class="connector thin" d="M1450 1100 V1138 M1620 1138 V1100 M1705 1110 L1680 1090"/>
           <polygon class="relationship" points="1210,1055 1300,995 1390,1055 1300,1115"/><text class="label bold small" x="1300" y="1040">CONTRIBUTES_TO</text><text class="label tiny" x="1300" y="1070">TERNARY</text>
           <path class="connector" d="M930 1055 H1210 M1340 1015 L1270 850 M1390 1055 H1440"/>
           <text class="label bold small" x="1080" y="1035">N</text><text class="label bold small" x="1405" y="1035">N</text><text class="label bold small" x="1270" y="910">N</text>
@@ -186,41 +195,49 @@
           <text class="label tiny bold" x="1300" y="1260" style="fill:#2877a4">One fact needs all 3 entities together</text>
 
           <!-- Aggregation participant: faculty reviewer reviews the contribution occurrence -->
-          <rect class="entity-subtype" x="2100" y="690" width="350" height="95"/><text class="label bold small" x="2275" y="722">FACULTY_RESEARCHER</text><text class="label tiny" x="2275" y="753">role: reviewer</text>
+          <rect class="entity-subtype" x="2100" y="690" width="350" height="95"/><text class="label bold small" x="2275" y="735">ADMIN</text>
+          <ellipse class="attribute" cx="2525" cy="735" rx="78" ry="27"/><text class="label small key" x="2525" y="735">admin_id</text>
+          <path class="connector thin" d="M2448 735 H2450"/>
           <polygon class="relationship" points="1920,805 2000,755 2080,805 2000,855"/><text class="label bold small" x="2000" y="805">REVIEWS</text>
           <path class="connector" d="M1880 805 H1920 M2080 805 H2100"/>
           <text class="label bold small" x="1900" y="780">1</text><text class="label bold small" x="2095" y="780">N</text>
           <ellipse class="attribute" cx="2010" cy="920" rx="77" ry="27"/><text class="label small" x="2010" y="920">review_status</text>
           <ellipse class="attribute" cx="2180" cy="975" rx="58" ry="27"/><text class="label small" x="2180" y="975">reviewed_at</text>
           <path class="connector thin" d="M1980 850 L2000 893 M2040 850 L2160 950"/>
+          <text class="label tiny" x="1885" y="960" style="fill:#2877a4">review_status sets profile_verified</text>
           <text class="label tiny bold" x="2000" y="700" style="fill:#2877a4">AGGREGATE participates in REVIEWS</text>
 
           <!-- Weak citation history entity -->
-          <polygon class="relationship" points="350,1290 465,1230 580,1290 465,1350"/><polygon class="double" points="360,1290 465,1238 570,1290 465,1342"/><text class="label bold tiny" x="465" y="1283">HAS_CITATION</text><text class="label tiny" x="465" y="1308">SNAPSHOT</text>
+          <polygon class="relationship" points="350,1290 465,1230 580,1290 465,1350"/><polygon class="double" points="360,1290 465,1238 570,1290 465,1342"/><text class="label bold tiny" x="465" y="1290">HAS_CITATION</text>
           <rect class="entity" x="140" y="1400" width="350" height="100"/><rect class="double" x="150" y="1410" width="330" height="80"/><text class="label bold small" x="315" y="1432">CITATION_RECORD</text><text class="label tiny" x="315" y="1465">WEAK ENTITY</text>
-          <ellipse class="attribute partial-key" cx="150" cy="1585" rx="78" ry="27"/><text class="label small partial-key" x="150" y="1585">citation_year</text>
-          <ellipse class="attribute" cx="390" cy="1585" rx="78" ry="27"/><text class="label small" x="390" y="1585">citation_count</text>
-          <path class="connector thin" d="M350 1290 H220 V1400 M315 1500 V1558 M390 1500 V1558"/>
+          <ellipse class="attribute partial-key" cx="110" cy="1585" rx="68" ry="27"/><text class="label small partial-key" x="110" y="1585">citation_id</text>
+          <ellipse class="attribute" cx="315" cy="1605" rx="78" ry="27"/><text class="label small" x="315" y="1605">citation_year</text>
+          <ellipse class="attribute" cx="490" cy="1585" rx="78" ry="27"/><text class="label small" x="490" y="1585">citation_count</text>
+          <path class="connector thin" d="M350 1290 H220 V1400 M250 1500 L130 1560 M315 1500 V1578 M390 1500 L470 1560"/>
           <path class="connector" d="M465 1230 V1100 H800"/>
           <text class="label bold small" x="485" y="1175">1</text><text class="label bold small" x="300" y="1370">N</text>
           <text class="label tiny bold" x="320" y="1645" style="fill:#2877a4">IDENTIFYING relationship + partial key</text>
 
           <!-- Research post and application -->
-          <rect class="entity" x="2150" y="1080" width="360" height="100"/><text class="label bold" x="2330" y="1115">RESEARCHER_POST</text><text class="label tiny" x="2330" y="1150">title, role_type, deadline</text>
+          <rect class="entity" x="2150" y="1080" width="360" height="100"/><text class="label bold" x="2330" y="1130">RESEARCHER_POST</text>
           <ellipse class="attribute" cx="2150" cy="1260" rx="70" ry="27"/><text class="label small key" x="2150" y="1260">post_id</text>
           <ellipse class="attribute" cx="2390" cy="1260" rx="76" ry="27"/><text class="label small" x="2390" y="1260">required_skill</text>
-          <path class="connector thin" d="M2150 1180 V1233 M2390 1180 V1233"/>
+          <ellipse class="attribute" cx="2175" cy="1030" rx="55" ry="27"/><text class="label small" x="2175" y="1030">title</text>
+          <ellipse class="attribute" cx="2330" cy="1030" rx="65" ry="27"/><text class="label small" x="2330" y="1030">deadline</text>
+          <ellipse class="attribute" cx="2490" cy="1030" rx="72" ry="27"/><text class="label small" x="2490" y="1030">role_type</text>
+          <path class="connector thin" d="M2150 1180 V1233 M2390 1180 V1233 M2175 1057 L2220 1080 M2330 1057 V1080 M2490 1057 L2440 1080"/>
           <polygon class="relationship" points="1880,1190 1960,1140 2040,1190 1960,1240"/><text class="label bold small" x="1960" y="1190">CREATES</text>
           <path class="connector" d="M1340 840 H1780 V1190 H1880 M2040 1190 H2150"/>
           <text class="label bold small" x="1780" y="1168">1</text><text class="label bold small" x="2080" y="1168">N</text>
-          <polygon class="relationship" points="1960,1370 2050,1315 2140,1370 2050,1425"/><text class="label bold small" x="2050" y="1365">APPLIES_FOR</text><text class="label tiny" x="2050" y="1390">application</text>
-          <path class="connector" d="M2330 1180 V1290 H2140 M1960 1370 V1510 H960 V805 H1000"/>
-          <text class="label bold small" x="2260" y="1268">1</text><text class="label bold small" x="1850" y="1490">N</text>
-          <ellipse class="attribute" cx="2230" cy="1480" rx="86" ry="27"/><text class="label small key" x="2230" y="1480">application_id</text>
-          <ellipse class="attribute" cx="2450" cy="1535" rx="96" ry="27"/><text class="label small" x="2450" y="1535">application_status</text>
-          <ellipse class="attribute" cx="2220" cy="1590" rx="68" ry="27"/><text class="label small" x="2220" y="1590">applied_at</text>
-          <ellipse class="attribute" cx="2450" cy="1645" rx="110" ry="27"/><text class="label small" x="2450" y="1645">motivation_message</text>
-          <path class="connector thin" d="M2140 1425 L2215 1458 M2140 1400 L2390 1510 M2140 1390 L2180 1565 M2140 1380 L2360 1620"/>
+          <polygon class="relationship" points="1910,1370 2000,1315 2090,1370 2000,1425"/><text class="label bold small" x="2000" y="1370">APPLIES_FOR</text>
+          <rect class="entity" x="2220" y="1340" width="320" height="95"/><text class="label bold" x="2380" y="1388">APPLICATION</text>
+          <path class="connector" d="2090 1370 H2220 M1910 1370 H960 V805 H1000"/>
+          <text class="label bold small" x="2135" y="1348">1</text><text class="label bold small" x="1885" y="1348">N</text>
+          <ellipse class="attribute" cx="2225" cy="1500" rx="86" ry="27"/><text class="label small key" x="2225" y="1500">application_id</text>
+          <ellipse class="attribute" cx="2450" cy="1515" rx="96" ry="27"/><text class="label small" x="2450" y="1515">application_status</text>
+          <ellipse class="attribute" cx="2225" cy="1600" rx="68" ry="27"/><text class="label small" x="2225" y="1600">applied_at</text>
+          <ellipse class="attribute" cx="2450" cy="1625" rx="110" ry="27"/><text class="label small" x="2450" y="1625">motivation_message</text>
+          <path class="connector thin" d="M2260 1435 L2225 1473 M2420 1435 L2450 1488 M2300 1435 L2225 1573 M2480 1435 L2450 1598"/>
 
           <!-- Recursive self join: one researcher appears in two roles -->
           <polygon class="relationship" points="1120,1530 1225,1465 1330,1530 1225,1595"/><text class="label bold small" x="1225" y="1515">CONNECTS</text><text class="label tiny" x="1225" y="1545">SELF JOIN</text>
@@ -270,7 +287,7 @@
             <path d="M80 1015 H45 V155 H300" data-ref="RESEARCHER_RESEARCH_AREA.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M560 1015 H520 V155 H300" data-ref="RESEARCHER_EXPERTISE.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1030 V155 H300" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M1880 1015 H1800 V155 H300" data-ref="POST_APPLICATION.applicant_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
+            <path d="M1880 1015 H1800 V155 H300" data-ref="APPLICATION.applicant_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- areas and notification -->
             <path d="M300 1015 H340 V590 H390" data-ref="RESEARCHER_RESEARCH_AREA.research_area_id -> RESEARCH_AREA.research_area_id"/>
             <path d="M780 1015 H820 V590 H870" data-ref="RESEARCHER_EXPERTISE.expertise_area_id -> EXPERTISE_AREA.expertise_area_id"/>
@@ -279,15 +296,15 @@
             <path d="M1080 1015 H1120 V590 H1180" data-ref="PUBLICATION_CONTRIBUTION.publication_id -> PUBLICATION.publication_id"/>
             <path d="M1080 1015 H1140 V155 H300" data-ref="PUBLICATION_CONTRIBUTION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1160 V590 H870" data-ref="PUBLICATION_CONTRIBUTION.research_area_id -> RESEARCH_AREA.research_area_id"/>
-            <path d="M1480 1015 H1440 V590 H1180" data-ref="PUBLICATION_CITATION.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M1480 1015 H1440 V590 H1180" data-ref="CITATION_RECORD.publication_id -> PUBLICATION.publication_id"/>
             <!-- aggregation review -->
-            <path d="M1420 1010 V910 H1040 V155 H740" data-ref="PUBLICATION_REVIEW.reviewer_id -> RESEARCHER_PROFILE.researcher_id"/>
+            <path d="M1420 1010 V900 H2025 V220" data-ref="PUBLICATION_REVIEW.admin_id -> ADMIN.admin_id"/>
             <path d="M1140 1131 H1100" data-ref="PUBLICATION_REVIEW.contributor_id -> PUBLICATION_CONTRIBUTION.researcher_id"/>
             <path d="M1140 1157 H1100" data-ref="PUBLICATION_REVIEW.publication_id -> PUBLICATION_CONTRIBUTION.publication_id"/>
             <path d="M1140 1183 H1100" data-ref="PUBLICATION_REVIEW.research_area_id -> PUBLICATION_CONTRIBUTION.research_area_id"/>
             <!-- posts and applications -->
             <path d="M2040 635 H2070 V169 H740" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M1880 1045 H2070 V609 H2040" data-ref="POST_APPLICATION.post_id -> RESEARCHER_POST.post_id"/>
+            <path d="M1880 1045 H2070 V609 H2040" data-ref="APPLICATION.post_id -> RESEARCHER_POST.post_id"/>
             <!-- recursive self join -->
             <path d="M2240 1015 H2200 V155 H300" data-ref="CONNECTION.sender_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M2240 1015 H2180 V155 H300" data-ref="CONNECTION.receiver_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
@@ -298,19 +315,22 @@
             <rect class="table" x="300" y="100" width="440" height="430"/><rect class="table-head" x="300" y="100" width="440" height="42"/>
             <text class="label bold" x="520" y="121">RESEARCHER_PROFILE</text>
             <text class="schema-text schema-key" x="318" y="169">researcher_id (PK)</text>
-            <text class="schema-text" x="318" y="195">email</text><text class="schema-text" x="318" y="221">password_hash</text><text class="schema-text" x="318" y="247">role</text><text class="schema-text" x="318" y="273">status_on_off</text><text class="schema-text" x="318" y="299">created_at</text><text class="schema-text" x="318" y="325">first_name</text><text class="schema-text" x="318" y="351">last_name</text><text class="schema-text" x="318" y="377">designation</text><text class="schema-text" x="318" y="403">profile_picture</text><text class="schema-text" x="318" y="429">research_interest</text><text class="schema-text" x="318" y="455">google_scholar_link</text><text class="schema-text" x="318" y="481">orcid_id, personal_website</text><text class="schema-text" x="318" y="507">visibility, university, country</text>
+            <text class="schema-text" x="318" y="195">email</text><text class="schema-text" x="318" y="221">password_hash</text><text class="schema-text" x="318" y="247">role</text><text class="schema-text" x="318" y="273">status_on_off</text><text class="schema-text" x="318" y="299">created_at</text><text class="schema-text" x="318" y="325">first_name</text><text class="schema-text" x="318" y="351">last_name</text><text class="schema-text" x="318" y="377">profile_verified</text><text class="schema-text" x="318" y="403">profile_picture</text><text class="schema-text" x="318" y="429">research_interest</text><text class="schema-text" x="318" y="455">google_scholar_link</text><text class="schema-text" x="318" y="481">orcid_id, personal_website</text><text class="schema-text" x="318" y="507">visibility, university, country</text>
           </g>
           <g>
-            <rect class="table" x="60" y="100" width="240" height="150"/><rect class="table-head" x="60" y="100" width="240" height="42"/><text class="label bold small" x="180" y="121">STUDENT_RESEARCHER</text><text class="schema-text schema-key" x="76" y="169">researcher_id (PK, FK)</text><text class="schema-text" x="76" y="195">student_no</text><text class="schema-text" x="76" y="221">degree_program</text>
+            <rect class="table" x="60" y="100" width="240" height="150"/><rect class="table-head" x="60" y="100" width="240" height="42"/><text class="label bold small" x="180" y="121">STUDENT_RESEARCHER</text><text class="schema-text schema-key" x="76" y="169">researcher_id (PK, FK)</text><text class="schema-text" x="76" y="195">student_id</text><text class="schema-text" x="76" y="221">degree_program</text>
           </g>
           <g>
-            <rect class="table" x="740" y="100" width="270" height="150"/><rect class="table-head" x="740" y="100" width="270" height="42"/><text class="label bold small" x="875" y="121">FACULTY_RESEARCHER</text><text class="schema-text schema-key" x="756" y="169">researcher_id (PK, FK)</text><text class="schema-text" x="756" y="195">faculty_rank</text><text class="schema-text" x="756" y="221">office_room</text>
+            <rect class="table" x="740" y="100" width="270" height="150"/><rect class="table-head" x="740" y="100" width="270" height="42"/><text class="label bold small" x="875" y="121">FACULTY_RESEARCHER</text><text class="schema-text schema-key" x="756" y="169">researcher_id (PK, FK)</text><text class="schema-text" x="756" y="195">designation</text>
           </g>
           <g>
-            <rect class="table" x="1180" y="100" width="300" height="150"/><rect class="table-head" x="1180" y="100" width="300" height="42"/><text class="label bold" x="1330" y="121">RESEARCH_AREA</text><text class="schema-text schema-key" x="1196" y="169">research_area_id (PK)</text><text class="schema-text" x="1196" y="195">area_name</text><text class="schema-text" x="1196" y="221">description</text>
+            <rect class="table" x="1180" y="100" width="300" height="150"/><rect class="table-head" x="1180" y="100" width="300" height="42"/><text class="label bold" x="1330" y="121">RESEARCH_AREA</text><text class="schema-text schema-key" x="1196" y="169">research_area_id (PK)</text><text class="schema-text" x="1196" y="195">research_area_name</text><text class="schema-text" x="1196" y="221">description</text>
           </g>
           <g>
             <rect class="table" x="1530" y="100" width="320" height="150"/><rect class="table-head" x="1530" y="100" width="320" height="42"/><text class="label bold small" x="1690" y="121">EXPERTISE_AREA</text><text class="schema-text schema-key" x="1546" y="169">expertise_area_id (PK)</text><text class="schema-text" x="1546" y="195">expertise_area_name</text>
+          </g>
+          <g>
+            <rect class="table" x="1900" y="100" width="250" height="120"/><rect class="table-head" x="1900" y="100" width="250" height="42"/><text class="label bold" x="2025" y="121">ADMIN</text><text class="schema-text schema-key" x="1916" y="169">admin_id (PK)</text>
           </g>
 
           <g>
@@ -326,23 +346,23 @@
             <rect class="table" x="800" y="560" width="350" height="190"/><rect class="table-head" x="800" y="560" width="350" height="42"/><text class="label bold small" x="975" y="581">RESEARCHER_EXPERTISE</text><text class="schema-text schema-key" x="816" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="816" y="635">expertise_area_id (PK, FK)</text><text class="schema-text" x="816" y="661">proficiency_level</text>
           </g>
           <g>
-            <rect class="table" x="1180" y="560" width="430" height="372"/><rect class="table-head" x="1180" y="560" width="430" height="42"/><text class="label bold" x="1395" y="581">PUBLICATION</text><text class="schema-text schema-key" x="1196" y="609">publication_id (PK)</text><text class="schema-text" x="1196" y="635">topic_name</text><text class="schema-text" x="1196" y="661">title</text><text class="schema-text" x="1196" y="687">abstract</text><text class="schema-text" x="1196" y="713">publication_year</text><text class="schema-text" x="1196" y="739">publication_type</text><text class="schema-text" x="1196" y="765">journal_or_conference</text><text class="schema-text" x="1196" y="791">doi</text><text class="schema-text" x="1196" y="817">paper_url</text><text class="schema-text" x="1196" y="843">publication_details_url</text><text class="schema-text" x="1196" y="869">citation_count</text><text class="schema-text" x="1196" y="895">created_at</text>
+            <rect class="table" x="1180" y="560" width="430" height="190"/><rect class="table-head" x="1180" y="560" width="430" height="42"/><text class="label bold" x="1395" y="581">PUBLICATION</text><text class="schema-text schema-key" x="1196" y="609">publication_id (PK)</text><text class="schema-text" x="1196" y="635">doi</text><text class="schema-text" x="1196" y="661">title</text><text class="schema-text" x="1196" y="687">abstract</text>
           </g>
           <g>
-            <rect class="table" x="1660" y="560" width="380" height="190"/><rect class="table-head" x="1660" y="560" width="380" height="42"/><text class="label bold small" x="1850" y="581">RESEARCHER_POST</text><text class="schema-text schema-key" x="1676" y="609">post_id (PK)</text><text class="schema-text" x="1676" y="635">posted_by_researcher_id (FK)</text><text class="schema-text" x="1676" y="661">title, description</text><text class="schema-text" x="1676" y="687">role_type</text><text class="schema-text" x="1676" y="713">required_topic, required_skill</text><text class="schema-text" x="1676" y="739">application_deadline, status</text>
+            <rect class="table" x="1660" y="560" width="380" height="190"/><rect class="table-head" x="1660" y="560" width="380" height="42"/><text class="label bold small" x="1850" y="581">RESEARCHER_POST</text><text class="schema-text schema-key" x="1676" y="609">post_id (PK)</text><text class="schema-text" x="1676" y="635">posted_by_researcher_id (FK)</text><text class="schema-text" x="1676" y="661">title</text><text class="schema-text" x="1676" y="687">deadline</text><text class="schema-text" x="1676" y="713">role_type</text><text class="schema-text" x="1676" y="739">required_skill</text>
           </g>
 
           <g>
-            <rect class="table" x="60" y="950" width="420" height="220"/><rect class="table-head" x="60" y="950" width="420" height="42"/><text class="label bold small" x="270" y="971">PUBLICATION_CITATION</text><text class="schema-text schema-key" x="76" y="1019">publication_id (PK, FK)</text><text class="schema-text schema-key" x="76" y="1045">citation_year (PK, partial key)</text><text class="schema-text" x="76" y="1071">citation_count</text><text class="schema-text" x="76" y="1115">Weak entity mapping:</text><text class="schema-text" x="76" y="1141">owner key + partial key</text>
+            <rect class="table" x="60" y="950" width="420" height="220"/><rect class="table-head" x="60" y="950" width="420" height="42"/><text class="label bold small" x="270" y="971">CITATION_RECORD</text><text class="schema-text schema-key" x="76" y="1019">publication_id (PK, FK)</text><text class="schema-text schema-key" x="76" y="1045">citation_id (PK, partial key)</text><text class="schema-text" x="76" y="1071">citation_year</text><text class="schema-text" x="76" y="1097">citation_count</text><text class="schema-text" x="76" y="1141">owner key + partial key</text>
           </g>
           <g>
             <rect class="table" x="520" y="950" width="580" height="270"/><rect class="table-head" x="520" y="950" width="580" height="42"/><text class="label bold small" x="810" y="971">PUBLICATION_CONTRIBUTION (TERNARY)</text><text class="schema-text schema-key" x="536" y="1019">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="536" y="1045">publication_id (PK, FK)</text><text class="schema-text schema-key" x="536" y="1071">research_area_id (PK, FK)</text><text class="schema-text" x="536" y="1097">author_order</text><text class="schema-text" x="536" y="1123">contribution_role</text><text class="schema-text" x="536" y="1167">PK = (researcher_id, publication_id,</text><text class="schema-text" x="536" y="1193">research_area_id)</text>
           </g>
           <g>
-            <rect class="table" x="1140" y="1010" width="560" height="330"/><rect class="table-head" x="1140" y="1010" width="560" height="42"/><text class="label bold small" x="1420" y="1031">PUBLICATION_REVIEW (AGGREGATION)</text><text class="schema-text schema-key" x="1156" y="1079">review_id (PK)</text><text class="schema-text" x="1156" y="1105">reviewer_id (FK)</text><text class="schema-text" x="1156" y="1131">contributor_id (FK*)</text><text class="schema-text" x="1156" y="1157">publication_id (FK*)</text><text class="schema-text" x="1156" y="1183">research_area_id (FK*)</text><text class="schema-text" x="1156" y="1209">review_status</text><text class="schema-text" x="1156" y="1235">comments</text><text class="schema-text" x="1156" y="1261">reviewed_at</text><text class="schema-text" x="1156" y="1305">* composite FK to PUBLICATION_CONTRIBUTION</text>
+            <rect class="table" x="1140" y="1010" width="560" height="330"/><rect class="table-head" x="1140" y="1010" width="560" height="42"/><text class="label bold small" x="1420" y="1031">PUBLICATION_REVIEW (AGGREGATION)</text><text class="schema-text schema-key" x="1156" y="1079">review_id (PK)</text><text class="schema-text" x="1156" y="1105">admin_id (FK)</text><text class="schema-text" x="1156" y="1131">contributor_id (FK*)</text><text class="schema-text" x="1156" y="1157">publication_id (FK*)</text><text class="schema-text" x="1156" y="1183">research_area_id (FK*)</text><text class="schema-text" x="1156" y="1209">review_status</text><text class="schema-text" x="1156" y="1235">reviewed_at</text><text class="schema-text" x="1156" y="1288">review_status updates profile_verified</text><text class="schema-text" x="1156" y="1314">* composite FK to PUBLICATION_CONTRIBUTION</text>
           </g>
           <g>
-            <rect class="table" x="1740" y="950" width="420" height="240"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">POST_APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">post_id (FK)</text><text class="schema-text" x="1756" y="1071">applicant_researcher_id (FK)</text><text class="schema-text" x="1756" y="1097">application_status</text><text class="schema-text" x="1756" y="1123">applied_at</text><text class="schema-text" x="1756" y="1149">motivation_message</text>
+            <rect class="table" x="1740" y="950" width="420" height="240"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">post_id (FK)</text><text class="schema-text" x="1756" y="1071">applicant_researcher_id (FK)</text><text class="schema-text" x="1756" y="1097">application_status</text><text class="schema-text" x="1756" y="1123">applied_at</text><text class="schema-text" x="1756" y="1149">motivation_message</text>
           </g>
           <g>
             <rect class="table" x="2200" y="950" width="490" height="240"/><rect class="table-head" x="2200" y="950" width="490" height="42"/><text class="label bold" x="2445" y="971">CONNECTION</text><text class="schema-text schema-key" x="2216" y="1019">connection_id (PK)</text><text class="schema-text" x="2216" y="1045">sender_researcher_id (FK)</text><text class="schema-text" x="2216" y="1071">receiver_researcher_id (FK)</text><text class="schema-text" x="2216" y="1097">relation_type</text><text class="schema-text" x="2216" y="1123">status</text><text class="schema-text" x="2216" y="1149">created_at</text><text class="schema-text" x="2216" y="1175">FKs both reference RESEARCHER_PROFILE</text>
@@ -352,13 +372,13 @@
           <text x="90" y="1410" class="section-note">RELATIONAL MAPPING CHECKS</text>
           <text x="90" y="1450" class="schema-text" style="font:700 17px Arial;fill:#12346b">SPECIALIZATION</text><text x="90" y="1478" class="schema-text">RESEARCHER_PROFILE is the supertype. STUDENT_RESEARCHER and FACULTY_RESEARCHER use the same PK as FK.</text>
           <text x="90" y="1522" class="schema-text" style="font:700 17px Arial;fill:#12346b">TERNARY RELATIONSHIP</text><text x="90" y="1550" class="schema-text">CONTRIBUTES_TO becomes PUBLICATION_CONTRIBUTION with three participating FKs in one composite PK.</text>
-          <text x="90" y="1594" class="schema-text" style="font:700 17px Arial;fill:#12346b">AGGREGATION</text><text x="90" y="1622" class="schema-text">REVIEWS acts on one contribution occurrence, so PUBLICATION_REVIEW carries the three-part composite FK.</text>
+          <text x="90" y="1594" class="schema-text" style="font:700 17px Arial;fill:#12346b">AGGREGATION</text><text x="90" y="1622" class="schema-text">ADMIN reviews one contribution occurrence; PUBLICATION_REVIEW carries admin_id and the three-part composite FK.</text>
           <text x="90" y="1666" class="schema-text" style="font:700 17px Arial;fill:#12346b">SELF JOIN</text><text x="90" y="1694" class="schema-text">CONNECTION has sender_researcher_id and receiver_researcher_id, both referencing RESEARCHER_PROFILE.researcher_id.</text>
-          <text x="90" y="1738" class="schema-text" style="font:700 17px Arial;fill:#12346b">WEAK ENTITY</text><text x="90" y="1766" class="schema-text">PUBLICATION_CITATION is identified by owner publication_id plus partial key citation_year; it has no independent identifier.</text>
+          <text x="90" y="1738" class="schema-text" style="font:700 17px Arial;fill:#12346b">WEAK ENTITY</text><text x="90" y="1766" class="schema-text">CITATION_RECORD is identified by owner publication_id plus partial key citation_id; citation_year is a normal attribute.</text>
           <text x="90" y="1810" class="schema-text" style="font:700 17px Arial;fill:#12346b">DERIVED ATTRIBUTE</text><text x="90" y="1838" class="schema-text">publication_count is calculated from PUBLICATION_CONTRIBUTION and is intentionally not stored in RESEARCHER_PROFILE.</text>
           <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">MULTIVALUED ATTRIBUTE</text><text x="90" y="1926" class="schema-text">contact_info is mapped to RESEARCHER_CONTACT with a composite key (researcher_id, contact_info).</text>
           <text x="90" y="1970" class="schema-text" style="font:700 17px Arial;fill:#12346b">NOTATION</text><text x="90" y="1998" class="schema-text">Underlined attributes are PKs. PK, FK marks both roles. FK* means a member of the composite contribution reference.</text>
-          <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">ORIGINAL PLATFORM FEATURES RETAINED</text><text x="90" y="2070" class="schema-text">Notifications, profile visibility, publications, research and expertise areas, posts, applications, and researcher connections remain represented.</text>
+          <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">PROFILE VERIFICATION</text><text x="90" y="2070" class="schema-text">PUBLICATION_REVIEW.review_status drives RESEARCHER_PROFILE.profile_verified according to the admin review result.</text>
         </svg>
         <div class="legend">
           <span><b>Underlined row</b> primary key</span>
@@ -369,7 +389,7 @@
           <span><b>Partial key</b> weak-entity citation year</span>
         </div>
       </div></div>
-      <div class="mapping"><b>Important mapping decisions:</b> `publication_count` is derived and therefore absent from the schema; `full_name` is represented by `first_name` and `last_name`; the weak citation record uses `(publication_id, citation_year)`; and the aggregate review references one exact `(researcher_id, publication_id, research_area_id)` contribution occurrence.</div>
+      <div class="mapping"><b>Important mapping decisions:</b> `publication_count` is derived and therefore absent from the schema; `full_name` is represented by `first_name` and `last_name`; the weak citation record uses `(publication_id, citation_id)`; and admin review status drives `profile_verified`.</div>
     </section>
 
     <section id="mapping">
@@ -377,11 +397,11 @@
       <p class="intro">These are the exact places to point to if your teacher asks where each classroom requirement appears.</p>
       <div class="checks">
         <div class="check"><strong>1. SPECIALIZATION</strong>ISA triangle above RESEARCHER_PROFILE, branching to STUDENT_RESEARCHER and FACULTY_RESEARCHER; marked total and disjoint.</div>
-        <div class="check"><strong>2. AGGREGATE</strong>Blue dashed boundary around a contribution occurrence; REVIEWS connects FACULTY_RESEARCHER to that aggregate.</div>
+        <div class="check"><strong>2. AGGREGATE</strong>Blue dashed boundary around a contribution occurrence; REVIEWS connects ADMIN to that aggregate.</div>
         <div class="check"><strong>3. TERNARY</strong>CONTRIBUTES_TO has three edges: RESEARCHER_PROFILE, PUBLICATION, and RESEARCH_AREA.</div>
         <div class="check"><strong>4. SELF JOIN</strong>CONNECTS loops from RESEARCHER_PROFILE back to itself with requester/sender and recipient/receiver roles.</div>
         <div class="check"><strong>5. DERIVED ATTRIBUTE</strong>Dashed oval `publication_count`, calculated from contribution rows and not stored.</div>
-        <div class="check"><strong>6. WEAK ENTITY</strong>Double-border CITATION_RECORD, double-diamond HAS_CITATION_SNAPSHOT, and dashed-underlined partial key `citation_year`.</div>
+        <div class="check"><strong>6. WEAK ENTITY</strong>Double-border CITATION_RECORD, double-diamond HAS_CITATION, and dashed-underlined partial key `citation_id`.</div>
       </div>
     </section>
   </main>
