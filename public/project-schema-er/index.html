@@ -284,12 +284,10 @@
             <!-- researcher-owned relations -->
             <path d="M70 625 H35 V155 H300" data-ref="NOTIFICATION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M390 848 H20 V169 H300" data-ref="RESEARCHER_CONTACT.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M80 1015 H45 V155 H300" data-ref="RESEARCHER_RESEARCH_AREA.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M560 1015 H520 V155 H300" data-ref="RESEARCHER_EXPERTISE.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1030 V155 H300" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M1880 1015 H1800 V155 H300" data-ref="APPLICATION.applicant_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
+            <path d="M420 609 H300 V155" data-ref="APPLIES_FOR.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- areas and notification -->
-            <path d="M300 1015 H340 V590 H390" data-ref="RESEARCHER_RESEARCH_AREA.research_area_id -> RESEARCH_AREA.research_area_id"/>
             <path d="M780 1015 H820 V590 H870" data-ref="RESEARCHER_EXPERTISE.expertise_area_id -> EXPERTISE_AREA.expertise_area_id"/>
             <path d="M70 625 H100 V155 H300" data-ref="NOTIFICATION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- publication relationships -->
@@ -304,7 +302,7 @@
             <path d="M1140 1183 H1100" data-ref="PUBLICATION_REVIEW.research_area_id -> PUBLICATION_CONTRIBUTION.research_area_id"/>
             <!-- posts and applications -->
             <path d="M2040 635 H2070 V169 H740" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M1880 1045 H2070 V609 H2040" data-ref="APPLICATION.post_id -> RESEARCHER_POST.post_id"/>
+            <path d="M770 635 H1740 V1019" data-ref="APPLIES_FOR.application_id -> APPLICATION.application_id"/>
             <!-- recursive self join -->
             <path d="M2240 1015 H2200 V155 H300" data-ref="CONNECTION.sender_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M2240 1015 H2180 V155 H300" data-ref="CONNECTION.receiver_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
@@ -340,7 +338,7 @@
             <rect class="table" x="60" y="780" width="330" height="120"/><rect class="table-head" x="60" y="780" width="330" height="42"/><text class="label bold small" x="225" y="801">RESEARCHER_CONTACT</text><text class="schema-text schema-key" x="76" y="848">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="76" y="874">contact_info (PK)</text>
           </g>
           <g>
-            <rect class="table" x="420" y="560" width="350" height="190"/><rect class="table-head" x="420" y="560" width="350" height="42"/><text class="label bold small" x="595" y="581">RESEARCHER_RESEARCH_AREA</text><text class="schema-text schema-key" x="436" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="436" y="635">research_area_id (PK, FK)</text><text class="schema-text" x="436" y="661">focus_level</text>
+            <rect class="table" x="420" y="560" width="350" height="150"/><rect class="table-head" x="420" y="560" width="350" height="42"/><text class="label bold small" x="595" y="581">APPLIES_FOR</text><text class="schema-text schema-key" x="436" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="436" y="635">application_id (PK, FK)</text>
           </g>
           <g>
             <rect class="table" x="800" y="560" width="350" height="190"/><rect class="table-head" x="800" y="560" width="350" height="42"/><text class="label bold small" x="975" y="581">RESEARCHER_EXPERTISE</text><text class="schema-text schema-key" x="816" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="816" y="635">expertise_area_id (PK, FK)</text><text class="schema-text" x="816" y="661">proficiency_level</text>
@@ -362,7 +360,7 @@
             <rect class="table" x="1140" y="1010" width="560" height="330"/><rect class="table-head" x="1140" y="1010" width="560" height="42"/><text class="label bold small" x="1420" y="1031">PUBLICATION_REVIEW (AGGREGATION)</text><text class="schema-text schema-key" x="1156" y="1079">review_id (PK)</text><text class="schema-text" x="1156" y="1105">admin_id (FK)</text><text class="schema-text" x="1156" y="1131">contributor_id (FK*)</text><text class="schema-text" x="1156" y="1157">publication_id (FK*)</text><text class="schema-text" x="1156" y="1183">research_area_id (FK*)</text><text class="schema-text" x="1156" y="1209">review_status</text><text class="schema-text" x="1156" y="1235">reviewed_at</text><text class="schema-text" x="1156" y="1288">review_status updates profile_verified</text><text class="schema-text" x="1156" y="1314">* composite FK to PUBLICATION_CONTRIBUTION</text>
           </g>
           <g>
-            <rect class="table" x="1740" y="950" width="420" height="240"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">post_id (FK)</text><text class="schema-text" x="1756" y="1071">applicant_researcher_id (FK)</text><text class="schema-text" x="1756" y="1097">application_status</text><text class="schema-text" x="1756" y="1123">applied_at</text><text class="schema-text" x="1756" y="1149">motivation_message</text>
+            <rect class="table" x="1740" y="950" width="420" height="240"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">application_status</text><text class="schema-text" x="1756" y="1071">applied_at</text><text class="schema-text" x="1756" y="1097">motivation_message</text>
           </g>
           <g>
             <rect class="table" x="2200" y="950" width="490" height="240"/><rect class="table-head" x="2200" y="950" width="490" height="42"/><text class="label bold" x="2445" y="971">CONNECTION</text><text class="schema-text schema-key" x="2216" y="1019">connection_id (PK)</text><text class="schema-text" x="2216" y="1045">sender_researcher_id (FK)</text><text class="schema-text" x="2216" y="1071">receiver_researcher_id (FK)</text><text class="schema-text" x="2216" y="1097">relation_type</text><text class="schema-text" x="2216" y="1123">status</text><text class="schema-text" x="2216" y="1149">created_at</text><text class="schema-text" x="2216" y="1175">FKs both reference RESEARCHER_PROFILE</text>
@@ -376,7 +374,7 @@
           <text x="90" y="1666" class="schema-text" style="font:700 17px Arial;fill:#12346b">SELF JOIN</text><text x="90" y="1694" class="schema-text">CONNECTION has sender_researcher_id and receiver_researcher_id, both referencing RESEARCHER_PROFILE.researcher_id.</text>
           <text x="90" y="1738" class="schema-text" style="font:700 17px Arial;fill:#12346b">WEAK ENTITY</text><text x="90" y="1766" class="schema-text">CITATION_RECORD is identified by owner publication_id plus partial key citation_id; citation_year is a normal attribute.</text>
           <text x="90" y="1810" class="schema-text" style="font:700 17px Arial;fill:#12346b">DERIVED ATTRIBUTE</text><text x="90" y="1838" class="schema-text">publication_count is calculated from PUBLICATION_CONTRIBUTION and is intentionally not stored in RESEARCHER_PROFILE.</text>
-          <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">MULTIVALUED ATTRIBUTE</text><text x="90" y="1926" class="schema-text">contact_info is mapped to RESEARCHER_CONTACT with a composite key (researcher_id, contact_info).</text>
+          <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">BINARY RELATIONSHIP</text><text x="90" y="1926" class="schema-text">APPLIES_FOR maps the researcher-to-application relationship with composite key (researcher_id, application_id).</text>
           <text x="90" y="1970" class="schema-text" style="font:700 17px Arial;fill:#12346b">NOTATION</text><text x="90" y="1998" class="schema-text">Underlined attributes are PKs. PK, FK marks both roles. FK* means a member of the composite contribution reference.</text>
           <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">PROFILE VERIFICATION</text><text x="90" y="2070" class="schema-text">PUBLICATION_REVIEW.review_status drives RESEARCHER_PROFILE.profile_verified according to the admin review result.</text>
         </svg>
@@ -386,7 +384,7 @@
           <span><b>Arrow</b> FK to referenced PK</span>
           <span><b>Composite PK</b> ternary contribution identifier</span>
           <span><b>Composite FK</b> aggregation target</span>
-          <span><b>Partial key</b> weak-entity citation year</span>
+          <span><b>Partial key</b> weak-entity citation id</span>
         </div>
       </div></div>
       <div class="mapping"><b>Important mapping decisions:</b> `publication_count` is derived and therefore absent from the schema; `full_name` is represented by `first_name` and `last_name`; the weak citation record uses `(publication_id, citation_id)`; and admin review status drives `profile_verified`.</div>
