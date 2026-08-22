@@ -231,7 +231,10 @@
           <polygon class="relationship" points="1910,1370 2000,1315 2090,1370 2000,1425"/><text class="label bold small" x="2000" y="1370">APPLIES_FOR</text>
           <rect class="entity" x="2220" y="1340" width="320" height="95"/><text class="label bold" x="2380" y="1388">APPLICATION</text>
           <path class="connector" d="2090 1370 H2220 M1910 1370 H960 V805 H1000"/>
-          <text class="label bold small" x="2135" y="1348">1</text><text class="label bold small" x="1885" y="1348">N</text>
+          <text class="label bold small" x="2135" y="1348">N</text><text class="label bold small" x="1885" y="1348">1</text>
+          <polygon class="relationship" points="2560,1280 2660,1225 2760,1280 2660,1335"/><text class="label bold tiny" x="2660" y="1280">HAS_APPLICATION</text>
+          <path class="connector" d="M2510 1130 H2660 V1225 M2540 1388 H2660 V1335"/>
+          <text class="label bold small" x="2635" y="1195">1</text><text class="label bold small" x="2635" y="1360">N</text>
           <ellipse class="attribute" cx="2225" cy="1500" rx="86" ry="27"/><text class="label small key" x="2225" y="1500">application_id</text>
           <ellipse class="attribute" cx="2450" cy="1515" rx="96" ry="27"/><text class="label small" x="2450" y="1515">application_status</text>
           <ellipse class="attribute" cx="2225" cy="1600" rx="68" ry="27"/><text class="label small" x="2225" y="1600">applied_at</text>
@@ -285,7 +288,7 @@
             <path d="M390 848 H20 V169 H300" data-ref="RESEARCHER_CONTACT.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M560 1015 H520 V155 H300" data-ref="RESEARCHER_EXPERTISE.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1030 V155 H300" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M420 609 H300 V155" data-ref="APPLIES_FOR.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
+            <path d="M1740 1045 H1600 V155 H740" data-ref="APPLICATION.applicant_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- areas and notification -->
             <path d="M780 1015 H820 V590 H870" data-ref="RESEARCHER_EXPERTISE.expertise_area_id -> EXPERTISE_AREA.expertise_area_id"/>
             <path d="M70 625 H100 V155 H300" data-ref="NOTIFICATION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
@@ -301,7 +304,7 @@
             <path d="M1140 1183 H1100" data-ref="PUBLICATION_REVIEW.research_area_id -> PUBLICATION_CONTRIBUTION.research_area_id"/>
             <!-- posts and applications -->
             <path d="M2040 635 H2070 V169 H740" data-ref="RESEARCHER_POST.posted_by_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
-            <path d="M770 635 H1740 V1019" data-ref="APPLIES_FOR.application_id -> APPLICATION.application_id"/>
+            <path d="M1740 1071 H1660 V609" data-ref="APPLICATION.post_id -> RESEARCHER_POST.post_id"/>
             <!-- recursive self join -->
             <path d="M2240 1015 H2200 V155 H300" data-ref="CONNECTION.sender_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M2240 1015 H2180 V155 H300" data-ref="CONNECTION.receiver_researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
@@ -337,7 +340,7 @@
             <rect class="table" x="60" y="780" width="330" height="120"/><rect class="table-head" x="60" y="780" width="330" height="42"/><text class="label bold small" x="225" y="801">RESEARCHER_CONTACT</text><text class="schema-text schema-key" x="76" y="848">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="76" y="874">contact_info (PK)</text>
           </g>
           <g>
-            <rect class="table" x="420" y="560" width="350" height="150"/><rect class="table-head" x="420" y="560" width="350" height="42"/><text class="label bold small" x="595" y="581">APPLIES_FOR</text><text class="schema-text schema-key" x="436" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="436" y="635">application_id (PK, FK)</text>
+            <rect class="table" x="420" y="560" width="350" height="150"/><rect class="table-head" x="420" y="560" width="350" height="42"/><text class="label bold small" x="595" y="581">APPLICATION FLOW</text><text class="schema-text" x="436" y="609">APPLIES_FOR - applicant_researcher_id</text><text class="schema-text" x="436" y="635">HAS_APPLICATION - post_id</text>
           </g>
           <g>
             <rect class="table" x="800" y="560" width="350" height="190"/><rect class="table-head" x="800" y="560" width="350" height="42"/><text class="label bold small" x="975" y="581">RESEARCHER_EXPERTISE</text><text class="schema-text schema-key" x="816" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="816" y="635">expertise_area_id (PK, FK)</text><text class="schema-text" x="816" y="661">proficiency_level</text>
@@ -359,7 +362,7 @@
             <rect class="table" x="1140" y="1010" width="560" height="290"/><rect class="table-head" x="1140" y="1010" width="560" height="42"/><text class="label bold small" x="1420" y="1031">PUBLICATION_REVIEW (AGGREGATION)</text><text class="schema-text" x="1156" y="1079">admin_id (FK)</text><text class="schema-text" x="1156" y="1105">contributor_id (FK*)</text><text class="schema-text" x="1156" y="1131">publication_id (FK*)</text><text class="schema-text" x="1156" y="1157">research_area_id (FK*)</text><text class="schema-text" x="1156" y="1183">review_status</text><text class="schema-text" x="1156" y="1209">reviewed_at</text><text class="schema-text" x="1156" y="1258">review_status updates profile_verified</text><text class="schema-text" x="1156" y="1284">* composite FK to PUBLICATION_CONTRIBUTION</text>
           </g>
           <g>
-            <rect class="table" x="1740" y="950" width="420" height="240"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">application_status</text><text class="schema-text" x="1756" y="1071">applied_at</text><text class="schema-text" x="1756" y="1097">motivation_message</text>
+            <rect class="table" x="1740" y="950" width="420" height="270"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">applicant_researcher_id (FK)</text><text class="schema-text" x="1756" y="1071">post_id (FK)</text><text class="schema-text" x="1756" y="1097">application_status</text><text class="schema-text" x="1756" y="1123">applied_at</text><text class="schema-text" x="1756" y="1149">motivation_message</text>
           </g>
           <g>
             <rect class="table" x="2200" y="950" width="490" height="240"/><rect class="table-head" x="2200" y="950" width="490" height="42"/><text class="label bold" x="2445" y="971">CONNECTION</text><text class="schema-text schema-key" x="2216" y="1019">connection_id (PK)</text><text class="schema-text" x="2216" y="1045">sender_researcher_id (FK)</text><text class="schema-text" x="2216" y="1071">receiver_researcher_id (FK)</text><text class="schema-text" x="2216" y="1097">relation_type</text><text class="schema-text" x="2216" y="1123">status</text><text class="schema-text" x="2216" y="1149">created_at</text><text class="schema-text" x="2216" y="1175">FKs both reference RESEARCHER_PROFILE</text>
@@ -373,7 +376,7 @@
           <text x="90" y="1666" class="schema-text" style="font:700 17px Arial;fill:#12346b">SELF JOIN</text><text x="90" y="1694" class="schema-text">CONNECTION has sender_researcher_id and receiver_researcher_id, both referencing RESEARCHER_PROFILE.researcher_id.</text>
           <text x="90" y="1738" class="schema-text" style="font:700 17px Arial;fill:#12346b">WEAK ENTITY</text><text x="90" y="1766" class="schema-text">CITATION_RECORD is identified by owner publication_id plus partial key citation_id; citation_year is a normal attribute.</text>
           <text x="90" y="1810" class="schema-text" style="font:700 17px Arial;fill:#12346b">DERIVED ATTRIBUTE</text><text x="90" y="1838" class="schema-text">publication_count is calculated from PUBLICATION_CONTRIBUTION and is intentionally not stored in RESEARCHER_PROFILE.</text>
-          <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">BINARY RELATIONSHIP</text><text x="90" y="1926" class="schema-text">APPLIES_FOR maps the researcher-to-application relationship with composite key (researcher_id, application_id).</text>
+          <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">APPLICATION RELATIONSHIPS</text><text x="90" y="1926" class="schema-text">APPLICATION stores applicant_researcher_id and post_id, linking one applicant and one research post to each application.</text>
           <text x="90" y="1970" class="schema-text" style="font:700 17px Arial;fill:#12346b">NOTATION</text><text x="90" y="1998" class="schema-text">Underlined attributes are PKs. PK, FK marks both roles. FK* means a member of the composite contribution reference.</text>
           <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">PROFILE VERIFICATION</text><text x="90" y="2070" class="schema-text">PUBLICATION_REVIEW.review_status drives RESEARCHER_PROFILE.profile_verified according to the admin review result.</text>
         </svg>

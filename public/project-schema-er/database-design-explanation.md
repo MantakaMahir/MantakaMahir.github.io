@@ -38,7 +38,8 @@ The current version of the model uses the following latest decisions:
 - `review_status` is the source value used to update `profile_verified`.
 - `RESEARCHER_POST` keeps `post_id` and `required_skill` and has `title`, `deadline`, and `role_type` as external attributes in the E-R diagram.
 - `APPLICATION` is a separate entity. Its attributes belong to the entity, not to the `APPLIES_FOR` relationship.
-- `APPLIES_FOR` is represented relationally by a bridge relation with `researcher_id` and `application_id`.
+- `APPLICATION` stores `applicant_researcher_id` to implement `APPLIES_FOR` and `post_id` to implement the post-to-application relationship.
+- One research post can have many applications, while each application belongs to one research post.
 - `CONNECTS` is a recursive relationship from `RESEARCHER_PROFILE` back to itself.
 - The schema diagram is the relational interpretation of the current E-R model, not an independent design.
 
@@ -65,7 +66,7 @@ The platform contains the following major functional areas:
 | Publications | `PUBLICATION`, `PUBLICATION_CONTRIBUTION`, `CITATION_RECORD` |
 | Research classification | `RESEARCH_AREA`, `EXPERTISE_AREA`, `RESEARCHER_EXPERTISE` |
 | Review and verification | `ADMIN`, `PUBLICATION_REVIEW`, aggregated contribution |
-| Recruitment and applications | `RESEARCHER_POST`, `APPLICATION`, `APPLIES_FOR` |
+| Recruitment and applications | `RESEARCHER_POST`, `APPLICATION`, `APPLIES_FOR`, `HAS_APPLICATION` |
 | Social connections | `CONNECTS`, `CONNECTION` |
 | Notifications | `NOTIFICATION`, `RECEIVES` |
 
@@ -200,6 +201,7 @@ PUBLICATION -- HAS_CITATION --> CITATION_RECORD
 
 RESEARCHER_PROFILE -- CREATES --> RESEARCHER_POST
 RESEARCHER_PROFILE -- APPLIES_FOR --> APPLICATION
+RESEARCHER_POST -- HAS_APPLICATION --> APPLICATION
 
 RESEARCHER_PROFILE -- CONNECTS -- RESEARCHER_PROFILE
         requester/sender       recipient/receiver
@@ -396,7 +398,7 @@ The creating researcher is represented by `CREATES` and becomes `posted_by_resea
 
 In the corrected E-R design, these attributes are connected to the `APPLICATION` entity. They are not attributes of the `APPLIES_FOR` diamond.
 
-The current schema keeps `APPLICATION` independent of `RESEARCHER_POST`. The researcher-to-application relationship is represented by `APPLIES_FOR`. If a future requirement states that each application must target a post, a `post_id` foreign key or an additional relationship can be added explicitly; it is not part of the current corrected model.
+Each application belongs to one applicant and one research post. `applicant_researcher_id` implements the researcher-to-application `APPLIES_FOR` relationship, while `post_id` implements the post-to-application `HAS_APPLICATION` relationship.
 
 ## 4.12 CONNECTION
 
@@ -716,33 +718,44 @@ RESEARCHER_PROFILE -- APPLIES_FOR --> APPLICATION
 Meaning:
 
 - A researcher can submit multiple applications.
-- An application is associated with a researcher through this relationship.
+- Each application has one applicant researcher.
 - Application-specific attributes belong to `APPLICATION`.
 
-The relational bridge table is:
-
-```text
-APPLIES_FOR(
-    researcher_id PK/FK -> RESEARCHER_PROFILE.researcher_id,
-    application_id PK/FK -> APPLICATION.application_id,
-    PRIMARY KEY (researcher_id, application_id)
-)
-```
-
-The application entity is:
+Relational mapping:
 
 ```text
 APPLICATION(
     application_id PK,
+    applicant_researcher_id FK -> RESEARCHER_PROFILE.researcher_id,
+    post_id FK -> RESEARCHER_POST.post_id,
     application_status,
     applied_at,
     motivation_message
 )
 ```
 
-The current corrected model does not put `application_status`, `applied_at`, or `motivation_message` on the `APPLIES_FOR` relation.
+The `applicant_researcher_id` foreign key implements `APPLIES_FOR`.
 
-## 5.9 CONNECTS recursive self-join
+## 5.9 HAS_APPLICATION
+
+`HAS_APPLICATION` connects `RESEARCHER_POST` to the same `APPLICATION` entity used by `APPLIES_FOR`.
+
+Conceptually:
+
+```text
+RESEARCHER_POST -- HAS_APPLICATION --> APPLICATION
+```
+
+Meaning:
+
+- One research post can have many applications.
+- Each application belongs to one research post.
+- The same application also belongs to one applicant researcher through `APPLIES_FOR`.
+- Applications for a post can be found by filtering `APPLICATION.post_id`.
+
+The `post_id` foreign key in `APPLICATION` implements this relationship.
+
+## 5.10 CONNECTS recursive self-join
 
 `CONNECTS` is a recursive relationship because both ends reference the same entity type: `RESEARCHER_PROFILE`.
 
@@ -896,19 +909,7 @@ RESEARCHER_CONTACT(
 
 This table maps the multivalued `contact_info` attribute.
 
-## 6.9 APPLIES_FOR table
-
-```text
-APPLIES_FOR(
-    researcher_id PK/FK -> RESEARCHER_PROFILE.researcher_id,
-    application_id PK/FK -> APPLICATION.application_id,
-    PRIMARY KEY (researcher_id, application_id)
-)
-```
-
-This table maps the binary relationship and prevents duplicate researcher-application pairs.
-
-## 6.10 RESEARCHER_EXPERTISE table
+## 6.9 RESEARCHER_EXPERTISE table
 
 ```text
 RESEARCHER_EXPERTISE(
@@ -919,7 +920,7 @@ RESEARCHER_EXPERTISE(
 )
 ```
 
-## 6.11 PUBLICATION table
+## 6.10 PUBLICATION table
 
 ```text
 PUBLICATION(
@@ -932,7 +933,7 @@ PUBLICATION(
 
 The current table does not include `citation_count`, `topic_name`, `publication_year`, `publication_type`, `journal_or_conference`, `paper_url`, or other older fields from previous iterations.
 
-## 6.12 RESEARCHER_POST table
+## 6.11 RESEARCHER_POST table
 
 ```text
 RESEARCHER_POST(
@@ -945,7 +946,7 @@ RESEARCHER_POST(
 )
 ```
 
-## 6.13 CITATION_RECORD table
+## 6.12 CITATION_RECORD table
 
 ```text
 CITATION_RECORD(
@@ -957,7 +958,7 @@ CITATION_RECORD(
 )
 ```
 
-## 6.14 PUBLICATION_CONTRIBUTION table
+## 6.13 PUBLICATION_CONTRIBUTION table
 
 ```text
 PUBLICATION_CONTRIBUTION(
@@ -970,7 +971,7 @@ PUBLICATION_CONTRIBUTION(
 )
 ```
 
-## 6.15 PUBLICATION_REVIEW table
+## 6.14 PUBLICATION_REVIEW table
 
 ```text
 PUBLICATION_REVIEW(
@@ -999,20 +1000,22 @@ Important points:
 - `admin_id` identifies the reviewing administrator.
 - `review_status` and `reviewed_at` are attributes of the review.
 
-## 6.16 APPLICATION table
+## 6.15 APPLICATION table
 
 ```text
 APPLICATION(
     application_id PK,
+    applicant_researcher_id FK -> RESEARCHER_PROFILE.researcher_id,
+    post_id FK -> RESEARCHER_POST.post_id,
     application_status,
     applied_at,
     motivation_message
 )
 ```
 
-The current model does not put `post_id` or `applicant_researcher_id` in this table. The researcher association is represented by `APPLIES_FOR`.
+`applicant_researcher_id` implements `APPLIES_FOR`. `post_id` implements `HAS_APPLICATION`. This allows all applications for a post to be found directly and ensures every application identifies its applicant and target post.
 
-## 6.17 CONNECTION table
+## 6.16 CONNECTION table
 
 ```text
 CONNECTION(
@@ -1041,7 +1044,6 @@ CONNECTION(
 | `ADMIN` | `admin_id` |
 | `NOTIFICATION` | `notification_id` |
 | `RESEARCHER_CONTACT` | `(researcher_id, contact_info)` |
-| `APPLIES_FOR` | `(researcher_id, application_id)` |
 | `RESEARCHER_EXPERTISE` | `(researcher_id, expertise_area_id)` |
 | `PUBLICATION` | `publication_id` |
 | `RESEARCHER_POST` | `post_id` |
@@ -1059,8 +1061,6 @@ CONNECTION(
 | `FACULTY_RESEARCHER` | `researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
 | `NOTIFICATION` | `researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
 | `RESEARCHER_CONTACT` | `researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
-| `APPLIES_FOR` | `researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
-| `APPLIES_FOR` | `application_id` | `APPLICATION(application_id)` |
 | `RESEARCHER_EXPERTISE` | `researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
 | `RESEARCHER_EXPERTISE` | `expertise_area_id` | `EXPERTISE_AREA(expertise_area_id)` |
 | `RESEARCHER_POST` | `posted_by_researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
@@ -1070,6 +1070,8 @@ CONNECTION(
 | `PUBLICATION_CONTRIBUTION` | `research_area_id` | `RESEARCH_AREA(research_area_id)` |
 | `PUBLICATION_REVIEW` | `admin_id` | `ADMIN(admin_id)` |
 | `PUBLICATION_REVIEW` | `(contributor_id, publication_id, research_area_id)` | `PUBLICATION_CONTRIBUTION(researcher_id, publication_id, research_area_id)` |
+| `APPLICATION` | `applicant_researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
+| `APPLICATION` | `post_id` | `RESEARCHER_POST(post_id)` |
 | `CONNECTION` | `sender_researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
 | `CONNECTION` | `receiver_researcher_id` | `RESEARCHER_PROFILE(researcher_id)` |
 
@@ -1088,7 +1090,8 @@ CONNECTION(
 | `HAS_CITATION` | `CITATION_RECORD.publication_id` plus weak-entity composite key |
 | Multivalued `contact_info` | `RESEARCHER_CONTACT` |
 | `CREATES` | `RESEARCHER_POST.posted_by_researcher_id` |
-| `APPLIES_FOR` | `APPLIES_FOR` bridge table |
+| `APPLIES_FOR` | `APPLICATION.applicant_researcher_id` |
+| `HAS_APPLICATION` | `APPLICATION.post_id` |
 | `CONNECTS` | `CONNECTION` with two FKs to the same researcher table |
 
 ---
@@ -1242,13 +1245,34 @@ SELECT rp.researcher_id,
        a.applied_at,
        a.motivation_message
 FROM RESEARCHER_PROFILE AS rp
-JOIN APPLIES_FOR AS af
-  ON af.researcher_id = rp.researcher_id
 JOIN APPLICATION AS a
-  ON a.application_id = af.application_id;
+  ON a.applicant_researcher_id = rp.researcher_id;
 ```
 
-## 9.10 Researcher connections with role names
+## 9.10 Applications for a research post
+
+```sql
+SELECT post.post_id,
+       post.title AS post_title,
+       a.application_id,
+       a.application_status,
+       a.applied_at,
+       a.motivation_message,
+       applicant.researcher_id AS applicant_id,
+       applicant.first_name,
+       applicant.last_name
+FROM RESEARCHER_POST AS post
+JOIN APPLICATION AS a
+  ON a.post_id = post.post_id
+JOIN RESEARCHER_PROFILE AS applicant
+  ON applicant.researcher_id = a.applicant_researcher_id
+WHERE post.post_id = :post_id
+ORDER BY a.applied_at DESC;
+```
+
+This is the main query used to find every application submitted for one research post.
+
+## 9.11 Researcher connections with role names
 
 ```sql
 SELECT c.connection_id,
@@ -1409,10 +1433,11 @@ Recommended rules:
 
 ```text
 application_id is unique
+applicant_researcher_id exists
+post_id exists
 application_status is controlled
 applied_at is not null for submitted applications
 motivation_message may be required depending on application status
-(researcher_id, application_id) is unique in APPLIES_FOR
 ```
 
 ## 11.10 Connection constraints
@@ -1449,7 +1474,7 @@ Tables with composite keys keep non-key attributes dependent on the complete key
 
 - `RESEARCHER_CONTACT` has no non-key attributes.
 - `RESEARCHER_EXPERTISE.proficiency_level` depends on the researcher-expertise pair.
-- `APPLIES_FOR` has no application-specific attributes.
+- `APPLICATION` stores the applicant and post foreign keys with the application-specific attributes.
 - `PUBLICATION_CONTRIBUTION.author_order` and `contribution_role` depend on the complete researcher-publication-area combination.
 - `CITATION_RECORD.citation_year` and `citation_count` belong to the publication-citation pair.
 
@@ -1476,8 +1501,8 @@ RESEARCHER_PROFILE(email)
 RESEARCHER_PROFILE(orcid_id)
 NOTIFICATION(researcher_id, created_at)
 RESEARCHER_CONTACT(researcher_id)
-APPLIES_FOR(researcher_id)
-APPLIES_FOR(application_id)
+APPLICATION(applicant_researcher_id)
+APPLICATION(post_id)
 RESEARCHER_EXPERTISE(researcher_id)
 RESEARCHER_EXPERTISE(expertise_area_id)
 RESEARCHER_POST(posted_by_researcher_id)
@@ -1593,12 +1618,11 @@ Every review change should be auditable with an administrator identifier and tim
 
 ## 15.7 Submit an application
 
-1. Create an `APPLICATION` row with its own application attributes.
-2. Insert the researcher-application pair into `APPLIES_FOR`.
-3. Enforce uniqueness of the pair.
+1. Confirm that the applicant researcher exists.
+2. Confirm that the target research post exists.
+3. Insert one `APPLICATION` row with `applicant_researcher_id`, `post_id`, and the application attributes.
 4. Update application status through controlled transitions.
-
-The current design does not store the post identifier in `APPLICATION` and does not include a post-application relationship. If a future version requires applications to target posts, that relationship must be added explicitly.
+5. Find applications for a post by filtering on `APPLICATION.post_id`.
 
 ## 15.8 Create a researcher connection
 
@@ -1678,7 +1702,8 @@ The correct deletion behavior depends on data retention requirements. The follow
 | `PUBLICATION` | `CITATION_RECORD` | Cascade only if citation history can be deleted. |
 | `PUBLICATION` | `PUBLICATION_CONTRIBUTION` | Usually preserve or archive academic contribution history. |
 | `PUBLICATION_CONTRIBUTION` | `PUBLICATION_REVIEW` | Preserve review audit records or restrict deletion. |
-| `APPLICATION` | `APPLIES_FOR` | Remove the bridge row when the application is permanently deleted. |
+| `RESEARCHER_PROFILE` | `APPLICATION` | Restrict deletion, archive applications, or anonymize the applicant. |
+| `RESEARCHER_POST` | `APPLICATION` | Restrict deletion while applications exist or archive the post. |
 | `RESEARCH_AREA` | `PUBLICATION_CONTRIBUTION` | Prevent deletion while referenced or archive the area. |
 
 Avoid unrestricted cascading deletion of academic records, review history, or researcher identity data.
@@ -1778,11 +1803,12 @@ update RESEARCHER_PROFILE.profile_verified
 ### Application transaction
 
 ```text
-insert APPLICATION
-insert APPLIES_FOR
+validate applicant researcher
+validate research post
+insert APPLICATION with applicant_researcher_id and post_id
 ```
 
-If either step fails, the other should be rolled back so an orphan application or orphan bridge row is not created.
+The foreign keys prevent an application from referencing a missing applicant or post.
 
 ---
 
@@ -1828,6 +1854,8 @@ Place the primary key of the one-side entity as a foreign key in the many-side r
 ```text
 RECEIVES -> NOTIFICATION.researcher_id
 CREATES -> RESEARCHER_POST.posted_by_researcher_id
+APPLIES_FOR -> APPLICATION.applicant_researcher_id
+HAS_APPLICATION -> APPLICATION.post_id
 ```
 
 ### M:N relationships
@@ -1836,7 +1864,6 @@ Create a bridge table containing the primary keys of both participating entities
 
 ```text
 HAS_EXPERTISE -> RESEARCHER_EXPERTISE
-APPLIES_FOR -> APPLIES_FOR
 ```
 
 ### Ternary relationships
@@ -1897,8 +1924,6 @@ The following items are intentionally not part of the current corrected model:
 - `designation` in `RESEARCHER_PROFILE`.
 - `topic_name` and other older publication attributes not shown in the corrected model.
 - `RESEARCHER_RESEARCH_AREA` as a standalone bridge table.
-- `post_id` in `APPLICATION`.
-- `applicant_researcher_id` in `APPLICATION`.
 - Application attributes attached directly to `APPLIES_FOR`.
 - A standalone `full_name` relational column.
 - A stored `publication_count` relational column.
@@ -1919,7 +1944,7 @@ Weak entity. In this model, `CITATION_RECORD` is shown with a double border.
 
 ### Diamond
 
-Relationship such as `RECEIVES`, `CREATES`, `APPLIES_FOR`, or `CONNECTS`.
+Relationship such as `RECEIVES`, `CREATES`, `APPLIES_FOR`, `HAS_APPLICATION`, or `CONNECTS`.
 
 ### Double diamond
 
@@ -1997,6 +2022,9 @@ Aggregation boundary. The current boundary contains the contribution occurrence 
 - [ ] `APPLICATION` is a separate entity.
 - [ ] Application attributes are connected to the application entity.
 - [ ] `APPLIES_FOR` connects researcher profile to application.
+- [ ] `HAS_APPLICATION` connects research post to the same application entity.
+- [ ] One research post can have many applications.
+- [ ] Each application belongs to one research post and one applicant researcher.
 - [ ] `CONNECTS` returns to researcher profile.
 - [ ] Sender and receiver roles are named.
 - [ ] Connection attributes are represented.
@@ -2018,10 +2046,11 @@ Aggregation boundary. The current boundary contains the contribution occurrence 
 - [ ] `PUBLICATION_REVIEW` has `admin_id`.
 - [ ] `CITATION_RECORD` has composite key `(publication_id, citation_id)`.
 - [ ] `APPLICATION` contains application attributes.
-- [ ] `APPLIES_FOR` contains researcher and application keys.
+- [ ] `APPLICATION.applicant_researcher_id` implements `APPLIES_FOR`.
+- [ ] `APPLICATION.post_id` implements `HAS_APPLICATION`.
 - [ ] `CONNECTION` has two FKs to `RESEARCHER_PROFILE`.
 - [ ] No stale `RESEARCHER_RESEARCH_AREA` table remains in the current diagram.
-- [ ] No stale `post_id` or `applicant_researcher_id` remains in `APPLICATION`.
+- [ ] Applications for a post can be found with `APPLICATION.post_id`.
 - [ ] No stale `country` column remains.
 - [ ] No stale `review_id` column remains.
 
@@ -2047,6 +2076,6 @@ Publications are classified through the ternary `CONTRIBUTES_TO` relationship, w
 
 Citation history is modeled as a weak entity owned by a publication. The citation partial key is `citation_id`, and the complete key is `(publication_id, citation_id)`. Publication itself stores only its identifier, DOI, title, and abstract in the corrected model.
 
-The relational schema preserves the E-R semantics through shared-key specialization, bridge tables for multivalued and many-to-many data, a ternary contribution table, composite weak-entity identification, a review table referencing the aggregate occurrence, a separate application entity, an `APPLIES_FOR` bridge, and a two-FK recursive connection table.
+The relational schema preserves the E-R semantics through shared-key specialization, bridge tables for multivalued and many-to-many data, a ternary contribution table, composite weak-entity identification, a review table referencing the aggregate occurrence, an application entity with applicant and post foreign keys, and a two-FK recursive connection table.
 
 The design intentionally excludes removed fields and older structures so the diagrams, relational schema, and explanation remain consistent with the latest approved model.
