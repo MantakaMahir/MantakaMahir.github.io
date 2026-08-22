@@ -141,6 +141,7 @@ A relationship describes an association between entities. Examples include:
 - `RECEIVES` between `NOTIFICATION` and `RESEARCHER_PROFILE`.
 - `CREATES` between `RESEARCHER_PROFILE` and `RESEARCHER_POST`.
 - `APPLIES_FOR` between `RESEARCHER_PROFILE` and `APPLICATION`.
+- `HAS_APPLICATION` between `RESEARCHER_POST` and `APPLICATION`.
 
 In Chen notation, a relationship is represented by a diamond.
 
@@ -392,6 +393,8 @@ The creating researcher is represented by `CREATES` and becomes `posted_by_resea
 | Attribute | Key/status | Description |
 |---|---|---|
 | `application_id` | Primary key | Unique application identifier. |
+| `applicant_researcher_id` | Foreign key | Researcher who submitted the application. |
+| `post_id` | Foreign key | Research post targeted by the application. |
 | `application_status` | Domain/status attribute | Current application state. |
 | `applied_at` | Date/time attribute | Time when the application was submitted. |
 | `motivation_message` | Normal attribute | Applicant's explanation or motivation. |
@@ -399,6 +402,15 @@ The creating researcher is represented by `CREATES` and becomes `posted_by_resea
 In the corrected E-R design, these attributes are connected to the `APPLICATION` entity. They are not attributes of the `APPLIES_FOR` diamond.
 
 Each application belongs to one applicant and one research post. `applicant_researcher_id` implements the researcher-to-application `APPLIES_FOR` relationship, while `post_id` implements the post-to-application `HAS_APPLICATION` relationship.
+
+The ER diagram shows two separate paths into `APPLICATION`:
+
+```text
+RESEARCHER_PROFILE (1) -- APPLIES_FOR -- (N) APPLICATION
+RESEARCHER_POST    (1) -- HAS_APPLICATION -- (N) APPLICATION
+```
+
+The `APPLIES_FOR` connector runs from the `RESEARCHER_PROFILE` entity edge to the `APPLIES_FOR` diamond and then to the `APPLICATION` entity edge. The `HAS_APPLICATION` connector runs independently from `RESEARCHER_POST` to its own diamond and then to `APPLICATION`. They share the application entity, but they are not the same relationship.
 
 ## 4.12 CONNECTION
 
@@ -721,6 +733,11 @@ Meaning:
 - Each application has one applicant researcher.
 - Application-specific attributes belong to `APPLICATION`.
 
+Cardinality:
+
+- One `RESEARCHER_PROFILE` can participate in many `APPLIES_FOR` instances.
+- Each `APPLICATION` participates in exactly one `APPLIES_FOR` instance.
+
 Relational mapping:
 
 ```text
@@ -752,6 +769,11 @@ Meaning:
 - Each application belongs to one research post.
 - The same application also belongs to one applicant researcher through `APPLIES_FOR`.
 - Applications for a post can be found by filtering `APPLICATION.post_id`.
+
+Cardinality:
+
+- One `RESEARCHER_POST` can participate in many `HAS_APPLICATION` instances.
+- Each `APPLICATION` participates in exactly one `HAS_APPLICATION` instance.
 
 The `post_id` foreign key in `APPLICATION` implements this relationship.
 
@@ -1014,6 +1036,15 @@ APPLICATION(
 ```
 
 `applicant_researcher_id` implements `APPLIES_FOR`. `post_id` implements `HAS_APPLICATION`. This allows all applications for a post to be found directly and ensures every application identifies its applicant and target post.
+
+The schema connectors for these two foreign keys are:
+
+```text
+APPLICATION.applicant_researcher_id -> RESEARCHER_PROFILE.researcher_id
+APPLICATION.post_id                 -> RESEARCHER_POST.post_id
+```
+
+They are direct foreign-key paths. There is no `APPLIES_FOR` bridge table and no separate `HAS_APPLICATION` bridge table.
 
 ## 6.16 CONNECTION table
 
