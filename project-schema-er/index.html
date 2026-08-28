@@ -89,9 +89,9 @@
       <h2>Task A - Enhanced Chen E-R Diagram</h2>
       <p class="intro">The dashed enclosure is an aggregation. The three-way diamond is ternary. The looped CONNECTS relationship is a recursive self join. Double borders identify the weak citation entity and its identifying relationship.</p>
       <div class="diagram-scroll"><div class="diagram-export" id="er-export">
-        <svg id="er-diagram" viewBox="0 0 2800 1840" role="img" aria-labelledby="er-title er-desc">
+        <svg id="er-diagram" viewBox="0 0 2800 2150" role="img" aria-labelledby="er-title er-desc">
           <title id="er-title">Enhanced Research Collaboration Platform Chen ER Diagram</title>
-          <desc id="er-desc">Researcher specialization, ternary contribution, aggregation for review, recursive connection, derived publication count, weak citation history, notification, research area, expertise area, posts, and applications.</desc>
+          <desc id="er-desc">Researcher specialization, ternary contribution, aggregation for review, recursive connection, derived publication count, weak citation history, publication topics, publication authors, notification, research area, expertise area, posts, and applications.</desc>
           <defs>
             <marker id="er-arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4 z" fill="#17202a"/></marker>
           </defs>
@@ -185,6 +185,15 @@
           <path class="connector thin" d="M1260 1110 L1150 1165 M1340 1110 L1330 1173"/>
           <text class="label tiny bold" x="1300" y="1260" style="fill:#2877a4">One fact needs all 3 entities together</text>
 
+          <!-- Restored paper-level topic mapping: a publication can be classified in many research areas. -->
+          <polygon class="relationship" points="650,1340 750,1280 850,1340 750,1400"/><text class="label bold small" x="750" y="1330">HAS_TOPIC</text><text class="label tiny" x="750" y="1360">PUBLICATION_TOPIC</text>
+          <path class="connector" d="M800 1100 V1280 M850 1340 H1590 V1100"/>
+          <text class="label bold small" x="790" y="1240">N</text><text class="label bold small" x="1510" y="1330">N</text>
+          <ellipse class="attribute" cx="610" cy="1470" rx="58" ry="27"/><text class="label small" x="610" y="1470">source</text>
+          <ellipse class="attribute" cx="900" cy="1470" rx="100" ry="27"/><text class="label small" x="900" y="1470">relevance_score</text>
+          <path class="connector thin" d="M700 1390 L640 1443 M800 1390 L870 1443"/>
+          <text class="label tiny bold" x="750" y="1525" style="fill:#2877a4">Paper topic link, independent of authorship</text>
+
           <!-- Aggregation participant: faculty reviewer reviews the contribution occurrence -->
           <rect class="entity-subtype" x="2100" y="690" width="350" height="95"/><text class="label bold small" x="2275" y="722">FACULTY_RESEARCHER</text><text class="label tiny" x="2275" y="753">role: reviewer</text>
           <polygon class="relationship" points="1920,805 2000,755 2080,805 2000,855"/><text class="label bold small" x="2000" y="805">REVIEWS</text>
@@ -232,6 +241,16 @@
           <ellipse class="attribute" cx="1650" cy="1710" rx="65" ry="27"/><text class="label small" x="1650" y="1710">created_at</text>
           <path class="connector thin" d="M1165 1595 L1080 1635 M1250 1595 L1280 1683 M1290 1590 L1460 1640 M1310 1570 L1630 1690"/>
           <text class="label tiny bold" x="1350" y="1770" style="fill:#2877a4">Two roles, one entity type: sender and receiver</text>
+
+          <!-- Restored complete author listing, including authors who are not platform researchers. -->
+          <polygon class="relationship" points="1640,1850 1740,1790 1840,1850 1740,1910"/><text class="label bold small" x="1740" y="1840">HAS_AUTHOR</text><text class="label tiny" x="1740" y="1870">1 : N</text>
+          <path class="connector" d="M930 1070 H1040 V1850 H1640 M1840 1850 H2070"/>
+          <rect class="entity" x="2070" y="1795" width="430" height="110"/><text class="label bold small" x="2285" y="1830">PUBLICATION_AUTHOR</text><text class="label tiny" x="2285" y="1860">author_order, author_name</text><text class="label tiny" x="2285" y="1885">researcher_id optional</text>
+          <ellipse class="attribute" cx="2070" cy="1990" rx="72" ry="27"/><text class="label small" x="2070" y="1990">author_orcid</text>
+          <ellipse class="attribute" cx="2330" cy="1990" rx="110" ry="27"/><text class="label small" x="2330" y="1990">openalex_author_id</text>
+          <ellipse class="attribute" cx="2590" cy="1990" rx="96" ry="27"/><text class="label small" x="2590" y="1990">is_corresponding</text>
+          <path class="connector thin" d="M2120 1905 L2080 1963 M2285 1905 V1963 M2440 1905 L2530 1963"/>
+          <text class="label tiny bold" x="2285" y="2070" style="fill:#2877a4">Every listed author is preserved in order</text>
         </svg>
         <div class="legend">
           <span><b>Rectangle</b> strong entity</span>
@@ -280,6 +299,10 @@
             <path d="M1080 1015 H1140 V155 H300" data-ref="PUBLICATION_CONTRIBUTION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1160 V590 H870" data-ref="PUBLICATION_CONTRIBUTION.research_area_id -> RESEARCH_AREA.research_area_id"/>
             <path d="M1480 1015 H1440 V590 H1180" data-ref="PUBLICATION_CITATION.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M1740 1289 H1690 V590 H1610" data-ref="PUBLICATION_TOPIC.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M1740 1315 H1660 V250 H1480" data-ref="PUBLICATION_TOPIC.research_area_id -> RESEARCH_AREA.research_area_id"/>
+            <path d="M2220 1289 H2160 V590 H1610" data-ref="PUBLICATION_AUTHOR.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M2220 1315 H2120 V155 H740" data-ref="PUBLICATION_AUTHOR.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- aggregation review -->
             <path d="M1480 1495 H1440 V155 H300" data-ref="PUBLICATION_REVIEW.reviewer_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1480 1495 H1400 V1015 H1180" data-ref="PUBLICATION_REVIEW.contributor_id -> PUBLICATION_CONTRIBUTION.researcher_id"/>
@@ -326,7 +349,7 @@
             <rect class="table" x="800" y="560" width="350" height="190"/><rect class="table-head" x="800" y="560" width="350" height="42"/><text class="label bold small" x="975" y="581">RESEARCHER_EXPERTISE</text><text class="schema-text schema-key" x="816" y="609">researcher_id (PK, FK)</text><text class="schema-text schema-key" x="816" y="635">expertise_area_id (PK, FK)</text><text class="schema-text" x="816" y="661">proficiency_level</text>
           </g>
           <g>
-            <rect class="table" x="1180" y="560" width="430" height="372"/><rect class="table-head" x="1180" y="560" width="430" height="42"/><text class="label bold" x="1395" y="581">PUBLICATION</text><text class="schema-text schema-key" x="1196" y="609">publication_id (PK)</text><text class="schema-text" x="1196" y="635">topic_name</text><text class="schema-text" x="1196" y="661">title</text><text class="schema-text" x="1196" y="687">abstract</text><text class="schema-text" x="1196" y="713">publication_year</text><text class="schema-text" x="1196" y="739">publication_type</text><text class="schema-text" x="1196" y="765">journal_or_conference</text><text class="schema-text" x="1196" y="791">doi</text><text class="schema-text" x="1196" y="817">paper_url</text><text class="schema-text" x="1196" y="843">publication_details_url</text><text class="schema-text" x="1196" y="869">citation_count</text><text class="schema-text" x="1196" y="895">created_at</text>
+             <rect class="table" x="1180" y="560" width="430" height="372"/><rect class="table-head" x="1180" y="560" width="430" height="42"/><text class="label bold" x="1395" y="581">PUBLICATION</text><text class="schema-text schema-key" x="1196" y="609">publication_id (PK)</text><text class="schema-text" x="1196" y="635">title</text><text class="schema-text" x="1196" y="661">abstract</text><text class="schema-text" x="1196" y="687">publication_year</text><text class="schema-text" x="1196" y="713">publication_type</text><text class="schema-text" x="1196" y="739">journal_or_conference</text><text class="schema-text" x="1196" y="765">doi</text><text class="schema-text" x="1196" y="791">paper_url</text><text class="schema-text" x="1196" y="817">publication_details_url</text><text class="schema-text" x="1196" y="843">citation_count</text><text class="schema-text" x="1196" y="869">created_at</text><text class="schema-text" x="1196" y="895">discovery moved to topic/author</text>
           </g>
           <g>
             <rect class="table" x="1660" y="560" width="380" height="190"/><rect class="table-head" x="1660" y="560" width="380" height="42"/><text class="label bold small" x="1850" y="581">RESEARCHER_POST</text><text class="schema-text schema-key" x="1676" y="609">post_id (PK)</text><text class="schema-text" x="1676" y="635">posted_by_researcher_id (FK)</text><text class="schema-text" x="1676" y="661">title, description</text><text class="schema-text" x="1676" y="687">role_type</text><text class="schema-text" x="1676" y="713">required_topic, required_skill</text><text class="schema-text" x="1676" y="739">application_deadline, status</text>
