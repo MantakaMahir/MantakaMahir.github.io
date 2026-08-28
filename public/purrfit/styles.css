@@ -765,6 +765,58 @@ body.landing-page::before {
   }
 }
 
+@media (max-width: 900px) and (orientation: landscape) {
+  .landing-page .site-nav {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .landing-page .nav-links {
+    width: auto;
+    max-width: 70%;
+  }
+
+  .landing-page .hero-section {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 330px);
+    gap: 28px;
+    min-height: auto;
+    padding: 26px 0 56px;
+  }
+
+  .landing-page .hero-copy {
+    min-width: 0;
+  }
+
+  .landing-page h1 {
+    max-width: 9ch;
+    font-size: clamp(2.8rem, 9vw, 4.2rem);
+  }
+
+  .landing-page .hero-lede {
+    font-size: 1rem;
+  }
+
+  .landing-page .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .landing-page .primary-action,
+  .landing-page .secondary-action {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .landing-page .hero-stage {
+    min-height: 440px;
+    margin-top: 0;
+  }
+
+  .landing-page .hero-promo-video {
+    width: min(100%, 248px);
+  }
+}
+
 @media (max-width: 480px) {
   main {
     width: min(100% - 28px, 760px);
@@ -789,6 +841,59 @@ body.landing-page::before {
 
   .landing-page .workout-card img {
     width: min(178px, 100%);
+  }
+}
+
+@media (max-width: 480px) and (orientation: landscape) {
+  .landing-page .landing-shell {
+    width: min(100% - 28px, 760px);
+  }
+
+  .landing-page .site-nav {
+    min-height: 58px;
+  }
+
+  .landing-page .brand-mark img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .landing-page .nav-links {
+    max-width: 74%;
+  }
+
+  .landing-page .nav-links a {
+    min-height: 44px;
+    padding-inline: 10px;
+  }
+
+  .landing-page .hero-section {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    gap: 18px;
+    padding-top: 18px;
+  }
+
+  .landing-page h1 {
+    font-size: clamp(2.4rem, 9vw, 3.2rem);
+  }
+
+  .landing-page .hero-actions {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .landing-page .primary-action,
+  .landing-page .secondary-action {
+    min-height: 48px;
+    font-size: .9rem;
+  }
+
+  .landing-page .hero-stage {
+    min-height: 370px;
+  }
+
+  .landing-page .hero-promo-video {
+    width: 210px;
   }
 }
 
