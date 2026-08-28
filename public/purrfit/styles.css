@@ -326,7 +326,9 @@ body.landing-page::before {
 }
 
 .landing-page .hero-stage {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   min-height: 590px;
 }
 
@@ -335,9 +337,6 @@ body.landing-page::before {
   line-height: 1.45;
 }
 
-.landing-page .mascot-card,
-.landing-page .celebrate-card,
-.landing-page .spark-card,
 .landing-page .rhythm-card,
 .landing-page .companion-art-card,
 .landing-page .body-frame-card,
@@ -345,76 +344,6 @@ body.landing-page::before {
   border: 1px solid rgba(238, 219, 208, .82);
   background: rgba(255, 255, 255, .78);
   box-shadow: 0 24px 64px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .88);
-}
-
-.landing-page .mascot-card {
-  position: absolute;
-  top: 18px;
-  left: 0;
-  width: min(72%, 430px);
-  padding: 20px;
-  border-radius: 36px;
-  transform: rotate(-3deg);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, .82), rgba(255, 239, 228, .88)),
-    var(--surface);
-}
-
-.landing-page .mascot-card img {
-  width: 100%;
-  border-radius: 28px;
-  background: var(--orange-soft);
-}
-
-.landing-page .mascot-card figcaption {
-  max-width: 28ch;
-  margin: 14px 8px 2px;
-}
-
-.landing-page .celebrate-card {
-  position: absolute;
-  right: 0;
-  bottom: 44px;
-  width: min(285px, 48%);
-  padding: 16px;
-  border-radius: 28px;
-  transform: rotate(3deg);
-  background: linear-gradient(150deg, rgba(255, 233, 168, .9), rgba(255, 255, 255, .84));
-}
-
-.landing-page .celebrate-card img {
-  margin: 0 auto 10px;
-}
-
-.landing-page .celebrate-card strong {
-  display: block;
-  margin-bottom: 3px;
-  color: var(--ink);
-}
-
-.landing-page .spark-card {
-  position: absolute;
-  right: 12%;
-  top: 74px;
-  display: grid;
-  gap: 4px;
-  min-width: 218px;
-  padding: 15px 17px;
-  border-radius: 20px;
-  background: linear-gradient(145deg, var(--blue), rgba(255, 255, 255, .86));
-}
-
-.landing-page .spark-card span {
-  color: var(--orange);
-  font-size: .8rem;
-  font-weight: 900;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.landing-page .spark-card strong {
-  color: var(--ink);
-  font-size: 1.02rem;
 }
 
 .landing-page .routine-section,
@@ -425,13 +354,13 @@ body.landing-page::before {
 }
 
 .landing-page .hero-promo-video {
-  position: absolute;
-  right: 7%;
-  top: 170px;
+  display: block;
   width: min(100%, 330px);
   aspect-ratio: 9 / 16;
   border: 0;
-  border-radius: 28px;
+  border-radius: 22px;
+  background: #201713;
+  box-shadow: 0 24px 64px var(--shadow);
 }
 
 .landing-page .section-copy {
@@ -657,17 +586,6 @@ body.landing-page::before {
     animation-delay: .08s;
   }
 
-  .landing-page .mascot-card {
-    animation: mascot-float 6.4s cubic-bezier(.45, 0, .55, 1) infinite;
-  }
-
-  .landing-page .celebrate-card {
-    animation: celebrate-float 5.2s cubic-bezier(.45, 0, .55, 1) infinite;
-  }
-
-  .landing-page .spark-card {
-    animation: spark-float 5.8s cubic-bezier(.45, 0, .55, 1) infinite;
-  }
 }
 
 @keyframes rise-in {
@@ -679,39 +597,6 @@ body.landing-page::before {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes mascot-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-3deg);
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(-1.5deg);
-  }
-}
-
-@keyframes celebrate-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(3deg);
-  }
-
-  50% {
-    transform: translateY(-12px) rotate(1deg);
-  }
-}
-
-@keyframes spark-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(-1deg);
   }
 }
 
@@ -761,56 +646,15 @@ body.landing-page::before {
   }
 
   .landing-page .hero-stage {
-    min-height: 430px;
+    min-height: 520px;
     display: block;
     margin-top: 18px;
   }
 
   .landing-page .hero-promo-video {
-    right: 0;
-    top: 98px;
-    width: min(100%, 290px);
-  }
-
-  .landing-page .mascot-card,
-  .landing-page .celebrate-card,
-  .landing-page .spark-card {
-    position: absolute;
-    min-width: 0;
-  }
-
-  .landing-page .mascot-card {
-    top: 0;
-    left: 0;
-    width: 100%;
-    max-width: none;
-    padding: 14px;
-    transform: rotate(-2deg);
-  }
-
-  .landing-page .mascot-card img {
-    width: min(235px, 74%);
+    width: min(100%, 330px);
+    height: auto;
     margin: 0 auto;
-  }
-
-  .landing-page .celebrate-card {
-    right: 0;
-    bottom: 8px;
-    width: min(190px, 54%);
-    padding: 12px;
-    transform: rotate(3deg);
-  }
-
-  .landing-page .celebrate-card img {
-    width: min(112px, 76%);
-  }
-
-  .landing-page .spark-card {
-    left: 0;
-    right: auto;
-    top: auto;
-    bottom: 34px;
-    width: min(218px, 58%);
   }
 
   .landing-page .tab-rhythm {
@@ -878,9 +722,6 @@ body.landing-page::before {
     transition-duration: .01ms !important;
   }
 
-  .landing-page .mascot-card,
-  .landing-page .celebrate-card,
-  .landing-page .spark-card,
   .landing-page .companion-art-card,
   .landing-page .primary-action:hover,
   .landing-page .secondary-action:hover,
