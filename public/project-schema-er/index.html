@@ -81,7 +81,7 @@
 <body>
   <header>
     <h1>Research Collaboration Platform</h1>
-    <p>Complete Chen E-R model and relational schema. The requested classroom constructs are intentionally visible and labelled so the specialization, aggregation, ternary relationship, self join, derived attribute, and weak entity can be checked directly.</p>
+    <p>Complete Chen E-R model and relational schema. The requested classroom constructs are intentionally visible and labelled so the specialization, aggregation, ternary relationship, self join, derived attribute, and weak entity can be checked directly. Publication discovery is restored through independent paper-topic and author relations.</p>
     <nav><a href="#er">ER Diagram</a><a href="#schema">Schema Diagram</a><a href="#mapping">Mapping Checks</a></nav>
   </header>
   <main>
@@ -89,9 +89,9 @@
       <h2>Task A - Enhanced Chen E-R Diagram</h2>
       <p class="intro">The dashed enclosure is an aggregation. The three-way diamond is ternary. The looped CONNECTS relationship is a recursive self join. Double borders identify the weak citation entity and its identifying relationship.</p>
       <div class="diagram-scroll"><div class="diagram-export" id="er-export">
-        <svg id="er-diagram" viewBox="0 0 2800 1840" role="img" aria-labelledby="er-title er-desc">
+        <svg id="er-diagram" viewBox="0 0 2800 2150" role="img" aria-labelledby="er-title er-desc">
           <title id="er-title">Enhanced Research Collaboration Platform Chen ER Diagram</title>
-          <desc id="er-desc">Researcher specialization, ternary contribution, aggregation for review, recursive connection, derived publication count, weak citation history, notification, research area, expertise area, posts, and applications.</desc>
+          <desc id="er-desc">Researcher specialization, ternary contribution, aggregation for review, recursive connection, derived publication count, weak citation history, publication topics, publication authors, notification, research area, expertise area, posts, and applications.</desc>
           <defs>
             <marker id="er-arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4 z" fill="#17202a"/></marker>
           </defs>
@@ -193,6 +193,15 @@
           <path class="connector thin" d="M1260 1110 L1150 1165 M1340 1110 L1330 1173"/>
           <text class="label tiny bold" x="1300" y="1260" style="fill:#2877a4">One fact needs all 3 entities together</text>
 
+          <!-- Restored paper-level topic mapping: a publication can be classified in many research areas. -->
+          <polygon class="relationship" points="650,1340 750,1280 850,1340 750,1400"/><text class="label bold small" x="750" y="1330">HAS_TOPIC</text><text class="label tiny" x="750" y="1360">PUBLICATION_TOPIC</text>
+          <path class="connector" d="M800 1100 V1280 M850 1340 H1590 V1100"/>
+          <text class="label bold small" x="790" y="1240">N</text><text class="label bold small" x="1510" y="1330">N</text>
+          <ellipse class="attribute" cx="610" cy="1470" rx="58" ry="27"/><text class="label small" x="610" y="1470">source</text>
+          <ellipse class="attribute" cx="900" cy="1470" rx="100" ry="27"/><text class="label small" x="900" y="1470">relevance_score</text>
+          <path class="connector thin" d="M700 1390 L640 1443 M800 1390 L870 1443"/>
+          <text class="label tiny bold" x="750" y="1525" style="fill:#2877a4">Paper topic link, independent of authorship</text>
+
           <!-- Aggregation participant: faculty reviewer reviews the contribution occurrence -->
           <rect class="entity-subtype" x="2100" y="690" width="350" height="95"/><text class="label bold small" x="2275" y="735">ADMIN</text>
           <ellipse class="attribute" cx="2525" cy="735" rx="78" ry="27"/><text class="label small key" x="2525" y="735">admin_id</text>
@@ -251,6 +260,16 @@
           <ellipse class="attribute" cx="1650" cy="1710" rx="65" ry="27"/><text class="label small" x="1650" y="1710">created_at</text>
           <path class="connector thin" d="M1165 1595 L1080 1635 M1250 1595 L1280 1683 M1290 1590 L1460 1640 M1310 1570 L1630 1690"/>
           <text class="label tiny bold" x="1350" y="1770" style="fill:#2877a4">Two roles, one entity type: sender and receiver</text>
+
+          <!-- Restored complete author listing, including authors who are not platform researchers. -->
+          <polygon class="relationship" points="1640,1850 1740,1790 1840,1850 1740,1910"/><text class="label bold small" x="1740" y="1840">HAS_AUTHOR</text><text class="label tiny" x="1740" y="1870">1 : N</text>
+          <path class="connector" d="M930 1070 H1040 V1850 H1640 M1840 1850 H2070"/>
+          <rect class="entity" x="2070" y="1795" width="430" height="110"/><text class="label bold small" x="2285" y="1830">PUBLICATION_AUTHOR</text><text class="label tiny" x="2285" y="1860">author_order, author_name</text><text class="label tiny" x="2285" y="1885">researcher_id optional</text>
+          <ellipse class="attribute" cx="2070" cy="1990" rx="72" ry="27"/><text class="label small" x="2070" y="1990">author_orcid</text>
+          <ellipse class="attribute" cx="2330" cy="1990" rx="110" ry="27"/><text class="label small" x="2330" y="1990">openalex_author_id</text>
+          <ellipse class="attribute" cx="2590" cy="1990" rx="96" ry="27"/><text class="label small" x="2590" y="1990">is_corresponding</text>
+          <path class="connector thin" d="M2120 1905 L2080 1963 M2285 1905 V1963 M2440 1905 L2530 1963"/>
+          <text class="label tiny bold" x="2285" y="2070" style="fill:#2877a4">Every listed author is preserved in order</text>
         </svg>
         <div class="legend">
           <span><b>Rectangle</b> strong entity</span>
@@ -297,6 +316,10 @@
             <path d="M1080 1015 H1140 V155 H300" data-ref="PUBLICATION_CONTRIBUTION.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <path d="M1080 1015 H1160 V590 H870" data-ref="PUBLICATION_CONTRIBUTION.research_area_id -> RESEARCH_AREA.research_area_id"/>
             <path d="M1480 1015 H1440 V590 H1180" data-ref="CITATION_RECORD.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M1740 1289 H1690 V590 H1610" data-ref="PUBLICATION_TOPIC.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M1740 1315 H1660 V250 H1480" data-ref="PUBLICATION_TOPIC.research_area_id -> RESEARCH_AREA.research_area_id"/>
+            <path d="M2220 1289 H2160 V590 H1610" data-ref="PUBLICATION_AUTHOR.publication_id -> PUBLICATION.publication_id"/>
+            <path d="M2220 1315 H2120 V155 H740" data-ref="PUBLICATION_AUTHOR.researcher_id -> RESEARCHER_PROFILE.researcher_id"/>
             <!-- aggregation review -->
             <path d="M1420 1010 V900 H2025 V220" data-ref="PUBLICATION_REVIEW.admin_id -> ADMIN.admin_id"/>
             <path d="M1140 1131 H1100" data-ref="PUBLICATION_REVIEW.contributor_id -> PUBLICATION_CONTRIBUTION.researcher_id"/>
@@ -364,9 +387,15 @@
           <g>
             <rect class="table" x="1740" y="950" width="420" height="270"/><rect class="table-head" x="1740" y="950" width="420" height="42"/><text class="label bold small" x="1950" y="971">APPLICATION</text><text class="schema-text schema-key" x="1756" y="1019">application_id (PK)</text><text class="schema-text" x="1756" y="1045">applicant_researcher_id (FK)</text><text class="schema-text" x="1756" y="1071">post_id (FK)</text><text class="schema-text" x="1756" y="1097">application_status</text><text class="schema-text" x="1756" y="1123">applied_at</text><text class="schema-text" x="1756" y="1149">motivation_message</text>
           </g>
-          <g>
-            <rect class="table" x="2200" y="950" width="490" height="240"/><rect class="table-head" x="2200" y="950" width="490" height="42"/><text class="label bold" x="2445" y="971">CONNECTION</text><text class="schema-text schema-key" x="2216" y="1019">connection_id (PK)</text><text class="schema-text" x="2216" y="1045">sender_researcher_id (FK)</text><text class="schema-text" x="2216" y="1071">receiver_researcher_id (FK)</text><text class="schema-text" x="2216" y="1097">relation_type</text><text class="schema-text" x="2216" y="1123">status</text><text class="schema-text" x="2216" y="1149">created_at</text><text class="schema-text" x="2216" y="1175">FKs both reference RESEARCHER_PROFILE</text>
-          </g>
+           <g>
+             <rect class="table" x="2200" y="950" width="490" height="240"/><rect class="table-head" x="2200" y="950" width="490" height="42"/><text class="label bold" x="2445" y="971">CONNECTION</text><text class="schema-text schema-key" x="2216" y="1019">connection_id (PK)</text><text class="schema-text" x="2216" y="1045">sender_researcher_id (FK)</text><text class="schema-text" x="2216" y="1071">receiver_researcher_id (FK)</text><text class="schema-text" x="2216" y="1097">relation_type</text><text class="schema-text" x="2216" y="1123">status</text><text class="schema-text" x="2216" y="1149">created_at</text><text class="schema-text" x="2216" y="1175">FKs both reference RESEARCHER_PROFILE</text>
+           </g>
+           <g>
+             <rect class="table" x="1740" y="1220" width="450" height="130"/><rect class="table-head" x="1740" y="1220" width="450" height="42"/><text class="label bold small" x="1965" y="1241">PUBLICATION_TOPIC</text><text class="schema-text schema-key" x="1756" y="1289">publication_id (PK, FK)</text><text class="schema-text schema-key" x="1756" y="1315">research_area_id (PK, FK)</text><text class="schema-text" x="1756" y="1341">source, relevance_score</text>
+           </g>
+           <g>
+             <rect class="table" x="2220" y="1220" width="470" height="130"/><rect class="table-head" x="2220" y="1220" width="470" height="42"/><text class="label bold small" x="2455" y="1241">PUBLICATION_AUTHOR</text><text class="schema-text schema-key" x="2236" y="1289">publication_id (PK, FK), author_order (PK)</text><text class="schema-text" x="2236" y="1315">researcher_id (FK), author_name, author_orcid</text><text class="schema-text" x="2236" y="1341">openalex_author_id, is_corresponding</text>
+           </g>
 
           <rect x="60" y="1370" width="2630" height="720" fill="#f4f8fb" stroke="#9fb4c7" stroke-width="1.5"/>
           <text x="90" y="1410" class="section-note">RELATIONAL MAPPING CHECKS</text>
@@ -378,7 +407,7 @@
           <text x="90" y="1810" class="schema-text" style="font:700 17px Arial;fill:#12346b">DERIVED ATTRIBUTE</text><text x="90" y="1838" class="schema-text">publication_count is calculated from PUBLICATION_CONTRIBUTION and is intentionally not stored in RESEARCHER_PROFILE.</text>
           <text x="90" y="1898" class="schema-text" style="font:700 17px Arial;fill:#12346b">APPLICATION RELATIONSHIPS</text><text x="90" y="1926" class="schema-text">APPLICATION stores applicant_researcher_id and post_id, linking one applicant and one research post to each application.</text>
           <text x="90" y="1970" class="schema-text" style="font:700 17px Arial;fill:#12346b">NOTATION</text><text x="90" y="1998" class="schema-text">Underlined attributes are PKs. PK, FK marks both roles. FK* means a member of the composite contribution reference.</text>
-          <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">PROFILE VERIFICATION</text><text x="90" y="2070" class="schema-text">PUBLICATION_REVIEW.review_status drives RESEARCHER_PROFILE.profile_verified according to the admin review result.</text>
+          <text x="90" y="2042" class="schema-text" style="font:700 17px Arial;fill:#12346b">RESTORED PUBLICATION DISCOVERY</text><text x="90" y="2070" class="schema-text">PUBLICATION_TOPIC stores each paper's topics and keywords independently of the ternary contribution. PUBLICATION_AUTHOR preserves every listed author, order, identifiers, and corresponding-author flag.</text>
         </svg>
         <div class="legend">
           <span><b>Underlined row</b> primary key</span>
@@ -389,7 +418,7 @@
           <span><b>Partial key</b> weak-entity citation id</span>
         </div>
       </div></div>
-      <div class="mapping"><b>Important mapping decisions:</b> `publication_count` is derived and therefore absent from the schema; `full_name` is represented by `first_name` and `last_name`; the weak citation record uses `(publication_id, citation_id)`; and admin review status drives `profile_verified`.</div>
+      <div class="mapping"><b>Important mapping decisions:</b> `publication_count` is derived and therefore absent from the schema; `full_name` is represented by `first_name` and `last_name`; the weak citation record uses `(publication_id, citation_id)`; and the restored `PUBLICATION_TOPIC(publication_id, research_area_id, source, relevance_score)` and `PUBLICATION_AUTHOR(publication_id, author_order, researcher_id, author_name, author_orcid, openalex_author_id, is_corresponding)` relations preserve paper-level discovery data without inventing researcher-topic combinations.</div>
     </section>
 
     <section id="mapping">
@@ -402,6 +431,7 @@
         <div class="check"><strong>4. SELF JOIN</strong>CONNECTS loops from RESEARCHER_PROFILE back to itself with requester/sender and recipient/receiver roles.</div>
         <div class="check"><strong>5. DERIVED ATTRIBUTE</strong>Dashed oval `publication_count`, calculated from contribution rows and not stored.</div>
         <div class="check"><strong>6. WEAK ENTITY</strong>Double-border CITATION_RECORD, double-diamond HAS_CITATION, and dashed-underlined partial key `citation_id`.</div>
+        <div class="check"><strong>7. RESTORED DISCOVERY</strong>PUBLICATION_TOPIC retains every paper topic/keyword, while PUBLICATION_AUTHOR retains complete author metadata. Both are independent relations to PUBLICATION.</div>
       </div>
     </section>
   </main>
