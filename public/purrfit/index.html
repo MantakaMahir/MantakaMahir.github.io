@@ -58,6 +58,7 @@
 
         <div class="hero-stage reveal-on-load" aria-label="Purrfit promo video">
           <div class="hero-promo-video">
+            <div class="promo-video-shield" aria-hidden="true"></div>
             <iframe
               id="purrfit-promo-player"
               src="https://www.youtube.com/embed/PV8vzQzgQZs?enablejsapi=1&amp;autoplay=1&amp;mute=1&amp;controls=0&amp;disablekb=1&amp;fs=0&amp;iv_load_policy=3&amp;loop=1&amp;modestbranding=1&amp;playlist=PV8vzQzgQZs&amp;playsinline=1&amp;rel=0&amp;origin=https%3A%2F%2Fmantakamahir.github.io"
@@ -65,7 +66,7 @@
               loading="lazy"
               allow="autoplay; encrypted-media; picture-in-picture"
             ></iframe>
-            <button class="promo-mute-toggle" type="button" aria-label="Unmute promo video" aria-pressed="false">
+            <button class="promo-mute-toggle" type="button" aria-label="Unmute promo video" aria-pressed="true">
               <svg class="speaker-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
                 <path class="speaker-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 5.75a9 9 0 0 1 0 12.5"></path>
@@ -165,6 +166,28 @@
         const playerOrigin = 'https://www.youtube.com';
         let isMuted = true;
 
+        window.onYouTubeIframeAPIReady = () => {
+          const player = new window.YT.Player(playerFrame, {
+            events: {
+              onReady: (event) => {
+                event.target.mute();
+                event.target.playVideo();
+              },
+              onStateChange: (event) => {
+                if (event.data === window.YT.PlayerState.ENDED) {
+                  event.target.seekTo(0, true);
+                  event.target.playVideo();
+                }
+              },
+            },
+          });
+          playerFrame._purrfitPlayer = player;
+        };
+
+        const apiScript = document.createElement('script');
+        apiScript.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(apiScript);
+
         const sendPlayerCommand = (func) => {
           playerFrame.contentWindow?.postMessage(
             JSON.stringify({ event: 'command', func, args: [] }),
@@ -175,7 +198,7 @@
         toggle.addEventListener('click', () => {
           isMuted = !isMuted;
           sendPlayerCommand(isMuted ? 'mute' : 'unMute');
-          toggle.setAttribute('aria-pressed', String(!isMuted));
+          toggle.setAttribute('aria-pressed', String(isMuted));
           toggle.setAttribute('aria-label', isMuted ? 'Unmute promo video' : 'Mute promo video');
           toggle.querySelector('.sr-only').textContent = isMuted ? 'Unmute' : 'Mute';
         });

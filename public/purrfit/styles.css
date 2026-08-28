@@ -371,8 +371,16 @@ body.landing-page::before {
   border: 0;
 }
 
+.landing-page .promo-video-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: default;
+}
+
 .landing-page .promo-mute-toggle {
   position: absolute;
+  z-index: 2;
   right: 14px;
   bottom: 14px;
   display: grid;
