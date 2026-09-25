@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>YourVitaminP — Awareness, Then Balance</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#003738",
+            "primary-container": "#0c4f50",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#86bfc0",
+            "primary-fixed": "#b2edee",
+            "primary-fixed-dim": "#97d1d1",
+            "secondary": "#785925",
+            "secondary-container": "#fed394",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#795926",
+            "secondary-fixed": "#ffddaf",
+            "secondary-fixed-dim": "#eac082",
+            "tertiary": "#5b190b",
+            "tertiary-container": "#792f1e",
+            "surface": "#f3fbf9",
+            "pure-surface": "#FFFFFF",
+            "ivory-canvas": "#FAF9F6",
+            "whisper-border": "#E4E8E5",
+            "surface-container": "#e8f0ee",
+            "surface-container-low": "#edf5f4",
+            "surface-container-high": "#e2eae8",
+            "surface-container-highest": "#dce4e2",
+            "surface-variant": "#dce4e2",
+            "dark-teal-ink": "#013134",
+            "teal-mist": "#DCEAE8",
+            "gold-mist": "#F2E7D5",
+            "gold-accent": "#C9A267",
+            "quiet-stone": "#8A9290",
+            "on-surface": "#151d1c",
+            "on-surface-variant": "#404848",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+          },
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+            'body-md': ['Manrope', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #FAF9F6;
+      color: #013134;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 16px); }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+
+  <!-- React 18 & React Router v6 CDN Scripts -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+  <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+  <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-ivory-canvas font-body-md text-on-surface antialiased flex justify-center min-h-screen">
+  <div id="root" class="w-full max-w-[420px] bg-ivory-canvas flex flex-col min-h-[884px] relative shadow-2xl"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { createRoot } = ReactDOM;
+    const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+    // --- REUSABLE COMPONENTS ---
+
+    const TopBar = ({ title, showBack = false, onBack, rightContent }) => {
+      const navigate = useNavigate();
+      return (
+        <header className="sticky top-0 w-full z-40 bg-ivory-canvas/90 backdrop-blur-md border-b border-whisper-border/60 pt-safe">
+          <div className="h-14 px-5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {showBack ? (
+                <button
+                  onClick={onBack || (() => navigate(-1))}
+                  className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-dark-teal-ink hover:bg-teal-mist/50 transition-colors"
+                  aria-label="Back"
+                >
+                  <span className="material-symbols-outlined text-[22px]">arrow_back</span>
+                </button>
+              ) : (
+                <span className="material-symbols-outlined text-primary-container text-2xl">spa</span>
+              )}
+              <h1 className="text-[19px] font-bold text-dark-teal-ink tracking-tight">{title}</h1>
+            </div>
+            <div>
+              {rightContent || (
+                <div className="flex items-center gap-2">
+                  <button aria-label="Notifications" className="w-9 h-9 flex items-center justify-center rounded-full text-quiet-stone hover:text-dark-teal-ink">
+                    <span className="material-symbols-outlined text-[20px]">notifications</span>
+                  </button>
+                  <img
+                    alt="Profile"
+                    className="w-7 h-7 rounded-full object-cover ring-1 ring-whisper-border"
+                    src="https://lh3.googleusercontent.com/aida/AEtjO1XCN8HqfVRqGWNQznfqhbCyx6E8tRZY84M7oG320Y1dddmDVemqIfzRrRxT9pYGKvVPS_u-9-NisbmnYMNx9qoIZYfnc39o84_4tFF-jlbZt8SMxe5Uv4MWZO2FyIwnkDUQB675h6sbd6v5AT15vXCcQLElfmRv84Xsu-pGX63Pjx8HzJRF0TnnYabL1qnzzntbFZ_PBStlEVAVPWHeTFDy2oneHwPSaUIbJyEUzua4zGzHE-VzMZtwGHkdDwsAKvbm8JG1x_IjnQ"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </header>
+      );
+    };
+
+    const BottomNavigation = () => {
+      const location = useLocation();
+      const currentPath = location.pathname;
+
+      const navItems = [
+        { path: "/home", label: "Home", icon: "self_improvement" },
+        { path: "/history", label: "History", icon: "stacked_bar_chart" },
+        { path: "/device", label: "Device", icon: "circle" },
+        { path: "/settings", label: "Settings", icon: "tune" },
+      ];
+
+      return (
+        <nav className="fixed bottom-0 max-w-[420px] w-full z-40 pb-safe bg-pure-surface/95 backdrop-blur-lg border-t border-whisper-border shadow-[0_-4px_20px_rgba(1,49,52,0.04)]">
+          <div className="flex justify-around items-center h-16 px-2">
+            {navItems.map((item) => {
+              const isActive = currentPath === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex flex-col items-center justify-center min-w-[64px] h-12 transition-all ${
+                    isActive ? "text-primary-container font-semibold" : "text-quiet-stone"
+                  }`}
+                >
+                  <span
+                    className={`flex items-center justify-center w-10 h-6 rounded-full transition-colors ${
+                      isActive ? "bg-teal-mist/60 text-primary-container" : ""
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                  </span>
+                  <span className="text-[12px] mt-0.5">{item.label}</span>
+                  <span
+                    className={`w-1 h-1 rounded-full bg-primary-container transition-opacity ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                  ></span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      );
+    };
+
+    // --- SCREEN 1: WELCOME / INTRO ---
+    const WelcomeScreen = () => {
+      const navigate = useNavigate();
+
+      return (
+        <div className="flex flex-col w-full min-h-screen px-6 pb-8 pt-safe bg-ivory-canvas justify-between">
+          <header className="flex flex-col items-center justify-center pt-4 pb-2">
+            <div className="h-10 w-auto flex items-center justify-center">
+              <img
+                alt="YourVitaminP emblem"
+                className="h-9 w-auto object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbLBcdUCqqMJ0JHClXI6FM2Z05lme23CTI372a6m91jY5pGR7us9-Db87z95C0SghL8WEf-5sJ3OrsZO-7CI4b-Q_7LX32iqouLWH0WoS22CaTNwWul8s7Pp5SBYNdeCIcpxgK81JjjWL-2_2K1TF7TRDCQznT5tupgE_3LMKT1Gt3jo-JxV0g1rVXWYo3qppI9K5mLJerkGJweLbZ0nJWKzijfjnWOgkZKifU_z2DbU27c8W-Kihq-bclY4H_QqFCFQ"
+              />
+            </div>
+            <div className="mt-1 flex items-center gap-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              <span className="text-[11px] tracking-widest uppercase text-quiet-stone font-semibold">
+                Better Posture • Brighter Tomorrows
+              </span>
+            </div>
+          </header>
+
+          <section className="relative w-full my-2 flex justify-center">
+            <div className="absolute inset-0 max-w-[280px] mx-auto rounded-full bg-gradient-to-b from-gold-mist/50 via-teal-mist/40 to-transparent blur-2xl -z-10 pointer-events-none"></div>
+            <div className="relative w-full max-w-[310px] rounded-3xl bg-pure-surface shadow-md p-4 overflow-hidden flex flex-col items-center border border-whisper-border">
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-ivory-canvas">
+                <img
+                  className="w-full h-full object-cover object-center"
+                  alt="Biometric pendant jewelry"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVbKHEQFVQEhGMM2LhW17XF6cGtPgOpYUnEaUxYYjxh5TL0a57PtduuHeMsRuJpNGTTvZv0dHsoE4_FwRFHhJhtH3tD-vy-KLACwnS1mxbbpNsybhieqMytziqeCdSpTjc89xSul07gVfcwul1GvXYfdzlcDQlwZMITv5-idof1Qy2mtd6qzG6nFWEeda16ypzLLvmgzA-n4eZq2JfTk-hv0fQMuIlPmA9V0LM1UVf86U8nwdqp6TT"
+                />
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 py-1.5 px-3 rounded-full bg-pure-surface/90 backdrop-blur-md shadow-sm flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    <span className="text-[12px] text-dark-teal-ink font-semibold">Dual-Capsule Core</span>
+                  </div>
+                  <span className="text-[10px] text-quiet-stone">3.2g • 18k Gold</span>
+                </div>
+              </div>
+
+              <div className="mt-3 w-full flex items-center justify-between px-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                  <span className="text-[11px] text-quiet-stone">Silk tactile feedback</span>
+                </div>
+                <div className="w-6 h-[1px] bg-whisper-border"></div>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  <span className="text-[11px] text-quiet-stone">7-day autonomy</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="flex flex-col items-center text-center px-2">
+            <div className="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-teal-mist/60 text-dark-teal-ink mb-2">
+              <span className="material-symbols-outlined text-[14px]">spa</span>
+              <span className="text-[12px] font-semibold">Tu dosis diaria de equilibrio</span>
+            </div>
+            <h1 className="text-[26px] font-bold text-dark-teal-ink tracking-tight leading-tight">
+              Awareness, then balance.
+            </h1>
+            <p className="text-[13px] text-on-surface-variant max-w-[280px] mt-2 leading-relaxed">
+              YourVitaminP gently observes your natural poise throughout the day, inspiring effortless upright grace without intrusive alerts.
+            </p>
+
+            <div className="grid grid-cols-3 gap-2 w-full mt-4">
+              <div className="flex flex-col items-center p-2 rounded-xl bg-surface-container-low border border-whisper-border">
+                <span className="material-symbols-outlined text-primary text-[18px]">motion_sensor_active</span>
+                <span className="text-[11px] text-dark-teal-ink font-semibold mt-1">Poise Sensing</span>
+              </div>
+              <div className="flex flex-col items-center p-2 rounded-xl bg-surface-container-low border border-whisper-border">
+                <span className="material-symbols-outlined text-secondary text-[18px]">air</span>
+                <span className="text-[11px] text-dark-teal-ink font-semibold mt-1">Silk Haptics</span>
+              </div>
+              <div className="flex flex-col items-center p-2 rounded-xl bg-surface-container-low border border-whisper-border">
+                <span className="material-symbols-outlined text-primary-container text-[18px]">verified</span>
+                <span className="text-[11px] text-dark-teal-ink font-semibold mt-1">Jewelry Finish</span>
+              </div>
+            </div>
+          </section>
+
+          <footer className="flex flex-col items-center w-full mt-4 gap-2">
+            <button
+              onClick={() => navigate("/permissions")}
+              className="w-full h-[52px] rounded-2xl bg-primary-container text-pure-surface font-semibold text-[15px] flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-all hover:bg-dark-teal-ink"
+            >
+              <span>Set up my pendant</span>
+              <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
+            </button>
+            <button
+              onClick={() => navigate("/home")}
+              className="h-[40px] text-on-surface-variant hover:text-dark-teal-ink text-[14px] font-medium flex items-center gap-1"
+            >
+              <span>I already set it up</span>
+              <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            </button>
+          </footer>
+        </div>
+      );
+    };
+
+    // --- SCREEN 2: PERMISSIONS ---
+    const PermissionsScreen = () => {
+      const navigate = useNavigate();
+
+      return (
+        <div className="flex flex-col justify-between min-h-screen px-6 pb-6 pt-safe bg-ivory-canvas">
+          <header className="w-full py-2 flex items-center justify-between">
+            <button
+              onClick={() => navigate(-1)}
+              className="w-10 h-10 -ml-2 flex items-center justify-center rounded-full text-dark-teal-ink hover:bg-teal-mist/40"
+            >
+              <span className="material-symbols-outlined text-[24px]">arrow_back</span>
+            </button>
+            <div className="px-3.5 py-1 rounded-full bg-teal-mist/60 text-primary-container text-[12px] font-semibold border border-whisper-border">
+              Step 2 of 6
+            </div>
+            <div className="w-10"></div>
+          </header>
+
+          <main className="flex-1 flex flex-col justify-center py-2">
+            <div className="flex items-center justify-center mb-5">
+              <div className="w-16 h-16 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm flex items-center justify-center">
+                <div className="w-6 h-10 flex flex-col items-center justify-center gap-[2px]">
+                  <div className="w-5 h-[18px] rounded-t-full bg-gold-accent shadow-inner"></div>
+                  <div className="w-5 h-[18px] rounded-b-full bg-primary-container shadow-inner"></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center px-2 mb-6">
+              <h1 className="text-[25px] font-bold text-dark-teal-ink tracking-tight mb-2">
+                Stay connected when it matters
+              </h1>
+              <p className="text-[14px] text-on-surface-variant max-w-[310px] mx-auto">
+                Allow these permissions to enable seamless communication with your pendant.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3.5">
+              <div className="bg-pure-surface rounded-2xl p-4 border border-whisper-border shadow-sm flex items-start gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-teal-mist/50 flex items-center justify-center shrink-0 text-primary-container">
+                  <span className="material-symbols-outlined text-[22px]">bluetooth</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <h2 className="text-[15px] font-semibold text-dark-teal-ink">Bluetooth</h2>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-primary-container bg-teal-mist/50 px-2 py-0.5 rounded-full">
+                      Required
+                    </span>
+                  </div>
+                  <p className="text-[13px] text-on-surface-variant leading-snug">
+                    Find your pendant and keep device status current.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-pure-surface rounded-2xl p-4 border border-whisper-border shadow-sm flex items-start gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-gold-mist/60 flex items-center justify-center shrink-0 text-secondary">
+                  <span className="material-symbols-outlined text-[22px]">notifications</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <h2 className="text-[15px] font-semibold text-dark-teal-ink">Notifications</h2>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-quiet-stone bg-surface-container px-2 py-0.5 rounded-full">
+                      Optional
+                    </span>
+                  </div>
+                  <p className="text-[13px] text-on-surface-variant leading-snug">
+                    Get useful posture, connection, and low-battery reminders. You control the frequency.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[12px] text-quiet-stone text-center mt-5">
+              You can change these permissions later in Settings.
+            </p>
+          </main>
+
+          <footer className="w-full pt-2 flex flex-col items-center gap-2">
+            <button
+              onClick={() => navigate("/find-device")}
+              className="w-full h-[52px] rounded-2xl bg-primary-container text-pure-surface font-semibold text-[15px] shadow-sm active:scale-[0.99] transition-transform hover:bg-dark-teal-ink"
+            >
+              Continue
+            </button>
+            <button
+              onClick={() => navigate("/home")}
+              className="w-full h-[40px] flex items-center justify-center text-[14px] font-medium text-dark-teal-ink/80 hover:text-dark-teal-ink"
+            >
+              Not now
+            </button>
+          </footer>
+        </div>
+      );
+    };
+
+    // --- SCREEN 3: FIND DEVICE ---
+    const FindDeviceScreen = () => {
+      const navigate = useNavigate();
+      const [pairing, setPairing] = useState(false);
+      const [paired, setPaired] = useState(false);
+      const [refreshing, setRefreshing] = useState(false);
+
+      const handleConnect = () => {
+        setPairing(true);
+        setTimeout(() => {
+          setPairing(false);
+          setPaired(true);
+          setTimeout(() => {
+            navigate("/wear-guidance");
+          }, 800);
+        }, 1200);
+      };
+
+      const handleScan = () => {
+        setRefreshing(true);
+        setTimeout(() => setRefreshing(false), 600);
+      };
+
+      return (
+        <div className="flex flex-col min-h-screen px-6 pb-6 pt-safe bg-ivory-canvas justify-between">
+          <header className="flex items-center justify-between py-2 w-full">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center justify-center w-10 h-10 -ml-2 rounded-full hover:bg-teal-mist/40 text-dark-teal-ink"
+            >
+              <span className="material-symbols-outlined text-[24px]">arrow_back</span>
+            </button>
+            <div className="px-3 py-1 rounded-full bg-teal-mist text-primary-container text-[12px] font-semibold">
+              Step 3 of 6
+            </div>
+            <div className="w-10"></div>
+          </header>
+
+          <div className="flex flex-col text-center mt-2">
+            <h1 className="text-[26px] font-bold text-dark-teal-ink tracking-tight">Find your pendant</h1>
+            <p className="text-[14px] text-on-surface-variant mt-1.5 max-w-[280px] mx-auto leading-relaxed">
+              Keep the pendant nearby and press its central touch button once.
+            </p>
+          </div>
+
+          <div className="relative flex items-center justify-center my-6 w-full py-2">
+            <div className="absolute w-56 h-56 rounded-full bg-gold-mist/40 animate-ping opacity-25"></div>
+            <div className="absolute w-44 h-44 rounded-full bg-teal-mist/50"></div>
+            <div className="absolute w-36 h-36 rounded-full bg-pure-surface shadow-sm"></div>
+            <div className="relative z-10 p-2">
+              <svg className="drop-shadow-sm" fill="none" height="100" viewBox="0 0 100 150" width="68" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="goldCapGrad" x1="20" x2="80" y1="10" y2="80" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#F2E7D5"/>
+                    <stop offset="45%" stopColor="#D9B778"/>
+                    <stop offset="100%" stopColor="#9C7735"/>
+                  </linearGradient>
+                  <linearGradient id="tealCapGrad" x1="25" x2="85" y1="60" y2="140" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#4AA8A4"/>
+                    <stop offset="40%" stopColor="#0C4F50"/>
+                    <stop offset="100%" stopColor="#013134"/>
+                  </linearGradient>
+                </defs>
+                <path d="M50 10 C30 10 22 28 22 52 C22 68 28 78 44 80 C68 83 78 68 78 44 C78 22 68 10 50 10 Z" fill="url(#goldCapGrad)"/>
+                <path d="M42 62 C26 66 22 82 22 106 C22 130 36 142 56 142 C74 142 80 128 80 106 C80 84 72 70 56 64 C50 61 46 61 42 62 Z" fill="url(#tealCapGrad)"/>
+                <circle cx="53" cy="71" fill="#FAF9F6" opacity="0.9" r="2.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div
+            onClick={handleConnect}
+            className="flex flex-col p-4 rounded-2xl bg-pure-surface shadow-sm border border-whisper-border cursor-pointer active:scale-[0.99] transition-transform"
+          >
+            <div className="flex items-start justify-between w-full">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-11 h-11 rounded-2xl bg-teal-mist text-primary-container">
+                  <span className="material-symbols-outlined text-[24px]">vital_signs</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-dark-teal-ink text-[15px]">YourVitaminP Pendant</span>
+                  <span className="text-[11px] text-quiet-stone">Ending in 27A4 • BLE 5.2</span>
+                </div>
+              </div>
+              <div className="flex items-end gap-1 h-4 pt-1">
+                <div className="w-1 h-2 rounded-full bg-primary-container"></div>
+                <div className="w-1 h-3 rounded-full bg-primary-container"></div>
+                <div className="w-1 h-4 rounded-full bg-primary-container"></div>
+                <div className="w-1 h-5 rounded-full bg-primary-container"></div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-surface-container">
+              <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-mist/60 text-primary-container text-[12px] font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+                <span>{paired ? "Connected" : "Ready to connect"}</span>
+              </div>
+              <span className="text-quiet-stone text-[12px]">Battery: 92%</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-full gap-2.5 mt-4">
+            <button
+              onClick={handleConnect}
+              disabled={pairing}
+              className="w-full h-[50px] rounded-xl bg-primary-container text-pure-surface font-semibold text-[15px] flex items-center justify-center gap-2 active:scale-[0.98] shadow-sm transition-all"
+            >
+              <span className={`material-symbols-outlined text-[19px] ${pairing ? "animate-spin" : ""}`}>
+                {pairing ? "sync" : paired ? "check" : "link"}
+              </span>
+              <span>{pairing ? "Pairing jewel..." : paired ? "Pendant Paired" : "Connect pendant"}</span>
+            </button>
+            <button
+              onClick={handleScan}
+              className="w-full h-[50px] rounded-xl bg-pure-surface border border-whisper-border text-primary-container font-semibold text-[15px] flex items-center justify-center gap-2 active:bg-surface-container-low transition-colors shadow-sm"
+            >
+              <span className={`material-symbols-outlined text-[18px] ${refreshing ? "rotate-180 transition-transform duration-500" : ""}`}>
+                refresh
+              </span>
+              <span>Scan again</span>
+            </button>
+          </div>
+
+          <div className="flex justify-center mt-3">
+            <button
+              onClick={() => navigate("/troubleshooting")}
+              className="flex items-center gap-1 text-on-surface-variant hover:text-dark-teal-ink text-[13px] py-1"
+            >
+              <span className="material-symbols-outlined text-[16px]">help_outline</span>
+              <span>Pendant not appearing? View Troubleshooting</span>
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    // --- SCREEN 4: WEAR GUIDANCE ---
+    const WearGuidanceScreen = () => {
+      const navigate = useNavigate();
+
+      return (
+        <div className="flex flex-col justify-between min-h-screen px-6 pb-6 pt-safe bg-ivory-canvas">
+          <header className="flex items-center justify-between py-2">
+            <button
+              onClick={() => navigate(-1)}
+              className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-dark-teal-ink hover:bg-teal-mist/40"
+            >
+              <span className="material-symbols-outlined text-[24px]">arrow_back</span>
+            </button>
+            <div className="px-3.5 py-1 rounded-full bg-teal-mist/60 text-primary-container text-[12px] font-semibold border border-whisper-border flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-accent"></span>
+              <span>Step 4 of 6</span>
+            </div>
+            <div className="w-10"></div>
+          </header>
+
+          <section className="text-center px-1 my-1">
+            <h1 className="text-[25px] font-extrabold text-dark-teal-ink tracking-tight">
+              Place it at your center
+            </h1>
+            <p className="mt-1.5 text-on-surface-variant text-[13.5px] leading-relaxed max-w-[300px] mx-auto">
+              A gentle resting touch allows continuous harmony throughout your daily routine.
+            </p>
+          </section>
+
+          <div className="relative w-full h-[180px] rounded-3xl bg-gradient-to-b from-[#F2F7F5] to-surface-container-low border border-whisper-border flex items-center justify-center overflow-hidden shadow-sm my-3">
+            <div className="absolute w-40 h-40 rounded-full bg-gold-accent/15 blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <svg className="absolute inset-0 w-full h-full text-[#CCD8D5] stroke-current" fill="none" viewBox="0 0 342 190">
+              <path d="M125 0 C128 36 136 60 148 76" opacity="0.75" strokeDasharray="2 3" strokeLinecap="round" strokeWidth="1.25"></path>
+              <path d="M217 0 C214 36 206 60 194 76" opacity="0.75" strokeDasharray="2 3" strokeLinecap="round" strokeWidth="1.25"></path>
+              <path d="M85 88 C115 85 142 98 156 102" opacity="0.6" strokeLinecap="round" strokeWidth="1.2"></path>
+              <path d="M257 88 C227 85 200 98 186 102" opacity="0.6" strokeLinecap="round" strokeWidth="1.2"></path>
+              <line opacity="0.4" stroke="#0C4F50" strokeDasharray="3 4" strokeWidth="1" x1="171" x2="171" y1="102" y2="180"></line>
+              <path d="M136 2 C146 54 163 94 171 106" stroke="#C9A267" strokeLinecap="round" strokeWidth="1.5"></path>
+              <path d="M206 2 C196 54 179 94 171 106" stroke="#C9A267" strokeLinecap="round" strokeWidth="1.5"></path>
+              <circle cx="171" cy="107" fill="#C9A267" r="2.5"></circle>
+            </svg>
+            <div className="relative z-10 flex flex-col items-center mt-5">
+              <div className="w-14 h-14 rounded-2xl p-1 bg-pure-surface/80 backdrop-blur-sm border border-gold-accent/40 shadow-md flex items-center justify-center">
+                <img
+                  alt="YourVitaminP dual-capsule pendant"
+                  className="w-10 h-10 object-contain"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqhSKvf7Wwl_Vcs-myMPTiK4oaoeLPGGKi4So_Gi5XXcxvDs5_bW4W142nc_0nhUiIIFaBgqlVMhwUcNrWUwZKPG5V_e_uXlVwbhR9ObK2zmvdAX3nKMt007wDuK8uNC8nMdlJEPLdnZ7oqRwP1v-Rbgg96fv-lT0lcHfh2PgBQ7n5eAkd-mIEmWET705DVAtCDfRkJBswSk0Ven01p_ACB1PlZdjquhZVJdHviSS8YTngYM6X-n32zXKS0lq4acVj89lOUnAJSX4"
+                />
+              </div>
+              <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-primary-container bg-pure-surface/90 border border-whisper-border px-2 py-0.5 rounded-full">
+                Resting At Sternum
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-start gap-3 p-3 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm">
+              <div className="w-8 h-8 rounded-xl bg-teal-mist/60 shrink-0 flex items-center justify-center text-primary-container mt-0.5">
+                <span className="material-symbols-outlined text-[18px]">adjust</span>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-[13.5px] font-bold text-dark-teal-ink">Wear it against the sternum</h2>
+                <p className="text-[12px] text-on-surface-variant leading-snug">Let the pendant rest naturally over your center chest line.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm">
+              <div className="w-8 h-8 rounded-xl bg-gold-mist/60 shrink-0 flex items-center justify-center text-secondary mt-0.5">
+                <span className="material-symbols-outlined text-[18px]">horizontal_rule</span>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-[13.5px] font-bold text-dark-teal-ink">Keep the pendant flat and stable</h2>
+                <p className="text-[12px] text-on-surface-variant leading-snug">Resting flush against skin or light fabric without twisting.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm">
+              <div className="w-8 h-8 rounded-xl bg-teal-mist/60 shrink-0 flex items-center justify-center text-primary-container mt-0.5">
+                <span className="material-symbols-outlined text-[18px]">visibility</span>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-[13.5px] font-bold text-dark-teal-ink">Keep the jewelry face outward</h2>
+                <p className="text-[12px] text-on-surface-variant leading-snug">Golden and teal aesthetic surface oriented forward.</p>
+              </div>
+            </div>
+          </div>
+
+          <footer className="w-full pt-4 flex flex-col items-center gap-2">
+            <button
+              onClick={() => navigate("/calibration")}
+              className="w-full h-[52px] rounded-2xl bg-primary-container hover:bg-dark-teal-ink text-pure-surface font-semibold text-[15px] transition-transform active:scale-[0.98] shadow-md flex items-center justify-center gap-2"
+            >
+              <span>It is in place</span>
+              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+            <button
+              onClick={() => navigate("/troubleshooting")}
+              className="py-1 text-[13px] font-medium text-quiet-stone hover:text-dark-teal-ink flex items-center gap-1"
+            >
+              <span>Show placement &amp; pairing tips</span>
+              <span className="material-symbols-outlined text-[15px]">chevron_right</span>
+            </button>
+          </footer>
+        </div>
+      );
+    };
+
+    // --- SCREEN 5: CALIBRATION ---
+    const CalibrationScreen = () => {
+      const navigate = useNavigate();
+      const [percent, setPercent] = useState(45);
+      const [complete, setComplete] = useState(false);
+
+      useEffect(() => {
+        const timer = setInterval(() => {
+          setPercent((prev) => {
+            if (prev >= 100) {
+              clearInterval(timer);
+              setComplete(true);
+              return 100;
+            }
+            return prev + 5;
+          });
+        }, 300);
+        return () => clearInterval(timer);
+      }, []);
+
+      const goldOffset = 380 - (percent * 2.2);
+
+      return (
+        <div className="flex flex-col min-h-screen px-6 pb-6 pt-safe bg-ivory-canvas justify-between">
+          <header className="flex items-center justify-between py-2 w-full">
+            <button
+              onClick={() => navigate(-1)}
+              className="text-[14px] text-on-surface-variant hover:text-primary flex items-center gap-1 py-1"
+            >
+              <span className="material-symbols-outlined text-[18px]">close</span>
+              <span>Cancel</span>
+            </button>
+            <div className="text-[15px] font-bold text-dark-teal-ink">Calibration</div>
+            <div className="w-12"></div>
+          </header>
+
+          <div className="flex flex-col items-center text-center mt-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-mist text-primary-container mb-2 shadow-sm text-[12px] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+              <span>Connected • Baseline Capture</span>
+            </div>
+            <h1 className="text-[24px] font-bold text-dark-teal-ink">Set your balanced posture</h1>
+            <p className="text-[13px] text-on-surface-variant max-w-[280px] mt-1">
+              Sit or stand naturally upright, relax your shoulders, and remain still.
+            </p>
+          </div>
+
+          <div className="relative flex flex-col items-center justify-center my-4">
+            <div className="absolute w-56 h-56 rounded-full bg-gold-mist/40 blur-3xl -z-10 pointer-events-none"></div>
+            <div className="relative w-56 h-56 flex items-center justify-center">
+              <svg className="w-full h-full transform -rotate-90" fill="none" viewBox="0 0 240 240">
+                <circle cx="120" cy="120" opacity="0.6" r="102" stroke="#E4E8E5" strokeDasharray="4 6" strokeLinecap="round" strokeWidth="3"></circle>
+                <circle cx="120" cy="120" opacity="0.4" r="90" stroke="#E4E8E5" strokeWidth="1.5"></circle>
+                <circle
+                  cx="120"
+                  cy="120"
+                  r="102"
+                  stroke="#C9A267"
+                  strokeDasharray="640"
+                  strokeDashoffset={goldOffset}
+                  strokeLinecap="round"
+                  strokeWidth="5"
+                  className="transition-all duration-300"
+                ></circle>
+              </svg>
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <div className="relative w-14 h-24 flex flex-col items-center justify-between py-1">
+                  <div
+                    className="w-5 h-8 rounded-t-full rounded-b-xl bg-gradient-to-b from-secondary to-secondary-container shadow-sm transition-transform duration-500"
+                    style={{ transform: `translateY(${Math.sin(percent / 4) * 2}px)` }}
+                  ></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-gold-mist ring-2 ring-primary-container/20"></div>
+                  <div className="w-6 h-10 rounded-full bg-gradient-to-b from-primary-container to-dark-teal-ink shadow-md"></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 mt-4">
+              <span className={`w-2.5 h-2.5 rounded-full ${complete ? "bg-primary" : "bg-secondary animate-pulse"}`}></span>
+              <span className="text-[15px] font-bold text-dark-teal-ink">
+                {complete ? "Equilibrium Locked!" : "Calibrating..."}
+              </span>
+            </div>
+            <span className="text-[11px] text-quiet-stone mt-0.5">Dual-sensor IMU baseline capture</span>
+          </div>
+
+          <div className="bg-pure-surface rounded-2xl p-4 shadow-sm border border-whisper-border">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center shrink-0 text-primary-container">
+                <span className="material-symbols-outlined text-[20px]">self_improvement</span>
+              </div>
+              <div className="flex flex-col min-w-0">
+                <h2 className="text-[14px] font-bold text-dark-teal-ink">Hold still for a moment</h2>
+                <p className="text-[12px] text-on-surface-variant mt-0.5 leading-snug">
+                  Your pendant is recording your neutral sternum baseline. Gentle micro-haptics will confirm alignment.
+                </p>
+              </div>
+            </div>
+            <div className="w-full bg-surface-container h-2 rounded-full mt-3 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-secondary to-primary-container rounded-full transition-all duration-300"
+                style={{ width: `${percent}%` }}
+              ></div>
+            </div>
+            <div className="flex justify-between items-center mt-1.5 text-[11px] text-quiet-stone font-medium">
+              <span>Firmware sync: Active</span>
+              <span>{percent}%</span>
+            </div>
+          </div>
+
+          <footer className="w-full pt-4 flex flex-col items-center gap-2">
+            {complete ? (
+              <button
+                onClick={() => navigate("/home")}
+                className="w-full h-[52px] rounded-xl bg-primary-container text-pure-surface font-semibold text-[15px] shadow-sm flex items-center justify-center gap-2"
+              >
+                <span>Continue to Home</span>
+                <span className="material-symbols-outlined text-[19px]">check_circle</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate(-1)}
+                className="w-full h-[48px] rounded-xl bg-pure-surface border border-whisper-border text-on-surface-variant font-medium text-[14px]"
+              >
+                Cancel calibration
+              </button>
+            )}
+            <span className="text-[11px] text-quiet-stone text-center">
+              Your previous baseline remains preserved until calibration completes.
+            </span>
+          </footer>
+        </div>
+      );
+    };
+
+    // --- SCREEN 6: HOME DASHBOARD ---
+    const HomeScreen = () => {
+      const navigate = useNavigate();
+      const [calibrating, setCalibrating] = useState(false);
+      const [tilt, setTilt] = useState("+0.4°");
+
+      const handleRecalibrate = () => {
+        setCalibrating(true);
+        setTimeout(() => {
+          setCalibrating(false);
+          setTilt("+0.1°");
+        }, 1200);
+      };
+
+      return (
+        <div className="flex flex-col min-h-screen pb-24 bg-ivory-canvas">
+          <TopBar title="Home" />
+
+          <div className="flex flex-col px-5 pt-3 gap-4">
+            <div className="flex items-baseline justify-between">
+              <div>
+                <h2 className="text-[22px] font-bold text-dark-teal-ink tracking-tight">Good morning, Elena</h2>
+                <span className="text-[12px] text-quiet-stone">Thu, Oct 24 • Daily Poise</span>
+              </div>
+              <button
+                onClick={() => navigate("/session-detail")}
+                className="px-2.5 py-1 rounded-full bg-gold-mist/60 text-secondary text-[11px] font-semibold flex items-center gap-1 border border-[#F2E7D5]"
+              >
+                <span className="material-symbols-outlined text-[14px]">ecg_heart</span>
+                <span>Vitals</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-[12px]">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-mist text-primary-container font-medium shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+                <span>Connected</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant shrink-0">
+                <span className="material-symbols-outlined text-[14px] text-primary-container">battery_5_bar</span>
+                <span>82%</span>
+              </div>
+              <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-quiet-stone shrink-0">
+                <span className="material-symbols-outlined text-[14px]">sync</span>
+                <span>Synced just now</span>
+              </div>
+            </div>
+
+            {/* Hero Alignment Visual Card */}
+            <div className="relative bg-pure-surface rounded-3xl p-5 shadow-sm border border-whisper-border flex flex-col items-center text-center overflow-hidden">
+              <div className="absolute -top-12 inset-x-0 h-40 bg-gradient-to-b from-gold-mist/40 via-teal-mist/30 to-transparent blur-xl pointer-events-none"></div>
+
+              <div className="relative z-10 w-full flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-mist text-primary-container text-[12px] font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                  <span className="uppercase tracking-wider">Balanced</span>
+                </div>
+                <button
+                  onClick={handleRecalibrate}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-quiet-stone hover:text-dark-teal-ink text-[12px]"
+                >
+                  <span className={`material-symbols-outlined text-[15px] ${calibrating ? "animate-spin" : ""}`}>
+                    {calibrating ? "refresh" : "compass_calibration"}
+                  </span>
+                  <span>{calibrating ? "Sensing..." : "Calibrated"}</span>
+                </button>
+              </div>
+
+              {/* Capsule Graphic */}
+              <div className="relative w-40 h-44 my-1 flex items-center justify-center">
+                <div className="absolute w-32 h-32 rounded-full bg-gold-mist/30 animate-ping opacity-25"></div>
+                <div className="absolute w-36 h-36 rounded-full bg-teal-mist/40 blur-md"></div>
+                <svg className="w-full h-full relative z-10 drop-shadow-md overflow-visible" fill="none" viewBox="0 0 160 210">
+                  <defs>
+                    <linearGradient id="goldCapsuleGrad" x1="20" x2="110" y1="10" y2="120" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#F2E7D5"/>
+                      <stop offset="45%" stopColor="#E1C699"/>
+                      <stop offset="100%" stopColor="#A57C3D"/>
+                    </linearGradient>
+                    <linearGradient id="tealCapsuleGrad" x1="50" x2="130" y1="80" y2="190" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#4AA59F"/>
+                      <stop offset="40%" stopColor="#0C4F50"/>
+                      <stop offset="100%" stopColor="#013134"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 80 18 C 54 18, 52 46, 52 74 C 52 106, 68 118, 86 112 C 104 106, 114 86, 114 54 C 114 26, 102 18, 80 18 Z" fill="url(#goldCapsuleGrad)"/>
+                  <path d="M 76 96 C 60 102, 54 122, 54 148 C 54 180, 68 198, 92 198 C 114 198, 122 176, 122 144 C 122 116, 108 92, 76 96 Z" fill="url(#tealCapsuleGrad)"/>
+                  <circle cx="80" cy="105" fill="#FAF9F6" r="4.5"/>
+                  <circle cx="80" cy="105" fill="#0C4F50" r="2"/>
+                </svg>
+                <span className="absolute right-2 top-8 text-[10px] text-secondary font-bold tracking-widest uppercase">Tilt {tilt}</span>
+                <span className="absolute left-2 bottom-8 text-[10px] text-quiet-stone font-bold tracking-widest uppercase">Spine C1-T4</span>
+              </div>
+
+              <h3 className="text-[17px] font-bold text-dark-teal-ink mt-1">Poised &amp; Natural</h3>
+              <p className="text-[12.5px] text-on-surface-variant max-w-[260px] mt-0.5">
+                Your posture is resting harmoniously within your calibrated neutral range.
+              </p>
+
+              <div className="mt-3 w-full py-1.5 px-3 rounded-xl bg-surface-container-low/70 flex items-center justify-center gap-1.5 text-[12px] text-dark-teal-ink">
+                <span className="material-symbols-outlined text-[15px] text-primary-container">energy_savings_leaf</span>
+                <span>Pendant ready to provide discreet tactile cues</span>
+              </div>
+            </div>
+
+            {/* Daily Balance Progress */}
+            <div className="bg-pure-surface rounded-3xl p-5 shadow-sm border border-whisper-border flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[11px] text-quiet-stone uppercase tracking-wider block">Today’s Awareness</span>
+                  <h4 className="text-[15px] font-bold text-dark-teal-ink">Balance Journey</h4>
+                </div>
+                <span className="text-[12px] text-primary-container bg-teal-mist/50 px-2.5 py-0.5 rounded-full font-semibold">
+                  Goal 3h 10m
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4 my-1">
+                <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 88 88">
+                    <circle cx="44" cy="44" fill="transparent" r="36" stroke="#E8F0EE" strokeWidth="8"></circle>
+                    <circle cx="44" cy="44" fill="transparent" r="36" stroke="#0C4F50" strokeDasharray="226" strokeDashoffset="63" strokeLinecap="round" strokeWidth="8"></circle>
+                    <circle cx="44" cy="8" fill="#C9A267" r="3"></circle>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                    <span className="text-[15px] font-bold text-dark-teal-ink leading-none">72%</span>
+                    <span className="text-[9px] text-quiet-stone">Aligned</span>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[22px] font-bold text-dark-teal-ink leading-tight">
+                    2<span className="text-[14px] font-normal text-quiet-stone">h</span> 18<span className="text-[14px] font-normal text-quiet-stone">m</span>
+                  </span>
+                  <p className="text-[12px] text-on-surface-variant">Upright posture maintained</p>
+                  <span className="text-[11px] text-secondary font-semibold mt-0.5">52 min left to reach milestone</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
+                <div className="bg-surface-container-low rounded-xl p-3 flex flex-col">
+                  <div className="flex items-center gap-1 text-quiet-stone text-[11px] uppercase">
+                    <span className="material-symbols-outlined text-[15px] text-secondary">notifications_active</span>
+                    <span>Last Cue</span>
+                  </div>
+                  <span className="text-[14px] font-bold text-dark-teal-ink mt-0.5">34 min ago</span>
+                  <span className="text-[10px] text-quiet-stone">Micro haptic reminder</span>
+                </div>
+                <div className="bg-surface-container-low rounded-xl p-3 flex flex-col">
+                  <div className="flex items-center gap-1 text-quiet-stone text-[11px] uppercase">
+                    <span className="material-symbols-outlined text-[15px] text-primary-container">verified</span>
+                    <span>Longest Streak</span>
+                  </div>
+                  <span className="text-[14px] font-bold text-dark-teal-ink mt-0.5">52 mins</span>
+                  <span className="text-[10px] text-quiet-stone">Deep flow session</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Styling & Contact Editorial Photo */}
+            <div className="bg-pure-surface rounded-3xl p-4 shadow-sm border border-whisper-border flex flex-col gap-2.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[17px] text-secondary">diamond</span>
+                  <h4 className="text-[14px] font-bold text-dark-teal-ink">Styling &amp; Contact</h4>
+                </div>
+                <span className="text-[11px] text-quiet-stone">Sterne Dual Capsule</span>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden bg-surface-container aspect-[16/9] flex items-end p-3.5">
+                <img
+                  className="absolute inset-0 w-full h-full object-cover"
+                  alt="Sculptural pendant on skin"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMlECOQVijEB6ZNazDpf2fGX5GpxU-jKmVFQivdDOO1lbFWEaE-GdC9ajO0FBOg1Y3rpc5G15GbDCi1DXveddVYubNwXkbnc2MQd9mP8QI-on6yedVJ6vjMjBLLnUuaAInYK040hhpwMPjHn7GuwY8iIHzGlJKDWQDAntuhSVHD0iEHwrcD6ijv8FHYseD6ME3eTXv4UfhRhxyYwfEF18if6E9ayqslb2kAAahFzfjaBSQvY7j_N6"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-teal-ink/80 via-dark-teal-ink/20 to-transparent"></div>
+                <div className="relative z-10 text-ivory-canvas flex items-center justify-between w-full">
+                  <div>
+                    <p className="text-[13px] font-semibold">Firmware 2.4.1</p>
+                    <p className="text-[11px] text-ivory-canvas/80">Skin capacitance contact optimal</p>
+                  </div>
+                  <span className="material-symbols-outlined text-[19px] text-gold-mist">verified_user</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="flex flex-col gap-2 mb-2">
+              <span className="text-[11px] uppercase tracking-wider text-quiet-stone px-1">Gentle Controls</span>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  onClick={() => navigate("/calibration")}
+                  className="bg-pure-surface active:scale-95 transition-transform rounded-2xl p-3 flex flex-col items-center justify-center text-center gap-1.5 shadow-sm border border-whisper-border"
+                >
+                  <div className="w-9 h-9 rounded-full bg-teal-mist flex items-center justify-center text-primary-container">
+                    <span className="material-symbols-outlined text-[18px]">center_focus_strong</span>
+                  </div>
+                  <span className="text-[12px] font-medium text-dark-teal-ink">Recalibrate</span>
+                </button>
+                <button
+                  onClick={() => navigate("/session-detail")}
+                  className="bg-pure-surface active:scale-95 transition-transform rounded-2xl p-3 flex flex-col items-center justify-center text-center gap-1.5 shadow-sm border border-whisper-border"
+                >
+                  <div className="w-9 h-9 rounded-full bg-gold-mist flex items-center justify-center text-secondary">
+                    <span className="material-symbols-outlined text-[18px]">monitor_heart</span>
+                  </div>
+                  <span className="text-[12px] font-medium text-dark-teal-ink">Wellness</span>
+                </button>
+                <button
+                  onClick={() => navigate("/settings")}
+                  className="bg-pure-surface active:scale-95 transition-transform rounded-2xl p-3 flex flex-col items-center justify-center text-center gap-1.5 shadow-sm border border-whisper-border"
+                >
+                  <div className="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[18px]">bedtime</span>
+                  </div>
+                  <span className="text-[12px] font-medium text-dark-teal-ink">Quiet Hours</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <BottomNavigation />
+        </div>
+      );
+    };
+
+    // --- SCREEN 7: HISTORY ---
+    const HistoryScreen = () => {
+      const [timeframe, setTimeframe] = useState("week");
+      const [inspectLabel, setInspectLabel] = useState("Fri: 85% Poise alignment");
+      const [inspectStats, setInspectStats] = useState("6h 40m upright / 1h 10m slouch");
+
+      const days = [
+        { day: "M", upright: 80, slouch: 20, pct: "80%", upText: "5h 30m", slText: "1h 20m" },
+        { day: "T", upright: 85, slouch: 15, pct: "85%", upText: "6h 10m", slText: "1h 05m" },
+        { day: "W", upright: 65, slouch: 35, pct: "65%", upText: "4h 45m", slText: "2h 30m" },
+        { day: "T", upright: 90, slouch: 10, pct: "90%", upText: "7h 00m", slText: "45m" },
+        { day: "F", upright: 85, slouch: 15, pct: "85%", upText: "6h 40m", slText: "1h 10m", active: true },
+        { day: "S", upright: 70, slouch: 30, pct: "70%", upText: "5h 15m", slText: "2h 10m" },
+        { day: "S", upright: 60, slouch: 40, pct: "60%", upText: "4h 00m", slText: "2h 40m" },
+      ];
+
+      return (
+        <div className="flex flex-col min-h-screen pb-24 bg-ivory-canvas">
+          <TopBar title="History" />
+
+          <div className="flex flex-col px-5 pt-3 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gold-mist/60 text-secondary text-[11px] font-semibold mb-1">
+                <span className="material-symbols-outlined text-[13px]">info</span>
+                <span>Prototype preview • Sample data shown</span>
+              </div>
+              <span className="text-[11px] text-quiet-stone uppercase tracking-widest block">Mindful Analytics</span>
+              <h2 className="text-[24px] font-bold text-dark-teal-ink tracking-tight">Your posture history</h2>
+            </div>
+
+            {/* Segmented Control */}
+            <div className="relative flex p-1 bg-surface-container rounded-full w-full max-w-[260px] shadow-sm">
+              <button
+                onClick={() => setTimeframe("day")}
+                className={`flex-1 py-1.5 text-center rounded-full text-[13px] font-semibold transition-all ${
+                  timeframe === "day" ? "bg-primary-container text-pure-surface shadow-sm" : "text-quiet-stone"
+                }`}
+              >
+                Day
+              </button>
+              <button
+                onClick={() => setTimeframe("week")}
+                className={`flex-1 py-1.5 text-center rounded-full text-[13px] font-semibold transition-all ${
+                  timeframe === "week" ? "bg-primary-container text-pure-surface shadow-sm" : "text-quiet-stone"
+                }`}
+              >
+                Week
+              </button>
+            </div>
+
+            {/* 7-Day Bar Chart Card */}
+            <div className="p-4 rounded-2xl bg-pure-surface shadow-sm border border-whisper-border flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-[15px] font-bold text-dark-teal-ink">Weekly Alignment</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-gold-mist/60 text-secondary text-[10px] font-semibold uppercase">
+                    Sample timeline
+                  </span>
+                </div>
+                <span className="text-[12px] text-quiet-stone">7-day view</span>
+              </div>
+
+              {/* Bar visualization */}
+              <div className="pt-3 pb-1 flex items-end justify-between h-36 w-full gap-2 px-1">
+                {days.map((item, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      setInspectLabel(`${item.day}: ${item.pct} Poise alignment`);
+                      setInspectStats(`${item.upText} upright / ${item.slText} slouch`);
+                    }}
+                    className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end cursor-pointer group"
+                  >
+                    <div className="w-full max-w-[26px] flex flex-col items-center gap-0.5 h-full justify-end">
+                      <div
+                        className="w-full bg-[#ff9a83]/50 rounded-t-sm"
+                        style={{ height: `${item.slouch}%` }}
+                      ></div>
+                      <div
+                        className={`w-full rounded-b-sm transition-opacity group-hover:opacity-80 ${
+                          item.active ? "bg-primary-container ring-2 ring-primary-container/30" : "bg-primary-container/85"
+                        }`}
+                        style={{ height: `${item.upright}%` }}
+                      ></div>
+                    </div>
+                    <span className={`text-[12px] font-medium ${item.active ? "text-primary-container font-bold" : "text-quiet-stone"}`}>
+                      {item.day}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Inspect pill */}
+              <div className="bg-surface-container rounded-xl p-2.5 flex flex-col text-[12px] text-on-surface">
+                <span className="font-semibold text-dark-teal-ink">{inspectLabel}</span>
+                <span className="text-quiet-stone text-[11px]">{inspectStats}</span>
+              </div>
+            </div>
+
+            {/* Key Metrics 2x2 */}
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="bg-pure-surface p-3.5 rounded-2xl border border-whisper-border shadow-sm flex flex-col">
+                <span className="text-[11px] text-quiet-stone uppercase">Average Alignment</span>
+                <span className="text-[20px] font-bold text-dark-teal-ink mt-0.5">78%</span>
+                <span className="text-[10.5px] text-primary-container mt-0.5">+4% from last week</span>
+              </div>
+              <div className="bg-pure-surface p-3.5 rounded-2xl border border-whisper-border shadow-sm flex flex-col">
+                <span className="text-[11px] text-quiet-stone uppercase">Gentle Cues / Day</span>
+                <span className="text-[20px] font-bold text-dark-teal-ink mt-0.5">4.2</span>
+                <span className="text-[10.5px] text-secondary mt-0.5">Low friction habit</span>
+              </div>
+            </div>
+
+            {/* Recent Posture Timeline */}
+            <div className="flex flex-col gap-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-[15px] font-bold text-dark-teal-ink">Recent Posture Timeline</h3>
+                <span className="text-[11px] text-quiet-stone">Illustrative records</span>
+              </div>
+              <div className="p-4 rounded-2xl bg-pure-surface shadow-sm border border-whisper-border flex flex-col gap-3.5">
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-teal-mist flex items-center justify-center shrink-0 text-primary-container">
+                    <span className="material-symbols-outlined text-[15px]">check</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[13px] font-semibold text-dark-teal-ink">Balanced posture recorded</span>
+                      <span className="text-[10px] text-quiet-stone uppercase">10:45 AM</span>
+                    </div>
+                    <p className="text-[12px] text-on-surface-variant">Maintained upright alignment during morning desk work.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-gold-mist/70 flex items-center justify-center shrink-0 text-secondary">
+                    <span className="material-symbols-outlined text-[15px]">vibration</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[13px] font-semibold text-dark-teal-ink">Posture adjustment noted</span>
+                      <span className="text-[10px] text-quiet-stone uppercase">9:12 AM</span>
+                    </div>
+                    <p className="text-[12px] text-on-surface-variant">Soft haptic cue prompted effortless shoulder reset.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-teal-mist flex items-center justify-center shrink-0 text-primary-container">
+                    <span className="material-symbols-outlined text-[15px]">tune</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[13px] font-semibold text-dark-teal-ink">Pendant baseline active</span>
+                      <span className="text-[10px] text-quiet-stone uppercase">8:00 AM</span>
+                    </div>
+                    <p className="text-[12px] text-on-surface-variant">Calibration state verified upon morning placement.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <BottomNavigation />
+        </div>
+      );
+    };
+
+    // --- SCREEN 8: DEVICE HARDWARE ---
+    const DeviceScreen = () => {
+      const navigate = useNavigate();
+      const [checking, setChecking] = useState(false);
+      const [checkResult, setCheckResult] = useState(null);
+
+      const handleCheck = () => {
+        setChecking(true);
+        setCheckResult(null);
+        setTimeout(() => {
+          setChecking(false);
+          setCheckResult("Signal verified (Strong)");
+          setTimeout(() => setCheckResult(null), 2500);
+        }, 1100);
+      };
+
+      return (
+        <div className="flex flex-col min-h-screen pb-24 bg-ivory-canvas">
+          <TopBar title="Device" />
+
+          <div className="flex flex-col px-5 pt-3 gap-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] text-quiet-stone uppercase tracking-wider block">Hardware Companion</span>
+                <h2 className="text-[22px] font-bold text-dark-teal-ink">Your pendant</h2>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-mist text-primary-container text-[12px] font-semibold shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                <span>Live Active</span>
+              </div>
+            </div>
+
+            {/* Pendant Sculpture Card */}
+            <div className="w-full bg-pure-surface rounded-3xl p-5 shadow-sm border border-whisper-border flex flex-col items-center relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-40 h-40 bg-gold-mist/40 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-teal-mist/50 rounded-full blur-2xl pointer-events-none"></div>
+
+              <div className="flex flex-col items-center z-10 w-full">
+                <div className="w-1.5 h-5 bg-gradient-to-b from-secondary to-secondary-fixed-dim rounded-t-full"></div>
+                <div className="w-5 h-2.5 rounded-t-full bg-secondary shadow-inner"></div>
+              </div>
+
+              <div className="relative my-2 flex flex-col items-center justify-center z-10">
+                <div className="w-28 h-36 relative flex items-center justify-center filter drop-shadow-md">
+                  <svg className="w-full h-full" fill="none" viewBox="0 0 140 190">
+                    <defs>
+                      <linearGradient id="goldCapGrad2" x1="20" x2="110" y1="10" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#F2E7D5"/>
+                        <stop offset="45%" stopColor="#D9A85B"/>
+                        <stop offset="85%" stopColor="#8F6B2F"/>
+                        <stop offset="100%" stopColor="#5E410F"/>
+                      </linearGradient>
+                      <linearGradient id="tealCapGrad2" x1="40" x2="120" y1="70" y2="180" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#3FA6A2"/>
+                        <stop offset="40%" stopColor="#0C4F50"/>
+                        <stop offset="85%" stopColor="#013134"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M70 12 C96 12 118 36 116 72 C114 96 96 112 76 118 C58 96 42 74 44 46 C46 22 56 12 70 12 Z" fill="url(#goldCapGrad2)"/>
+                    <path d="M52 86 C68 82 86 94 92 112 C98 132 94 156 80 170 C64 184 44 176 38 152 C32 128 38 98 52 86 Z" fill="url(#tealCapGrad2)"/>
+                    <circle cx="65" cy="136" fill="#013134" r="4.5"/>
+                    <circle cx="65" cy="136" fill="#86BFC0" opacity="0.8" r="2"/>
+                  </svg>
+                </div>
+                <div className="mt-1 flex items-center gap-1.5 bg-surface-container-low px-3 py-1 rounded-full text-[11px]">
+                  <span className="material-symbols-outlined text-[14px] text-secondary">token</span>
+                  <span className="font-semibold text-on-surface">Model VP-27A4</span>
+                  <span className="text-quiet-stone">• Satin Gold &amp; Teal</span>
+                </div>
+              </div>
+
+              <div className="w-full grid grid-cols-2 gap-2 mt-3 pt-3 bg-surface-container-low/70 rounded-2xl p-3 border border-whisper-border">
+                <div className="flex flex-col">
+                  <span className="text-[10.5px] text-quiet-stone uppercase">Battery Level</span>
+                  <div className="flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[17px] text-primary-container">battery_5_bar</span>
+                    <span className="text-[15px] font-bold text-dark-teal-ink">82%</span>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10.5px] text-quiet-stone uppercase">Last Synced</span>
+                  <div className="flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[17px] text-primary-container">sync</span>
+                    <span className="text-[15px] font-bold text-dark-teal-ink">9:42 AM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Button */}
+            <button
+              onClick={handleCheck}
+              disabled={checking}
+              className={`w-full h-[50px] font-semibold text-[14px] rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] ${
+                checkResult
+                  ? "bg-teal-mist text-primary-container"
+                  : "bg-primary-container text-pure-surface"
+              }`}
+            >
+              <span className={`material-symbols-outlined text-[19px] ${checking ? "animate-spin" : ""}`}>
+                {checking ? "autorenew" : checkResult ? "check_circle" : "radar"}
+              </span>
+              <span>{checking ? "Pinging pendant..." : checkResult || "Check connection"}</span>
+            </button>
+
+            {/* Telemetry Stack */}
+            <div className="w-full bg-pure-surface rounded-2xl shadow-sm border border-whisper-border p-4 flex flex-col gap-3">
+              <h3 className="text-[14px] font-bold text-dark-teal-ink">Hardware Specifications</h3>
+              <div className="flex flex-col divide-y divide-surface-container text-[13px]">
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-on-surface-variant">Wireless Protocol</span>
+                  <span className="font-semibold text-primary-container">BLE 5.2 (Low Energy)</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-on-surface-variant">Sensors Onboard</span>
+                  <span className="text-dark-teal-ink font-medium">BMI270 IMU • MAX30102 PPG</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-on-surface-variant">Calibration State</span>
+                  <span className="text-secondary font-semibold">Sternum Neutral Balanced</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-on-surface-variant">Firmware</span>
+                  <span className="text-quiet-stone">v2.4.1-rc</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Pendant Management Actions */}
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[11px] uppercase tracking-wider text-quiet-stone px-1">Pendant Management</span>
+              <div className="bg-pure-surface rounded-2xl shadow-sm border border-whisper-border overflow-hidden divide-y divide-surface-container">
+                <button
+                  onClick={() => navigate("/calibration")}
+                  className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary-container text-[20px]">accessibility_new</span>
+                    <div>
+                      <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Recalibrate posture baseline</span>
+                      <span className="text-[11px] text-quiet-stone">Capture current upright sitting or standing angle</span>
+                    </div>
+                  </div>
+                  <span className="material-symbols-outlined text-quiet-stone text-[18px]">chevron_right</span>
+                </button>
+
+                <button
+                  onClick={() => navigate("/session-detail")}
+                  className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-secondary text-[20px]">ecg_heart</span>
+                    <div>
+                      <span className="text-[13.5px] font-semibold text-dark-teal-ink block">View wellness telemetry</span>
+                      <span className="text-[11px] text-quiet-stone">Heart rate &amp; SpO2 optical sensor readings</span>
+                    </div>
+                  </div>
+                  <span className="material-symbols-outlined text-quiet-stone text-[18px]">chevron_right</span>
+                </button>
+
+                <button
+                  onClick={() => navigate("/troubleshooting")}
+                  className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-dark-teal-ink text-[20px]">help_center</span>
+                    <div>
+                      <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Troubleshooting &amp; Bluetooth guide</span>
+                      <span className="text-[11px] text-quiet-stone">Signal strength, magnetic snap &amp; wear tips</span>
+                    </div>
+                  </div>
+                  <span className="material-symbols-outlined text-quiet-stone text-[18px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <BottomNavigation />
+        </div>
+      );
+    };
+
+    // --- SCREEN 9: SETTINGS ---
+    const SettingsScreen = () => {
+      const [trainingMode, setTrainingMode] = useState(true);
+      const [dndCalls, setDndCalls] = useState(true);
+      const [deleteModal, setDeleteModal] = useState(false);
+      const [disclaimerModal, setDisclaimerModal] = useState(false);
+
+      return (
+        <div className="flex flex-col min-h-screen pb-24 bg-ivory-canvas">
+          <TopBar title="Settings" />
+
+          <div className="flex flex-col px-5 pt-3 gap-5">
+            {/* Sync Status Pill */}
+            <div className="bg-surface-container-low rounded-xl p-3.5 flex items-center justify-between shadow-sm border border-whisper-border">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-2.5 w-2.5 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-container"></span>
+                </span>
+                <div>
+                  <span className="text-[13px] font-bold text-dark-teal-ink block">L'Écrin Pendant Connected</span>
+                  <span className="text-[11px] text-quiet-stone">Firmware v2.4.1 • In Sync</span>
+                </div>
+              </div>
+              <span className="text-[11px] text-primary-container bg-teal-mist/60 px-2.5 py-0.5 rounded-full font-semibold">Active</span>
+            </div>
+
+            {/* Section 1: Posture Preferences */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-1.5 px-1">
+                <span className="material-symbols-outlined text-primary-container text-[17px]">self_improvement</span>
+                <h2 className="text-[12px] font-bold uppercase tracking-wider text-dark-teal-ink">Posture Preferences</h2>
+              </div>
+              <div className="bg-pure-surface rounded-2xl shadow-sm border border-whisper-border divide-y divide-surface-container">
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Sensitivity</span>
+                    <span className="text-[11px] text-quiet-stone">Standard balanced responsiveness</span>
+                  </div>
+                  <span className="text-[12px] text-dark-teal-ink bg-surface-container px-2 py-0.5 rounded-lg">Balanced</span>
+                </div>
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Gentle Vibration Delay</span>
+                    <span className="text-[11px] text-quiet-stone">Buffer duration before haptic nudge</span>
+                  </div>
+                  <span className="text-[12px] text-dark-teal-ink bg-surface-container px-2 py-0.5 rounded-lg">8 seconds</span>
+                </div>
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Posture Training Mode</span>
+                    <span className="text-[11px] text-quiet-stone">Organic gentle reinforcement throughout day</span>
+                  </div>
+                  <button
+                    onClick={() => setTrainingMode(!trainingMode)}
+                    className={`w-12 h-6 rounded-full p-0.5 transition-colors relative flex items-center ${
+                      trainingMode ? "bg-primary-container" : "bg-surface-variant"
+                    }`}
+                  >
+                    <span className={`w-5 h-5 bg-pure-surface rounded-full shadow-sm transform transition-transform ${
+                      trainingMode ? "translate-x-6" : "translate-x-0"
+                    }`}></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 2: Quiet Hours */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-1.5 px-1">
+                <span className="material-symbols-outlined text-primary-container text-[17px]">bedtime</span>
+                <h2 className="text-[12px] font-bold uppercase tracking-wider text-dark-teal-ink">Quiet Hours &amp; Alerts</h2>
+              </div>
+              <div className="bg-pure-surface rounded-2xl shadow-sm border border-whisper-border divide-y divide-surface-container">
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Quiet Hours Schedule</span>
+                    <span className="text-[11px] text-quiet-stone">Mutes all physical vibration reminders</span>
+                  </div>
+                  <span className="text-[12px] text-dark-teal-ink">10:00 PM – 8:00 AM</span>
+                </div>
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Do Not Disturb During Calls</span>
+                    <span className="text-[11px] text-quiet-stone">Suppress micro-pulses when on active calls</span>
+                  </div>
+                  <button
+                    onClick={() => setDndCalls(!dndCalls)}
+                    className={`w-12 h-6 rounded-full p-0.5 transition-colors relative flex items-center ${
+                      dndCalls ? "bg-primary-container" : "bg-surface-variant"
+                    }`}
+                  >
+                    <span className={`w-5 h-5 bg-pure-surface rounded-full shadow-sm transform transition-transform ${
+                      dndCalls ? "translate-x-6" : "translate-x-0"
+                    }`}></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: Privacy & Legal */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-1.5 px-1">
+                <span className="material-symbols-outlined text-primary-container text-[17px]">lock</span>
+                <h2 className="text-[12px] font-bold uppercase tracking-wider text-dark-teal-ink">Privacy &amp; Data</h2>
+              </div>
+              <div className="bg-pure-surface rounded-2xl shadow-sm border border-whisper-border divide-y divide-surface-container">
+                <div className="p-3.5 flex items-center justify-between">
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink block">Local Data Storage</span>
+                    <span className="text-[11px] text-quiet-stone">Metrics stay strictly on this device</span>
+                  </div>
+                  <span className="text-[11px] font-medium text-primary-container bg-teal-mist/50 px-2 py-0.5 rounded-full">
+                    Enabled (Offline-first)
+                  </span>
+                </div>
+                <button
+                  onClick={() => setDisclaimerModal(true)}
+                  className="w-full p-3.5 flex items-center justify-between text-left hover:bg-surface-container-low transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px] text-quiet-stone">medical_services</span>
+                    <span className="text-[13.5px] font-semibold text-dark-teal-ink">Wellness scope &amp; limitations</span>
+                  </div>
+                  <span className="material-symbols-outlined text-[18px] text-quiet-stone">chevron_right</span>
+                </button>
+                <button
+                  onClick={() => setDeleteModal(true)}
+                  className="w-full p-3.5 flex items-center justify-between text-left text-error hover:bg-error-container/20 transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">delete_outline</span>
+                    <span className="text-[13.5px] font-semibold">Delete local app data</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center text-center py-2 text-quiet-stone text-[12px]">
+              <span className="material-symbols-outlined text-[20px] text-primary-container/40 mb-1">spa</span>
+              <span>YourVitaminP v1.0 (Build 124)</span>
+              <span className="text-[11px]">Curated with mindful intention for effortless poise.</span>
+            </div>
+          </div>
+
+          {/* Delete Confirm Modal */}
+          {deleteModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-6">
+              <div className="bg-pure-surface rounded-2xl shadow-xl w-full max-w-xs p-5 flex flex-col gap-3 border border-whisper-border">
+                <div className="w-10 h-10 rounded-full bg-error-container/60 text-error flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[22px]">warning</span>
+                </div>
+                <h3 className="text-[16px] font-bold text-dark-teal-ink">Erase local records?</h3>
+                <p className="text-[12.5px] text-on-surface-variant leading-relaxed">
+                  This will permanently wipe your offline posture journals, active device calibrations, and gentle rhythm preferences.
+                </p>
+                <div className="flex flex-col gap-2 pt-1">
+                  <button
+                    onClick={() => setDeleteModal(false)}
+                    className="w-full h-[44px] bg-error text-pure-surface rounded-xl font-semibold text-[13.5px]"
+                  >
+                    Permanently Delete
+                  </button>
+                  <button
+                    onClick={() => setDeleteModal(false)}
+                    className="w-full h-[44px] bg-surface-container text-dark-teal-ink rounded-xl font-semibold text-[13.5px]"
+                  >
+                    Keep My Data
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Disclaimer Modal */}
+          {disclaimerModal && (
+            <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm">
+              <div className="bg-pure-surface rounded-t-3xl shadow-2xl w-full max-w-[420px] p-6 flex flex-col gap-3 pb-safe border-t border-whisper-border max-h-[751px] overflow-y-auto">
+                <div className="w-10 h-1 bg-whisper-border rounded-full mx-auto"></div>
+                <div className="flex items-center justify-between pt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary-container text-2xl">nature_people</span>
+                    <h3 className="text-[17px] font-bold text-dark-teal-ink">Wellness &amp; Scope</h3>
+                  </div>
+                  <button onClick={() => setDisclaimerModal(false)} className="text-quiet-stone hover:text-dark-teal-ink">
+                    <span className="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+                <p className="text-[13px] text-on-surface-variant leading-relaxed">
+                  YourVitaminP and its companion jewelry piece are non-medical mindfulness and postural poise companions intended solely for somatic awareness and healthy lifestyle habituation.
+                </p>
+                <div className="bg-gold-mist/40 p-3.5 rounded-xl border border-[#F2E7D5]">
+                  <span className="text-[12px] font-bold text-secondary block mb-0.5">Not a Medical Device</span>
+                  <p className="text-[11.5px] text-on-surface-variant">
+                    Sensory insights must not replace clinical physical therapy, orthopedic diagnostics, or spinal rehabilitation under certified medical supervision.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setDisclaimerModal(false)}
+                  className="w-full h-[48px] bg-primary-container text-pure-surface rounded-xl font-semibold text-[14px] mt-2"
+                >
+                  Understood &amp; Acknowledged
+                </button>
+              </div>
+            </div>
+          )}
+
+          <BottomNavigation />
+        </div>
+      );
+    };
+
+    // --- SCREEN 10: SESSION DETAIL / TELEMETRY ---
+    const SessionDetailScreen = () => {
+      const navigate = useNavigate();
+      const [sensorState, setSensorState] = useState("stable");
+      const [heartRate, setHeartRate] = useState(72);
+      const [spo2, setSpo2] = useState(98);
+      const [isReading, setIsReading] = useState(false);
+
+      const triggerReading = () => {
+        setIsReading(true);
+        setSensorState("measuring");
+        setTimeout(() => {
+          setIsReading(false);
+          setSensorState("stable");
+          setHeartRate(Math.floor(68 + Math.random() * 8));
+          setSpo2(Math.random() > 0.3 ? 98 : 99);
+        }, 2000);
+      };
+
+      return (
+        <div className="flex flex-col min-h-screen pb-safe bg-ivory-canvas">
+          <TopBar title="Session Detail" showBack onBack={() => navigate(-1)} />
+
+          <div className="flex flex-col px-5 pt-3 gap-4 pb-8">
+            {/* Banner Note */}
+            <div className="bg-surface-container-low rounded-2xl p-3.5 shadow-sm border border-whisper-border flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-teal-mist flex items-center justify-center shrink-0 mt-0.5">
+                <span className="material-symbols-outlined text-primary-container text-[18px]">spa</span>
+              </div>
+              <div>
+                <p className="text-[13px] font-bold text-dark-teal-ink">Mindful Balance First</p>
+                <p className="text-[12px] text-on-surface-variant leading-relaxed">
+                  Posture is YourVitaminP's primary focus. Heart rate and blood oxygen readings are provided as secondary personal wellness insights.
+                </p>
+              </div>
+            </div>
+
+            {/* Informational Guardrail */}
+            <div className="bg-surface-container-high rounded-xl p-3 flex items-start gap-2 border border-whisper-border">
+              <span className="material-symbols-outlined text-secondary shrink-0 text-[18px] mt-0.5">verified_user</span>
+              <p className="text-[11.5px] text-on-surface-variant leading-snug">
+                <strong className="text-dark-teal-ink">Informational only.</strong> These readings support general wellness awareness and are not medical measurements or clinical diagnoses.
+              </p>
+            </div>
+
+            {/* Interactive Hardware State Pill */}
+            <div className="bg-pure-surface rounded-2xl p-3.5 shadow-sm border border-whisper-border flex flex-col gap-2">
+              <div className="flex items-center justify-between text-[12px]">
+                <span className="text-quiet-stone uppercase tracking-wider font-semibold">MAX30102 Optical State</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-mist text-primary-container font-semibold">
+                  <span className={`w-2 h-2 rounded-full ${sensorState === "measuring" ? "bg-secondary animate-pulse" : "bg-primary-container"}`}></span>
+                  <span>{sensorState === "measuring" ? "Sampling pulse..." : sensorState === "poor" ? "Weak contact" : "Locked & Stable"}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 pt-1 overflow-x-auto text-[11.5px]">
+                <button
+                  onClick={() => setSensorState("stable")}
+                  className={`px-3 py-1 rounded-full font-medium transition-all ${
+                    sensorState === "stable" ? "bg-primary text-pure-surface" : "bg-surface-container text-on-surface-variant"
+                  }`}
+                >
+                  Stable Contact
+                </button>
+                <button
+                  onClick={() => setSensorState("measuring")}
+                  className={`px-3 py-1 rounded-full font-medium transition-all ${
+                    sensorState === "measuring" ? "bg-gold-mist text-secondary font-bold" : "bg-surface-container text-on-surface-variant"
+                  }`}
+                >
+                  Measuring...
+                </button>
+                <button
+                  onClick={() => setSensorState("poor")}
+                  className={`px-3 py-1 rounded-full font-medium transition-all ${
+                    sensorState === "poor" ? "bg-secondary-container text-on-secondary-container font-bold" : "bg-surface-container text-on-surface-variant"
+                  }`}
+                >
+                  Signal Weak
+                </button>
+              </div>
+
+              {sensorState === "poor" && (
+                <div className="flex items-center gap-2 p-2.5 rounded-xl bg-secondary-container/40 text-on-secondary-container text-[11.5px] mt-1">
+                  <span className="material-symbols-outlined text-[17px]">adjust</span>
+                  <span>Signal quality poor — gently adjust pendant position flush against chest skin.</span>
+                </div>
+              )}
+            </div>
+
+            {/* Heart Rate Card */}
+            <div className="bg-pure-surface rounded-2xl p-4 shadow-sm border border-whisper-border flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-teal-mist flex items-center justify-center text-primary-container">
+                    <span className="material-symbols-outlined text-[18px]">favorite</span>
+                  </div>
+                  <div>
+                    <h2 className="text-[14px] font-bold text-dark-teal-ink">Heart Rate</h2>
+                    <span className="text-[11px] text-quiet-stone">Sample reading • 12 min ago</span>
+                  </div>
+                </div>
+                <span className="text-[11px] text-primary-container bg-teal-mist/60 px-2 py-0.5 rounded-full font-semibold">
+                  Good contact
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-1 pt-1">
+                <span className="text-[32px] font-bold text-dark-teal-ink tracking-tight">{heartRate}</span>
+                <span className="text-[13px] text-quiet-stone font-semibold">bpm</span>
+              </div>
+
+              {/* Sparkline */}
+              <div className="w-full h-12 relative flex items-center pt-1">
+                <svg className="w-full h-full text-primary" fill="none" preserveAspectRatio="none" viewBox="0 0 300 60">
+                  <defs>
+                    <linearGradient id="hrGrad" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stopColor="#0c4f50" stopOpacity="0.2"/>
+                      <stop offset="100%" stopColor="#0c4f50" stopOpacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,38 Q15,40 30,35 T60,33 T90,26 T120,40 T150,22 T180,30 T210,18 T240,28 T270,24 T300,22 L300,60 L0,60 Z" fill="url(#hrGrad)"/>
+                  <path d="M0,38 Q15,40 30,35 T60,33 T90,26 T120,40 T150,22 T180,30 T210,18 T240,28 T270,24 T300,22" stroke="currentColor" strokeLinecap="round" strokeWidth="2.5"/>
+                  <circle cx="300" cy="22" fill="#0c4f50" r="4"/>
+                </svg>
+              </div>
+              <div className="flex justify-between items-center text-[11px] text-quiet-stone">
+                <span>Resting range: 64 – 78 bpm</span>
+                <span className="text-primary-container font-semibold">Standard baseline</span>
+              </div>
+            </div>
+
+            {/* Blood Oxygen SpO2 Card */}
+            <div className="bg-pure-surface rounded-2xl p-4 shadow-sm border border-whisper-border flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gold-mist flex items-center justify-center text-secondary">
+                    <span className="material-symbols-outlined text-[18px]">water_drop</span>
+                  </div>
+                  <div>
+                    <h2 className="text-[14px] font-bold text-dark-teal-ink">Blood Oxygen (SpO2)</h2>
+                    <span className="text-[11px] text-quiet-stone">Sample reading • 12 min ago</span>
+                  </div>
+                </div>
+                <span className="text-[11px] text-primary-container bg-teal-mist/60 px-2 py-0.5 rounded-full font-semibold">
+                  Valid optical lock
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-1 pt-1">
+                <span className="text-[32px] font-bold text-dark-teal-ink tracking-tight">{spo2}</span>
+                <span className="text-[13px] text-quiet-stone font-semibold">%</span>
+              </div>
+
+              <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+                <div className="w-[85%] bg-transparent"></div>
+                <div className="w-[15%] bg-primary-container rounded-full h-full"></div>
+              </div>
+              <div className="flex justify-between items-center text-[11px] text-quiet-stone">
+                <span>Expected 95 – 100%</span>
+                <span className="text-on-surface-variant font-medium">Optimal balance</span>
+              </div>
+            </div>
+
+            {/* Sensor Sanctuary Note with image */}
+            <div className="bg-pure-surface rounded-2xl p-3.5 shadow-sm border border-whisper-border flex gap-3 items-center">
+              <img
+                className="w-16 h-16 rounded-xl object-cover shrink-0"
+                alt="Jewelry pendant macro"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuALeI2oikeFyirCtDpsLLdY1HZikiUGbohckfA_epc38Hg3UITNCSOmeABSGHalGr_L01-MhddlnmyrI_1a1meGXb9tM7Ax2sECgr-j3c1VSUd_r6hregOZLzQlZ_ia_PM1scLxgY2_QvdQceQ2FhrrT8Y_ou4uLEiVm_mIDvSX19JKlRlTx52fcMEjVhJFM7mD60pw6J5vvOijW7QWtku1C1dAqwzxYTUFKA0xAQfhh0u5cNOs1jIj"
+              />
+              <div className="flex flex-col min-w-0">
+                <div className="flex items-center gap-1 text-primary-container text-[12px] font-semibold">
+                  <span className="material-symbols-outlined text-[15px]">sensors</span>
+                  <span>Dual Optical Sensor</span>
+                </div>
+                <p className="text-[13px] font-bold text-dark-teal-ink truncate">MAX30102 Module</p>
+                <p className="text-[11px] text-on-surface-variant leading-snug">
+                  Integrated discretely into the backplate, operating passively without disruptive light leakage.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col gap-2 pt-2">
+              <button
+                onClick={triggerReading}
+                disabled={isReading}
+                className="w-full h-[50px] bg-primary-container text-pure-surface font-semibold text-[14px] rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] shadow-sm"
+              >
+                <span className={`material-symbols-outlined text-[19px] ${isReading ? "animate-spin" : ""}`}>
+                  sync
+                </span>
+                <span>{isReading ? "Acquiring optical pulse..." : "Take a new reading"}</span>
+              </button>
+              <button
+                onClick={() => navigate("/history")}
+                className="w-full h-[46px] bg-pure-surface border border-whisper-border text-primary-container font-semibold text-[14px] rounded-xl flex items-center justify-center gap-2 shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[18px]">calendar_today</span>
+                <span>View reading history</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // --- SCREEN 11: TROUBLESHOOTING ---
+    const TroubleshootingScreen = () => {
+      const navigate = useNavigate();
+
+      const issues = [
+        {
+          icon: "bluetooth_disabled",
+          title: "Bluetooth is off",
+          desc: "Turn on Bluetooth in your phone settings, then return here.",
+        },
+        {
+          icon: "sensors",
+          title: "Pendant not found",
+          desc: "Bring it nearby and press the pendant button once.",
+        },
+        {
+          icon: "sync",
+          title: "Connection dropped",
+          desc: "Tap Check connection on the Device screen; if needed, turn Bluetooth off and on.",
+        },
+        {
+          icon: "accessibility_new",
+          title: "Calibration stopped",
+          desc: "Place the pendant flat against your sternum and start calibration again.",
+        },
+      ];
+
+      return (
+        <div className="flex flex-col justify-between min-h-screen px-6 pb-6 pt-safe bg-ivory-canvas">
+          <div>
+            <header className="flex items-center justify-between py-2">
+              <button
+                onClick={() => navigate(-1)}
+                className="inline-flex items-center gap-1.5 py-1 text-primary-container font-semibold text-[14px]"
+              >
+                <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+                <span>Back</span>
+              </button>
+              <div className="flex items-center gap-1 text-quiet-stone">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-mist"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+              </div>
+            </header>
+
+            <section className="mt-3 mb-5">
+              <span className="text-[11px] font-bold tracking-wider uppercase text-quiet-stone block mb-1">
+                DEVICE GUIDANCE
+              </span>
+              <h1 className="text-[25px] font-bold text-dark-teal-ink tracking-tight">
+                Troubleshooting
+              </h1>
+              <p className="text-[13.5px] text-on-surface-variant mt-1">
+                Let’s get your pendant connected and ready.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              {issues.map((item, index) => (
+                <article
+                  key={index}
+                  className="bg-pure-surface rounded-2xl p-4 border border-whisper-border shadow-sm flex items-start gap-3.5 hover:border-teal-mist transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-teal-mist flex items-center justify-center shrink-0 text-primary-container mt-0.5">
+                    <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-[14.5px] font-bold text-dark-teal-ink mb-0.5">{item.title}</h2>
+                    <p className="text-[12.5px] text-on-surface-variant leading-relaxed">{item.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </section>
+          </div>
+
+          <footer className="pt-6 flex flex-col items-center gap-3">
+            <button
+              onClick={() => navigate("/find-device")}
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-pure-surface bg-primary-container font-semibold text-[14px] shadow-sm active:scale-[0.98]"
+            >
+              <span>Scan for pendant again</span>
+              <span className="material-symbols-outlined text-[18px]">refresh</span>
+            </button>
+
+            <div className="flex items-center justify-center gap-1.5 text-quiet-stone px-2">
+              <span className="material-symbols-outlined text-[15px]">lock</span>
+              <p className="text-[11px] text-quiet-stone text-center">
+                Your wellness data remains safe on this device.
+              </p>
+            </div>
+          </footer>
+        </div>
+      );
+    };
+
+    // --- MAIN APP ROUTER WRAPPER ---
+    const App = () => {
+      return (
+        <MemoryRouter initialEntries={["/"]}>
+          <Routes>
+            <Route path="/" element={<WelcomeScreen />} />
+            <Route path="/permissions" element={<PermissionsScreen />} />
+            <Route path="/find-device" element={<FindDeviceScreen />} />
+            <Route path="/wear-guidance" element={<WearGuidanceScreen />} />
+            <Route path="/calibration" element={<CalibrationScreen />} />
+            <Route path="/home" element={<HomeScreen />} />
+            <Route path="/history" element={<HistoryScreen />} />
+            <Route path="/device" element={<DeviceScreen />} />
+            <Route path="/settings" element={<SettingsScreen />} />
+            <Route path="/session-detail" element={<SessionDetailScreen />} />
+            <Route path="/troubleshooting" element={<TroubleshootingScreen />} />
+          </Routes>
+        </MemoryRouter>
+      );
+    };
+
+    const rootElement = document.getElementById("root");
+    const root = createRoot(rootElement);
+    root.render(<App />);
+  </script>
+</body>
+</html>
