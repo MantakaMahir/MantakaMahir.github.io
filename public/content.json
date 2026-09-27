@@ -11,14 +11,14 @@
   "hero": {
     "eyebrow": "Mantaka Mahir",
     "headline": "AI Engineer & Consultant",
-    "subheadline": "I help businesses design and implement agentic AI systems, automation infrastructure, and production workflows that reduce manual work and create measurable revenue impact.",
+    "subheadline": "I build AI systems and automation for real business workflows — from document processing and internal tools to content operations and multi-step AI agents.",
     "snapshot": [
       { "label": "Role", "value": "AI Engineer & Consultant" },
       { "label": "Location", "value": "Dhaka" }
     ]
   },
   "about": {
-    "body": "I'm an AI Engineer & Consultant building AI agents and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes."
+    "body": "I'm an AI engineer focused on applied AI and automation. I work on the parts that turn a prototype into something people can actually use: orchestration, integrations, data handling, review flows, and deployment."
   },
   "experience": [
     {
@@ -28,9 +28,8 @@
       "period": "",
       "type": "AI Automation & Custom Software",
       "highlights": [
-        "Co-founded Gotiq to build AI automation and custom software around business workflows.",
-        "Deliver AI agents, purpose-built AI applications, and integrations that connect existing tools and reduce manual work.",
-        "Help teams identify practical AI opportunities, validate products, and launch reliable systems with documented handoffs."
+        "Co-founded Gotiq to build AI automation and custom software for operational workflows.",
+        "Build AI applications, internal tools, and integrations that connect existing business systems."
       ]
     },
     {
@@ -40,9 +39,9 @@
       "period": "Nov 2025 - Present",
       "type": "Contract · Netherlands · Remote",
       "highlights": [
-        "Build agentic workflows and automation systems using FastAPI and GCP",
-        "Design document-intelligence workflows processing 1,000+ docs/month",
-        "Orchestrate Claude Opus and GPT-Codex workflows (12 min → 3 min runtime)"
+        "Build AI workflows and automation systems using FastAPI and GCP.",
+        "Design document-processing workflows handling 1,000+ docs/month.",
+        "Orchestrate Claude Opus and GPT-Codex workflows, reducing runtime from 12 min to 3 min."
       ]
     },
     {
@@ -52,8 +51,8 @@
       "period": "Jul 2026 - Present",
       "type": "Part-time · Hybrid",
       "highlights": [
-        "Build AI education systems for kids and women",
-        "Create practical learning workflows that make AI tools easier to understand and use"
+        "Build AI education tools for kids and women.",
+        "Create practical learning workflows that help people use AI tools."
       ]
     },
     {
@@ -63,20 +62,19 @@
       "period": "Jun 2026 - Sep 2026",
       "type": "Contract · Texas, United States · Remote",
       "highlights": [
-        "Built multimodal intake automation with Notion, n8n, and OpenAI",
-        "Implemented manual-review routing, duplicate protection, and audit logging",
-        "Passed acceptance tests for text, DOCX, PDF, Excel, image, and MP4/audio paths"
+        "Built multimodal intake automation with Notion, n8n, and OpenAI.",
+        "Implemented manual-review routing, duplicate protection, and audit logging.",
+        "Passed acceptance tests for text, DOCX, PDF, Excel, images, and MP4/audio."
       ]
     },
     {
-      "role": "AI Software Development",
+      "role": "Freelance AI Engineer",
       "org": "Upwork — Freelance",
       "period": "Feb 2025 - Sep 2026",
       "type": "Freelance · Remote",
       "highlights": [
-        "Analyze existing systems to identify operational bottlenecks",
-        "Implement targeted AI and automation solutions that directly increase revenue and efficiency",
-        "Build agentic systems with Next.js, n8n, APIs, Python, and LLM tools"
+        "Analyzed existing workflows to identify automation opportunities and bottlenecks.",
+        "Built AI applications and workflow automation using Python, Next.js, n8n, APIs, and LLMs."
       ]
     },
     {
@@ -85,9 +83,8 @@
       "period": "Jan 2026 - Jun 2026",
       "type": "Contract · United States · Remote",
       "highlights": [
-        "Built Next.js interfaces and FastAPI/Django backend systems",
-        "Delivered service pipelines, CRM workflows, and reporting systems",
-        "Full-stack AI implementation with clean client handoff"
+        "Built Next.js interfaces and FastAPI/Django backend systems.",
+        "Delivered service pipelines, CRM workflows, and reporting systems."
       ]
     },
     {
@@ -97,83 +94,74 @@
       "period": "Mar 2026 - Apr 2026",
       "type": "Contract · New York, United States · Remote",
       "highlights": [
-        "Built agentic content operations across research, publishing, translation, and media generation",
-        "Connected Python, LangChain, n8n, FastAPI, Notion, OpenRouter, Claude, GPT, Gemini, and Kling",
-        "Automated 14 daily workflows across eight platforms"
+        "Built a two-agent system for content research, planning, publishing, translation, and media generation.",
+        "Automated 14 daily workflows across eight platforms and six languages."
       ]
     }
   ],
   "projects": [
     {
-      "name": "$250K/year content team replacement",
-      "description": "Two AI agents running a full content operation for Openline: trend research, calendar planning, article and social drafting, image generation, multilingual publishing, video generation, and edit sync across eight platforms.",
+      "name": "Openline Content Operations Automation",
+      "description": "Built a two-agent content system for Openline covering trend research, planning, drafting, image and video generation, translation, and publishing across eight platforms.",
       "techStack": "Python · LangChain · n8n · FastAPI · Notion · OpenRouter · Claude · GPT · Gemini · Kling",
-      "metric": "14 daily workflows · 6 languages · 149 translations/run · 0 manual ops",
-      "tags": ["Openline", "content infrastructure"]
+      "metric": "14 daily workflows · 6 languages · 149 translations/run · 8 platforms"
     },
     {
       "name": "Conover Industries multimodal intake automation",
-      "description": "Production-ready intake automation that converts manual text, documents, spreadsheets, screenshots, and MP4/audio inputs from Notion into structured JSON, linked action items, review routing, duplicate protection, and audit logs.",
+      "description": "Built a Notion-based intake pipeline that converts text, documents, spreadsheets, images, and audio/video into structured JSON and linked action items, with human review, duplicate protection, and audit logs.",
       "techStack": "n8n · Notion API · OpenAI API · GPT-5 Mini · GPT-4.1 · GPT-4.1 Mini",
-      "metric": "Multimodal intake · review routing · duplicate protection · audit logs",
-      "tags": ["multimodal intake", "Notion operations"]
+      "metric": "Text · DOCX · PDF · Excel · images · MP4/audio"
     },
     {
       "name": "Momentum AI Studio",
-      "description": "Invite-only content production dashboard for podcast and video teams, connecting a Next.js app to n8n workflows for AI clip generation, project tracking, clip exports, social scheduling, thumbnails, descriptions, audio cleanup, and trim reports.",
+      "description": "Built an internal production dashboard for podcast and video teams, connecting a Next.js application to automated editing, publishing, project tracking, and asset-generation workflows.",
       "techStack": "Next.js 16 · TypeScript · React 19 · Tailwind CSS · NextAuth · n8n · Reap AI · CleanVoice AI · Google Drive · Google Sheets · Vercel",
-      "metric": "5GB uploads · 14 languages · multi-platform posting · 15s processing refresh",
-      "tags": ["internal AI studio", "video workflows"]
+      "metric": "5 GB uploads · 14 languages"
     },
     {
       "name": "Multi-agent email attachment processing",
-      "description": "Multi-agent pipeline for high-volume attachment processing with structured outputs and error-resistant data handling.",
+      "description": "Built a multi-agent pipeline for processing high volumes of email attachments and returning structured outputs.",
       "techStack": "Python · LangChain · n8n · API design",
-      "metric": "6-8 min → 8-12 sec · $23k-37k annual saved",
-      "tags": ["40x ROI", "high-volume processing"]
+      "metric": "Processing time: 6–8 min → 8–12 sec"
     },
     {
       "name": "AI avatar video generation",
-      "description": "Automated avatar video production from script to final output. Async polling, multi-API orchestration with HeyGen, Submagic, and OpenAI.",
+      "description": "Automated the workflow from script to finished avatar video using multiple media APIs and asynchronous processing.",
       "techStack": "Next.js · HeyGen · OpenAI · n8n",
-      "metric": "2-4 hrs → 3-5 min · $31k-34k annual saved",
-      "tags": ["async polling", "script-to-video"]
+      "metric": "Production time: 2–4 hr → 3–5 min"
     },
     {
       "name": "Content repurposing pipeline",
-      "description": "Turns long-form videos into platform-specific social clips at scale. 100+ videos per month with 22x ROI.",
+      "description": "Built a workflow that converts long-form videos into platform-specific social content.",
       "techStack": "Python · AI APIs · n8n · Automation",
-      "metric": "45-90 min → 4-8 min · $29k-32k annual saved",
-      "tags": ["100+ videos/month", "22x ROI"]
+      "metric": "100+ videos/month · 45–90 min → 4–8 min"
     },
     {
       "name": "Social distribution + lead capture",
-      "description": "Automated scheduling, captions, comments, DMs, and lead capture with 5,000+ automated responses per month.",
+      "description": "Automated social publishing, captions, comments, DMs, and lead capture across client workflows.",
       "techStack": "n8n · ManyChat · API integrations · Next.js",
-      "metric": "15-30 min → 2 min/post · $23k-25k annual saved",
-      "tags": ["5,000+ responses/month", "20x ROI"]
+      "metric": "5,000+ automated responses/month"
     },
     {
-      "name": "Real Estate AI Video Engine",
-      "description": "Converts one source video into eight platform-ready assets in approximately three minutes.",
+      "name": "Real Estate Video Engine",
+      "description": "Built a workflow that converts one source video into eight platform-ready assets.",
       "techStack": "n8n · AI APIs · Video processing",
-      "metric": "1 source → 8 platform assets",
-      "tags": ["3 min runtime", "multi-platform"]
+      "metric": "1 source video → 8 assets · ~3 min runtime"
     }
   ],
   "skills": {
     "core": {
-      "title": "Core",
-      "items": ["Python", "C++", "Java", "JavaScript", "TypeScript", "FastAPI", "Next.js", "Django", "Node.js", "SQL", "Docker", "GCP"]
+      "title": "AI Systems",
+      "items": ["LangChain", "LangGraph", "RAG", "Embeddings", "OpenAI API", "Claude API", "Gemini API"]
     },
     "groups": [
       {
-        "title": "AI / ML",
-        "items": ["LangChain", "LangGraph", "RAG", "Prompt engineering", "Embeddings", "Sentence-Transformers", "Claude", "GPT", "Gemini", "PyTorch", "Scikit-learn", "Hugging Face", "Pandas", "NumPy"]
+        "title": "Backend & Web",
+        "items": ["Python", "FastAPI", "TypeScript", "Next.js", "SQL"]
       },
       {
-        "title": "Automation & Engineering",
-        "items": ["n8n", "Make", "API design", "CI/CD", "GitHub", "Firebase", "Vercel", "MLOps", "System design", "Data structures & algorithms"]
+        "title": "Automation & Infrastructure",
+        "items": ["n8n", "Docker", "GCP", "CI/CD", "GitHub"]
       }
     ]
   },
@@ -187,11 +175,11 @@
     { "title": "IBM AI Agents", "detail": "AI agent fundamentals and orchestration.", "href": "#" }
   ],
   "now": {
-    "line1": "Making AI systems that should exist but usually get stuck at the prototype stage. Simple is hard, measurable is harder, but both are worth it.",
-    "line2": "If you're deciding between a single-model workflow and a multi-agent system, that's usually where I do my best work."
+    "line1": "I'm currently focused on getting AI systems past the prototype stage: deciding when a deterministic workflow is enough, when an agent is useful, and how to make either reliable in production.",
+    "line2": "That includes document processing, internal AI tools, and human review where it matters."
   },
   "contact": {
-    "cta": "Let's connect. I'm open to AI engineering roles, consulting engagements, and collaboration on production AI systems.",
+    "cta": "I'm open to AI engineering roles, contract work, and collaborations involving applied AI and automation.",
     "links": [
       { "label": "Email", "href": "mailto:mantaka@gotiq.co" },
       { "label": "LinkedIn", "href": "https://www.linkedin.com/in/mantakamahir/" },

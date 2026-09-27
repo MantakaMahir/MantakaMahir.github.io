@@ -11,11 +11,6 @@ export function Projects() {
             <div>
               <h3 className="text-2xl font-normal leading-tight tracking-[-0.025em] text-balance">{project.name}</h3>
               <p className="mt-3 max-w-2xl text-base leading-7 text-[var(--muted)]">{project.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="border border-[var(--line)] bg-[var(--paper)] px-2 py-0.5 text-xs text-[var(--muted)]">{tag}</span>
-                ))}
-              </div>
             </div>
             <div className="text-sm leading-6 lg:text-right">
               <p className="font-semibold text-[var(--accent)]">{project.metric}</p>

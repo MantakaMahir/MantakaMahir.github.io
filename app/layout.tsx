@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: "Mantaka Mahir | AI Engineer & Consultant",
     template: "%s | Mantaka Mahir",
   },
-  description: "AI Engineer & Consultant building AI agents and production automation workflows.",
+  description: "AI engineer and consultant building applied AI systems, workflow automation, and internal tools.",
   keywords: [
     "Mantaka Mahir",
     "AI Engineer & Consultant",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Mantaka Mahir",
     title: "Mantaka Mahir | AI Engineer & Consultant",
-    description: "AI Engineer & Consultant building AI agents and production automation workflows.",
+    description: "AI engineer and consultant building applied AI systems, workflow automation, and internal tools.",
     images: [
       {
         url: "/og-image.svg",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mantaka Mahir | AI Engineer & Consultant",
-    description: "AI Engineer & Consultant building AI agents and production automation workflows.",
+    description: "AI engineer and consultant building applied AI systems, workflow automation, and internal tools.",
     images: ["/og-image.svg"],
   },
   robots: {
@@ -83,7 +83,7 @@ export default function RootLayout({
               ],
               knowsAbout: [
                 "AI engineering",
-                "RAG systems",
+                "applied AI systems",
                 "AI agents",
                 "automation",
                 "Next.js",
