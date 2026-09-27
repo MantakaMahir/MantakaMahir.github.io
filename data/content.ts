@@ -20,7 +20,7 @@ export const hero = {
 };
 
 export const about = {
-  body: "I'm an AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes.",
+  body: "I'm an AI Engineer & Consultant building AI agents and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes.",
 };
 
 export const experience = [

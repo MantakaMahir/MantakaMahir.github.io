@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: "Mantaka Mahir | AI Engineer & Consultant",
     template: "%s | Mantaka Mahir",
   },
-  description: "AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows.",
+  description: "AI Engineer & Consultant building AI agents and production automation workflows.",
   keywords: [
     "Mantaka Mahir",
     "AI Engineer & Consultant",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Mantaka Mahir",
     title: "Mantaka Mahir | AI Engineer & Consultant",
-    description: "AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows.",
+    description: "AI Engineer & Consultant building AI agents and production automation workflows.",
     images: [
       {
         url: "/og-image.svg",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mantaka Mahir | AI Engineer & Consultant",
-    description: "AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows.",
+    description: "AI Engineer & Consultant building AI agents and production automation workflows.",
     images: ["/og-image.svg"],
   },
   robots: {
