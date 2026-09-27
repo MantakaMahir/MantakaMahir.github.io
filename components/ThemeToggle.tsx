@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -17,7 +17,6 @@ export function ThemeToggle() {
       onClick={() => {
         const next = dark ? "light" : "dark";
         document.documentElement.setAttribute("data-theme", next);
-        try { localStorage.setItem("theme", next); } catch (_) {}
         setDark(!dark);
       }}
       className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border border-[var(--line)] text-sm text-[var(--muted)] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
