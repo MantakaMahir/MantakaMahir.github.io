@@ -251,6 +251,6 @@ export const contact = {
     { label: "Email", href: "mailto:mantakamahir@gmail.com" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/mantakamahir/" },
     { label: "GitHub", href: "https://github.com/MantakaMahir" },
-    { label: "Book a Call", href: "https://calendly.com/mantakamahir-ai-automation/30min" },
+    { label: "Book a Call", href: "https://calendly.com/gotiq/30min" },
   ],
 };
