@@ -175,7 +175,7 @@
     { "title": "IBM AI Agents", "detail": "AI agent fundamentals and orchestration.", "href": "#" }
   ],
   "now": {
-    "line1": "I'm currently focused on getting AI systems past the prototype stage: deciding when a deterministic workflow is enough, when an agent is useful, and how to make either reliable in production.",
+    "line1": "I'm currently focused on getting AI systems past the prototype stage: deciding when a deterministic workflow is enough, when an agent is useful, and how to make them reliable in production.",
     "line2": ""
   },
   "contact": {
