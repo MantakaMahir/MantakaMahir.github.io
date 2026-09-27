@@ -1,12 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #f6f4ee;
-  --foreground: #151513;
-  --muted: #59564f;
-  --line: #d6d0c2;
-  --paper: #fffdf7;
-  --accent: #2f5f50;
+  --background: #ffffff;
+  --foreground: #111111;
+  --muted: #626262;
+  --line: #e8e8e8;
+  --paper: #f7f7f7;
+  --accent: #111111;
   --accent-soft: #dfe9dd;
 }
 
@@ -27,12 +28,59 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
-  background-image:
-    radial-gradient(circle at top left, color-mix(in oklab, var(--accent) 16%, transparent), transparent 34rem),
-    linear-gradient(90deg, color-mix(in oklab, var(--line) 28%, transparent) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in oklab, var(--line) 28%, transparent) 1px, transparent 1px);
-  background-size: auto, 72px 72px, 72px 72px;
+  font-family: Outfit, Arial, sans-serif;
+}
+
+.portfolio-shell { max-width: 790px; margin: 0 auto; padding: 100px 45px 40px; font-size: 15px; line-height: 24px; }
+.portfolio-portrait { width: 82px; height: 78px; object-fit: cover; border-radius: 15px; margin-bottom: 30px; }
+.portfolio-intro h1 { font-size: 24px; line-height: 36px; font-weight: 500; }
+.portfolio-position { margin-top: 4px; color: var(--muted); font-size: 17px; }
+.portfolio-description { margin-top: 12px; font-size: 20px; line-height: 30px; font-weight: 500; color: var(--muted); }
+.portfolio-social { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 28px; font-size: 14px; }
+.portfolio-social a:hover { text-decoration: underline; }
+.portfolio-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin: 60px 0 28px; }
+.portfolio-tabs button { padding: 3px 12px; border-radius: 100px; cursor: pointer; transition: background-color .18s ease; }
+.portfolio-tabs button:hover { background: var(--paper); }
+.portfolio-tabs button[aria-selected="true"] { background: var(--foreground); color: var(--background); }
+.portfolio-shell :focus-visible { outline: 2px solid var(--foreground); outline-offset: 4px; }
+.portfolio-shell section { border: 0; padding: 12px 0 28px; }
+.portfolio-shell section > div { display: block; }
+.portfolio-shell section > div > div:first-child { position: static; }
+.portfolio-shell section > div > div:first-child > p { display: none; }
+.portfolio-shell h2 { max-width: none; font-size: 18px; line-height: 27px; font-weight: 500; letter-spacing: 0; margin: 0 0 22px; }
+.portfolio-shell h3 { font-size: 17px; line-height: 26px; font-weight: 500; letter-spacing: 0; }
+.portfolio-shell section p, .portfolio-shell section li { font-size: 15px; line-height: 24px; letter-spacing: 0; }
+.portfolio-shell #about p { color: var(--foreground); }
+.portfolio-shell #now > div > div:last-child > div { border: 0; background: none; padding: 0; }
+.portfolio-snapshot { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+.portfolio-snapshot dt { font-size: 12px; color: var(--muted); }
+.portfolio-snapshot dd { margin-top: 2px; }
+.portfolio-shell #projects article { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
+.portfolio-shell #projects article > p { display: none; }
+.portfolio-shell #projects article > div:last-child { text-align: left; }
+.portfolio-shell #projects article span { border: 0; background: var(--paper); border-radius: 4px; }
+.portfolio-shell #experience article { gap: 18px; padding: 24px 0; }
+.portfolio-shell #experience article:first-child { padding-top: 0; }
+.portfolio-shell #skills li { border: 0; border-radius: 4px; }
+.portfolio-shell #contact a { border: 0; border-radius: 5px; padding: 10px 14px; }
+.portfolio-footer { margin-top: 70px; font-size: 12px; color: var(--muted); }
+.intro-word { display: inline-block; white-space: pre; animation: word-arrival 650ms cubic-bezier(.16,1,.3,1) backwards; animation-delay: calc(350ms + var(--word) * 45ms); }
+.portfolio-portrait { animation: portrait-arrival 700ms cubic-bezier(.16,1,.3,1) backwards; }
+.portfolio-social > * { transition: opacity 200ms ease, transform 200ms cubic-bezier(.16,1,.3,1); }
+.portfolio-social a:hover { opacity: .6; transform: translateY(-2px); }
+.portfolio-tabs button { transition: background-color 300ms ease, color 300ms ease, opacity 300ms ease; }
+.portfolio-tabs button:not([aria-selected="true"]) { opacity: .5; }
+.portfolio-tabs button:not([aria-selected="true"]):hover { opacity: 1; background: transparent; }
+.portfolio-panel:not([hidden]) { animation: panel-arrival 300ms cubic-bezier(.16,1,.3,1); }
+@keyframes word-arrival { from { opacity: 0; filter: blur(3px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+@keyframes portrait-arrival { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes panel-arrival { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) {
+  .portfolio-shell { padding: 64px 24px 32px; }
+  .portfolio-intro h1 { font-size: 22px; line-height: 33px; }
+  .portfolio-description { font-size: 17px; line-height: 25.5px; }
+  .portfolio-tabs { margin-top: 42px; gap: 4px; }
+  .portfolio-tabs button { padding: 8px 10px; }
 }
 
 ::selection {

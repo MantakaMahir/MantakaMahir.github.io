@@ -6,24 +6,33 @@
     { "label": "Projects", "href": "#projects" },
     { "label": "Skills", "href": "#skills" },
     { "label": "Certifications", "href": "#writing" },
-    { "label": "Education", "href": "#education" },
     { "label": "Contact", "href": "#contact" }
   ],
   "hero": {
     "eyebrow": "Mantaka Mahir",
-    "headline": "AI Transformation Expert",
+    "headline": "AI Engineer & Consultant",
     "subheadline": "I help businesses design and implement agentic AI systems, automation infrastructure, and production workflows that reduce manual work and create measurable revenue impact.",
     "snapshot": [
-      { "label": "Role", "value": "AI Transformation Expert" },
-      { "label": "Location", "value": "Dhaka (Remote)" },
-      { "label": "Work Model", "value": "Full-time / Contract" },
-      { "label": "Core Stack", "value": "Python, FastAPI, Next.js, n8n, LangChain" }
+      { "label": "Role", "value": "AI Engineer & Consultant" },
+      { "label": "Location", "value": "Dhaka" }
     ]
   },
   "about": {
-    "body": "Goal-driven AI Transformation Expert building RAG systems, AI agents, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes."
+    "body": "I'm an AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes."
   },
   "experience": [
+    {
+      "role": "Co-founder",
+      "org": "Gotiq",
+      "href": "https://gotiq.co/",
+      "period": "",
+      "type": "AI Automation & Custom Software",
+      "highlights": [
+        "Co-founded Gotiq to build AI automation and custom software around business workflows.",
+        "Deliver AI agents, purpose-built AI applications, and integrations that connect existing tools and reduce manual work.",
+        "Help teams identify practical AI opportunities, validate products, and launch reliable systems with documented handoffs."
+      ]
+    },
     {
       "role": "AI Automation Engineer",
       "org": "Deep Loom",
@@ -51,7 +60,7 @@
       "role": "AI Systems Engineer",
       "org": "Conover Industries LLC",
       "href": "https://www.conoverindustries.com/",
-      "period": "Jun 2026 - Present",
+      "period": "Jun 2026 - Sep 2026",
       "type": "Contract · Texas, United States · Remote",
       "highlights": [
         "Built multimodal intake automation with Notion, n8n, and OpenAI",
@@ -62,7 +71,7 @@
     {
       "role": "AI Software Development",
       "org": "Upwork — Freelance",
-      "period": "Feb 2025 - Present",
+      "period": "Feb 2025 - Sep 2026",
       "type": "Freelance · Remote",
       "highlights": [
         "Analyze existing systems to identify operational bottlenecks",
@@ -182,7 +191,7 @@
     "line2": "If you're deciding between a single-model workflow and a multi-agent system, that's usually where I do my best work."
   },
   "contact": {
-    "cta": "Let's connect. I'm open to AI Transformation Expert roles, contract work, and collaboration on production AI systems.",
+    "cta": "Let's connect. I'm open to AI engineering roles, consulting engagements, and collaboration on production AI systems.",
     "links": [
       { "label": "Email", "href": "mailto:mantakamahir.ai.automation@gmail.com" },
       { "label": "LinkedIn", "href": "https://www.linkedin.com/in/mantakamahir/" },

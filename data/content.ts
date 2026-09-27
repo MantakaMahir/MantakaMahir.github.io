@@ -5,25 +5,22 @@ export const navItems = [
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#writing" },
-  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const hero = {
   eyebrow: "Mantaka Mahir",
-  headline: "AI Transformation Expert",
+  headline: "AI Engineer & Consultant",
   subheadline:
     "I help businesses design and implement agentic AI systems, automation infrastructure, and production workflows that reduce manual work and create measurable revenue impact.",
   snapshot: [
-    { label: "Role", value: "AI Transformation Expert" },
-    { label: "Location", value: "Dhaka (Remote)" },
-    { label: "Work Model", value: "Full-time / Contract" },
-    { label: "Core Stack", value: "Python, FastAPI, Next.js, n8n, LangChain" },
+    { label: "Role", value: "AI Engineer & Consultant" },
+    { label: "Location", value: "Dhaka" },
   ],
 };
 
 export const about = {
-  body: "Goal-driven AI Transformation Expert building RAG systems, AI agents, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes.",
+  body: "I'm an AI Engineer & Consultant building RAG systems, AI agents, and production automation workflows. I focus on shipping measurable systems that reduce manual work, improve decision-making, and turn complex operations into scalable business outcomes.",
 };
 
 export const experience = [
@@ -249,7 +246,7 @@ export const now = {
 };
 
 export const contact = {
-  cta: "Let's connect. I'm open to AI Transformation Expert roles, contract work, and collaboration on production AI systems.",
+  cta: "Let's connect. I'm open to AI engineering roles, consulting engagements, and collaboration on production AI systems.",
   links: [
     { label: "Email", href: "mailto:mantakamahir@gmail.com" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/mantakamahir/" },
