@@ -248,7 +248,7 @@ export const now = {
 export const contact = {
   cta: "Let's connect. I'm open to AI engineering roles, consulting engagements, and collaboration on production AI systems.",
   links: [
-    { label: "Email", href: "mailto:mantakamahir@gmail.com" },
+    { label: "Email", href: "mailto:mantaka@gotiq.co" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/mantakamahir/" },
     { label: "GitHub", href: "https://github.com/MantakaMahir" },
     { label: "Book a Call", href: "https://calendly.com/gotiq/30min" },
