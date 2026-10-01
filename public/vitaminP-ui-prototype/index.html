@@ -404,6 +404,11 @@
         if (mode === 'returning') { device.setPaired(true); device.setCalibrated(true); changeState('checking'); }
         else changeState('first-time');
       };
+      useEffect(() => {
+        if (flowState !== 'checking') return;
+        const timer = setTimeout(() => changeState('connected'), 1800);
+        return () => clearTimeout(timer);
+      }, [flowState]);
 
       return (
         <div className="flex flex-col min-h-screen justify-between p-6 select-none">
@@ -431,7 +436,7 @@
           </div>
 
           <p className="text-[12px] text-quiet-stone text-center mt-3">When you open the app, it checks the connection to your saved pendant.</p>
-          <p className="text-[11px] text-secondary text-center">Prototype simulation — choose a connection result below. No real Bluetooth connection is made.</p>
+          <p className="text-[11px] text-secondary text-center">Interactive demo — device connection is simulated.</p>
           {/* Prototype State switcher */}
           <div className="flex flex-col items-center w-full my-3">
             <div className="flex items-center gap-1.5 p-1 bg-surface-container rounded-lg mb-2 text-[11px] font-medium">
@@ -469,12 +474,7 @@
             <div className="absolute w-32 h-32 rounded-full bg-pure-surface shadow-sm" />
 
             <div className="relative z-10 flex flex-col items-center justify-center p-3">
-              <div className="w-16 h-24 relative flex flex-col items-center justify-center gap-[2px]">
-                <div className="w-12 h-10 rounded-t-full bg-gradient-to-b from-[#F2E7D5] via-[#D9B778] to-[#9C7735] shadow-inner" />
-                <div className="w-12 h-14 rounded-b-full bg-gradient-to-b from-[#4AA8A4] via-[#0C4F50] to-[#013134] shadow-md flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-ivory-canvas/80" />
-                </div>
-              </div>
+              <div className="w-[72px] h-[108px] [&_svg]:w-full [&_svg]:h-full" dangerouslySetInnerHTML={{__html: "<svg class=\"drop-shadow-sm transition-transform duration-500 hover:scale-105\" fill=\"none\" viewBox=\"0 0 100 150\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs>\n<linearGradient gradientUnits=\"userSpaceOnUse\" id=\"goldCapGrad\" x1=\"20\" x2=\"80\" y1=\"10\" y2=\"80\">\n<stop offset=\"0%\" stop-color=\"#F2E7D5\"></stop>\n<stop offset=\"45%\" stop-color=\"#D9B778\"></stop>\n<stop offset=\"100%\" stop-color=\"#9C7735\"></stop>\n</linearGradient>\n<linearGradient gradientUnits=\"userSpaceOnUse\" id=\"tealCapGrad\" x1=\"25\" x2=\"85\" y1=\"60\" y2=\"140\">\n<stop offset=\"0%\" stop-color=\"#4AA8A4\"></stop>\n<stop offset=\"40%\" stop-color=\"#0C4F50\"></stop>\n<stop offset=\"100%\" stop-color=\"#013134\"></stop>\n</linearGradient>\n<linearGradient id=\"softSheen\" x1=\"0\" x2=\"1\" y1=\"0\" y2=\"1\">\n<stop offset=\"0%\" stop-color=\"#FFFFFF\" stop-opacity=\"0.6\"></stop>\n<stop offset=\"100%\" stop-color=\"#FFFFFF\" stop-opacity=\"0\"></stop>\n</linearGradient>\n</defs>\n<path d=\"M50 10 C30 10 22 28 22 52 C22 68 28 78 44 80 C68 83 78 68 78 44 C78 22 68 10 50 10 Z\" fill=\"url(#goldCapGrad)\"></path>\n<path d=\"M48 14 C36 14 30 26 30 45 C38 45 54 38 60 22 C56 16 52 14 48 14 Z\" fill=\"url(#softSheen)\"></path>\n<path d=\"M42 62 C26 66 22 82 22 106 C22 130 36 142 56 142 C74 142 80 128 80 106 C80 84 72 70 56 64 C50 61 46 61 42 62 Z\" fill=\"url(#tealCapGrad)\"></path>\n<path d=\"M38 72 C30 76 28 88 28 106 C34 104 46 96 50 82 C44 76 40 73 38 72 Z\" fill=\"url(#softSheen)\"></path>\n<circle cx=\"53\" cy=\"71\" fill=\"#FAF9F6\" opacity=\"0.9\" r=\"2.5\"></circle>\n</svg>"}} />
             </div>
           </div>
 
@@ -684,6 +684,17 @@
       const device = useContext(DeviceContext);
       const [percent, setPercent] = useState(30);
       const available = device.connection === 'connected';
+      useEffect(() => {
+        if (!available) return;
+        const timer = setInterval(() => setPercent(p => Math.min(100, p + 5)), 180);
+        return () => clearInterval(timer);
+      }, [available]);
+      useEffect(() => {
+        if (percent !== 100 || !available) return;
+        device.setCalibrated(true);
+        const timer = setTimeout(() => navigate('/home'), 1000);
+        return () => clearTimeout(timer);
+      }, [percent, available]);
 
       return (
         <div className="flex flex-col min-h-screen justify-between p-6 select-none">
@@ -751,10 +762,9 @@
             </div>
             <span className="text-[11px] text-quiet-stone">Prototype baseline capture</span>
             <div className="flex flex-wrap justify-center gap-2 mt-3">
-              <button disabled={!available} onClick={() => setPercent(60)} className="px-3 py-2 rounded-lg bg-surface-container disabled:opacity-50">Simulate progress</button>
-              <button disabled={!available} onClick={() => { setPercent(100); device.setCalibrated(true); }} className="px-3 py-2 rounded-lg bg-teal-mist disabled:opacity-50">Simulate completion</button>
+              {!available && <button onClick={() => navigate('/pairing')} className="px-3 py-2 rounded-lg bg-teal-mist">Reconnect pendant</button>}
             </div>
-            <p className="text-[11px] text-quiet-stone mt-2 text-center">Actual completion requires device confirmation. Haptic confirmation follows Mushfique’s firmware definition.</p>
+            <p className="text-[11px] text-quiet-stone mt-2 text-center">Demo calibration progresses automatically. Haptic confirmation follows Mushfique’s firmware definition.</p>
           </div>
 
           {/* Progress Card */}
@@ -887,11 +897,7 @@
                 <div className="absolute inset-0 m-auto w-32 h-32 rounded-full bg-gold-mist/30 animate-ping opacity-25" style={{ animationDuration: '4s' }} />
                 <div className="absolute inset-0 m-auto w-36 h-36 rounded-full bg-teal-mist/40 blur-md" />
 
-                <div className="w-14 h-24 relative flex flex-col items-center justify-center gap-1">
-                  <div className="w-12 h-10 rounded-t-full bg-gradient-to-b from-[#F2E7D5] via-[#D9B778] to-[#9C7735] shadow-sm transform hover:scale-105 transition-transform" />
-                  <div className="w-2 h-2 rounded-full bg-gold-mist" />
-                  <div className="w-14 h-14 rounded-b-full bg-gradient-to-b from-[#4AA8A4] via-[#0C4F50] to-[#013134] shadow-md flex items-center justify-center" />
-                </div>
+                <div className="w-40 h-48 [&_svg]:w-full [&_svg]:h-full" dangerouslySetInnerHTML={{__html: "<svg class=\"w-full h-full relative z-10 drop-shadow-md overflow-visible\" fill=\"none\" viewbox=\"0 0 160 210\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs>\n<lineargradient gradientunits=\"userSpaceOnUse\" id=\"goldCapsuleGrad\" x1=\"20\" x2=\"110\" y1=\"10\" y2=\"120\">\n<stop offset=\"0%\" stop-color=\"#F2E7D5\"></stop>\n<stop offset=\"45%\" stop-color=\"#E1C699\"></stop>\n<stop offset=\"100%\" stop-color=\"#A57C3D\"></stop>\n</lineargradient>\n<lineargradient gradientunits=\"userSpaceOnUse\" id=\"tealCapsuleGrad\" x1=\"50\" x2=\"130\" y1=\"80\" y2=\"190\">\n<stop offset=\"0%\" stop-color=\"#4AA59F\"></stop>\n<stop offset=\"40%\" stop-color=\"#0C4F50\"></stop>\n<stop offset=\"100%\" stop-color=\"#013134\"></stop>\n</lineargradient>\n<filter height=\"140%\" id=\"softGlow\" width=\"140%\" x=\"-20%\" y=\"-20%\">\n<fegaussianblur result=\"blur\" stddeviation=\"6\"></fegaussianblur>\n<fecomposite in=\"SourceGraphic\" in2=\"blur\" operator=\"over\"></fecomposite>\n</filter>\n</defs>\n<!-- Golden Top Capsule Node (Upper Cervical Alignment) -->\n<path class=\"transition-transform duration-700 ease-out\" d=\"M 80 18 C 54 18, 52 46, 52 74 C 52 106, 68 118, 86 112 C 104 106, 114 86, 114 54 C 114 26, 102 18, 80 18 Z\" fill=\"url(#goldCapsuleGrad)\"></path>\n<!-- Inner Specular Light on Gold -->\n<path d=\"M 78 26 C 66 26, 60 44, 60 66 C 60 76, 64 88, 70 88 C 76 88, 78 72, 82 50 C 85 36, 88 26, 78 26 Z\" fill=\"#FFFFFF\" opacity=\"0.35\"></path>\n<!-- Deep Teal Foundation Capsule (Thoracic Poise) -->\n<path class=\"transition-transform duration-700 ease-out\" d=\"M 76 96 C 60 102, 54 122, 54 148 C 54 180, 68 198, 92 198 C 114 198, 122 176, 122 144 C 122 116, 108 92, 76 96 Z\" fill=\"url(#tealCapsuleGrad)\"></path>\n<!-- Teal Capsule Sheen -->\n<path d=\"M 88 106 C 76 108, 68 124, 68 146 C 68 168, 76 182, 84 182 C 90 182, 94 164, 96 142 C 98 124, 98 104, 88 106 Z\" fill=\"#FFFFFF\" opacity=\"0.18\"></path>\n<!-- Balanced Central Core Beacon -->\n<circle cx=\"80\" cy=\"105\" fill=\"#FAF9F6\" filter=\"url(#softGlow)\" r=\"4.5\"></circle>\n<circle cx=\"80\" cy=\"105\" fill=\"#0C4F50\" r=\"2\"></circle>\n</svg>"}} />
 
                 <span className="absolute right-1 top-6 text-[10px] text-secondary font-bold uppercase tracking-wider">{live ? 'Tilt +0.4°' : '—'}</span>
                 <span className="absolute left-1 bottom-6 text-[10px] text-quiet-stone font-bold uppercase tracking-wider">Posture alignment</span>
@@ -963,6 +969,10 @@
               </div>
             </div>
 
+            <section className="bg-pure-surface rounded-3xl p-5 shadow-sm border border-whisper-border flex flex-col gap-3">
+              <div className="flex items-center justify-between"><h4 className="text-[14px] font-semibold flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-[18px]">diamond</span>Styling &amp; Contact</h4><span className="text-[11px] text-quiet-stone">Dual Capsule</span></div>
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMlECOQVijEB6ZNazDpf2fGX5GpxU-jKmVFQivdDOO1lbFWEaE-GdC9ajO0FBOg1Y3rpc5G15GbDCi1DXveddVYubNwXkbnc2MQd9mP8QI-on6yedVJ6vjMjBLLnUuaAInYK040hhpwMPjHn7GuwY8iIHzGlJKDWQDAntuhSVHD0iEHwrcD6ijv8FHYseD6ME3eTXv4UfhRhxyYwfEF18if6E9ayqslb2kAAahFzfjaBSQvY7j_N6" alt="Pendant lifestyle reference from the Stitch design" className="w-full h-full object-cover"/><div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-dark-teal-ink/80 to-transparent text-ivory-canvas"><p className="text-[13px] font-semibold">YourVitaminP pendant</p><p className="text-[11px]">Centered, flat and stable placement</p></div></div>
+            </section>
             {/* Quick Action Tray */}
             <div className="grid grid-cols-3 gap-2">
               <button
@@ -1003,7 +1013,7 @@
 
     // Screen 7: History Analytics Screen
     const HistoryScreen = () => {
-      const [viewMode, setViewMode] = useState('week'); // 'day' | 'week'
+      const [viewMode, setViewMode] = useState('day'); // 'day' | 'week'
       const navigate = useNavigate();
       const device = useContext(DeviceContext);
 
@@ -1051,30 +1061,28 @@
               </button>
             </div>
 
-            {/* Overview Metric */}
-            <div className="p-4 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-quiet-stone uppercase tracking-wider">Today’s overview</span>
-                <span className="px-2 py-0.5 rounded-full bg-gold-mist/60 text-secondary text-[10px] font-bold uppercase">Sample</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3 pt-1">
-                <div>
-                  <span className="text-[11px] text-quiet-stone">Upright time</span>
-                  <div className="text-xl font-bold text-dark-teal-ink">2h 18m</div>
+            {/* Overview Metric — updated Stitch progress ring */}
+            {viewMode === 'day' && <section className="p-4 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm flex flex-col gap-3">
+              <div className="flex items-center justify-between gap-2"><span className="text-[11px] font-bold text-quiet-stone uppercase tracking-wider">Today’s posture overview</span><span className="px-2 py-0.5 rounded-full bg-gold-mist/60 text-secondary text-[10px] font-bold uppercase">Sample data</span></div>
+              <div className="flex items-center gap-3">
+                <div className="relative w-20 h-20 shrink-0 flex items-center justify-center" aria-label="72 percent posture alignment">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="#E4E8E5" strokeWidth="7"/><circle cx="44" cy="44" r="36" fill="none" stroke="#0c4f50" strokeWidth="7" strokeLinecap="round" strokeDasharray="226.2" strokeDashoffset="63.3"/></svg>
+                  <div className="absolute flex flex-col items-center"><span className="text-xl font-bold leading-tight">72%</span><span className="text-[10px] text-quiet-stone">Poise</span></div>
                 </div>
-                <div className="border-l border-whisper-border pl-3">
-                  <span className="text-[11px] text-quiet-stone">Recorded time</span>
-                  <div className="text-xl font-bold text-dark-teal-ink">3h 12m</div>
+                <div className="grid grid-cols-2 flex-1 gap-2 border-l border-whisper-border pl-3">
+                  <div><span className="text-[10px] text-quiet-stone">Upright time</span><p className="text-[17px] font-bold whitespace-nowrap">2h 18m</p><span className="text-[10px] text-primary font-semibold">In alignment</span></div>
+                  <div><span className="text-[10px] text-quiet-stone">Recorded time</span><p className="text-[17px] font-bold whitespace-nowrap">3h 12m</p><span className="text-[10px] text-quiet-stone">Total session</span></div>
                 </div>
               </div>
-            </div>
+              <p className="text-[10px] text-quiet-stone">Reflects sample calibrated session data</p>
+            </section>}
 
             {/* View Mode: Week Chart */}
             {viewMode === 'week' ? (
               <div className="p-4 rounded-2xl bg-pure-surface border border-whisper-border shadow-sm flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-[15px] font-bold text-dark-teal-ink">Weekly upright trend</h3>
-                  <span className="text-[11px] text-quiet-stone">Goal: 3h daily</span>
+                  <span className="text-[11px] text-quiet-stone">Sample data</span>
                 </div>
 
                 <div className="relative pt-2 pb-1 flex w-full h-40 gap-2">
@@ -1086,13 +1094,13 @@
                   </div>
                   <div className="relative flex-1 flex items-end justify-between h-32 border-b border-whisper-border">
                     {[
-                      { day: 'Mon', h: '66%' },
-                      { day: 'Tue', h: '72%' },
+                      { day: 'Mon', h: '66.7%' },
+                      { day: 'Tue', h: '72.2%' },
                       { day: 'Wed', h: '50%' },
-                      { day: 'Thu', h: '83%' },
-                      { day: 'Fri', h: '76%', active: true },
-                      { day: 'Sat', h: '58%' },
-                      { day: 'Sun', h: '41%' },
+                      { day: 'Thu', h: '83.3%' },
+                      { day: 'Fri', h: '76.7%', active: true },
+                      { day: 'Sat', h: '58.3%' },
+                      { day: 'Sun', h: '41.7%' },
                     ].map((item, idx) => (
                       <div key={idx} className="flex-1 flex flex-col items-center h-full justify-end px-1">
                         <div
@@ -1115,9 +1123,9 @@
                 <div className="bg-surface-container rounded-xl p-2.5 flex items-center justify-between text-[12px]">
                   <div className="flex items-center gap-1.5 text-dark-teal-ink font-semibold">
                     <span className="material-symbols-outlined text-[16px] text-primary-container">calendar_today</span>
-                    <span>Today (Friday): 2h 18m upright</span>
+                    <span>Week total: 13h 28m upright</span>
                   </div>
-                  <span className="text-[11px] text-quiet-stone">72% of session</span>
+                  <span className="text-[11px] text-quiet-stone">Avg. 1h 55m/day</span>
                 </div>
               </div>
             ) : (
@@ -1198,6 +1206,11 @@
       const shared = useContext(DeviceContext);
       const deviceState = shared.connection;
       const setDeviceState = (state) => { shared.setConnection(state); if (state === 'connected') shared.setPaired(true); };
+      useEffect(() => {
+        if (deviceState !== 'checking') return;
+        const timer = setTimeout(() => setDeviceState('connected'), 1800);
+        return () => clearTimeout(timer);
+      }, [deviceState]);
 
       return (
         <div className="flex flex-col min-h-screen pb-24 select-none">
@@ -1258,12 +1271,7 @@
 
             {/* Luxury Pendant Visual Card */}
             <div className="w-full bg-pure-surface rounded-3xl p-5 shadow-sm border border-whisper-border flex flex-col items-center relative overflow-hidden">
-              <div className="w-20 h-28 relative flex flex-col items-center justify-center my-2 filter drop-shadow-md">
-                <div className="w-12 h-10 rounded-t-full bg-gradient-to-b from-[#F2E7D5] via-[#D9A85B] to-[#5E410F] shadow-sm" />
-                <div className="w-14 h-16 rounded-b-full bg-gradient-to-b from-[#3FA6A2] via-[#0C4F50] to-[#013134] shadow-md flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-[#86BFC0]" />
-                </div>
-              </div>
+              <div className="w-32 h-44 relative my-2 [&_svg]:w-full [&_svg]:h-full" dangerouslySetInnerHTML={{__html: "<svg class=\"w-full h-full\" fill=\"none\" viewbox=\"0 0 140 190\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs>\n<lineargradient gradientunits=\"userSpaceOnUse\" id=\"goldCapGrad\" x1=\"20\" x2=\"110\" y1=\"10\" y2=\"100\">\n<stop offset=\"0%\" stop-color=\"#F2E7D5\"></stop>\n<stop offset=\"45%\" stop-color=\"#D9A85B\"></stop>\n<stop offset=\"85%\" stop-color=\"#8F6B2F\"></stop>\n<stop offset=\"100%\" stop-color=\"#5E410F\"></stop>\n</lineargradient>\n<lineargradient gradientunits=\"userSpaceOnUse\" id=\"tealCapGrad\" x1=\"40\" x2=\"120\" y1=\"70\" y2=\"180\">\n<stop offset=\"0%\" stop-color=\"#3FA6A2\"></stop>\n<stop offset=\"40%\" stop-color=\"#0C4F50\"></stop>\n<stop offset=\"85%\" stop-color=\"#013134\"></stop>\n<stop offset=\"100%\" stop-color=\"#001F21\"></stop>\n</lineargradient>\n<radialgradient cx=\"45%\" cy=\"30%\" id=\"pearlSheen\" r=\"55%\">\n<stop offset=\"0%\" stop-color=\"#FFFFFF\" stop-opacity=\"0.8\"></stop>\n<stop offset=\"60%\" stop-color=\"#FFFFFF\" stop-opacity=\"0\"></stop>\n</radialgradient>\n</defs>\n<path d=\"M70 12 C96 12 118 36 116 72 C114 96 96 112 76 118 C58 96 42 74 44 46 C46 22 56 12 70 12 Z\" fill=\"url(#goldCapGrad)\"></path>\n<path d=\"M70 12 C96 12 118 36 116 72 C114 96 96 112 76 118 C58 96 42 74 44 46 C46 22 56 12 70 12 Z\" fill=\"url(#pearlSheen)\"></path>\n<path d=\"M42 46 C60 76 76 96 76 118\" stroke=\"#FAF9F6\" stroke-linecap=\"round\" stroke-width=\"2.5\"></path>\n<path d=\"M52 86 C68 82 86 94 92 112 C98 132 94 156 80 170 C64 184 44 176 38 152 C32 128 38 98 52 86 Z\" fill=\"url(#tealCapGrad)\"></path>\n<path d=\"M52 86 C68 82 86 94 92 112 C98 132 94 156 80 170 C64 184 44 176 38 152 C32 128 38 98 52 86 Z\" fill=\"url(#pearlSheen)\" opacity=\"0.45\"></path>\n<circle cx=\"65\" cy=\"136\" fill=\"#013134\" r=\"4.5\"></circle>\n<circle cx=\"65\" cy=\"136\" fill=\"#86BFC0\" opacity=\"0.8\" r=\"2\"></circle>\n</svg>"}} />
 
               <div className="flex flex-col items-center gap-1 mt-1">
                 <div className="flex items-center gap-1.5 bg-surface-container-low px-3 py-1 rounded-full text-[11px]">
@@ -1316,6 +1324,7 @@
               <span>{deviceState === 'checking' ? 'Checking connection…' : deviceState === 'disconnected' ? 'Reconnect' : 'Check connection'}</span>
             </button>
 
+            <div className="bg-pure-surface rounded-xl border border-whisper-border p-3.5 text-[12px] flex justify-between gap-3"><span>Calibration</span><span>{shared.calibrated ? 'Calibrated' : 'Calibration needed'}</span></div>
             {/* Telemetry rows */}
             <div className="bg-pure-surface rounded-2xl p-4 shadow-sm border border-whisper-border flex flex-col gap-2.5">
               <h3 className="text-[14px] font-bold text-dark-teal-ink mb-1">Hardware Specifications</h3>
@@ -1475,6 +1484,7 @@
               </div>
             </div>
 
+            <section className="flex flex-col gap-2"><h2 className="text-[11px] font-bold uppercase tracking-wider">App &amp; Display</h2><div className="bg-pure-surface rounded-xl border border-whisper-border divide-y divide-surface-container"><div className="p-3.5 flex justify-between text-[13px]"><span>Language</span><span className="text-quiet-stone">English (US)</span></div><div className="p-3.5 flex justify-between text-[13px]"><span>Theme</span><span className="text-quiet-stone">Light (Ivory)</span></div></div></section>
             {/* Privacy & Storage */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1.5 px-1">
@@ -1705,6 +1715,7 @@
             </div>
 
             {!available && <p className="p-3 rounded-xl bg-gold-mist text-[12px]">Pendant not connected. These are previous example readings; reconnect for live measurements.</p>}
+            <p className="p-3 rounded-xl bg-teal-mist/60 text-[11px] text-on-surface-variant">Informational only. These readings support general wellness awareness and are not medical measurements or clinical diagnoses.</p>
             {/* Sensor Status Bar */}
             <div className="bg-pure-surface rounded-xl p-3.5 border border-whisper-border shadow-sm flex flex-col gap-2">
               <div className="flex items-center justify-between">
@@ -1785,6 +1796,8 @@
               <p className="text-[13px]">Active time: 28 min</p>
               <p className="text-[11px] text-quiet-stone">Availability depends on device firmware.</p>
             </div>
+            <div className="bg-pure-surface rounded-xl p-3 border border-whisper-border flex gap-3 items-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuALeI2oikeFyirCtDpsLLdY1HZikiUGbohckfA_epc38Hg3UITNCSOmeABSGHalGr_L01-MhddlnmyrI_1a1meGXb9tM7Ax2sECgr-j3c1VSUd_r6hregOZLzQlZ_ia_PM1scLxgY2_QvdQceQ2FhrrT8Y_ou4uLEiVm_mIDvSX19JKlRlTx52fcMEjVhJFM7mD60pw6J5vvOijW7QWtku1C1dAqwzxYTUFKA0xAQfhh0u5cNOs1jIj" alt="Pendant detail from Stitch" className="w-16 h-16 rounded-xl object-cover"/><div><p className="text-[12px] font-semibold text-primary">Dual Optical Sensor</p><p className="text-[13px] font-bold">MAX30102 Module</p><p className="text-[11px] text-on-surface-variant">Optical wellness readings depend on device integration.</p></div></div>
+            <div className="relative rounded-xl overflow-hidden aspect-[16/9]"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn1nXWAqmg8tjimU5YjEHHjp6RMHAPjIJgfwaaEXiIfa8QpaxXlYGc8O9goNyduXD3pCiJI5mT6Nto_Y-hqpHjHNlZ_0_QQUFaHxVfqb1lndulji5db9lHkBlktKeqNUqgAHGUW58G8IFVUJ5CIxY6INGZvulpdZldonKMTu3yRxEAE931nwrMWs8D1FNntZj-C4QRqhLU9jqFom2KhPKUAtC6avQKujATqLJ80mXwnsmrrydpa6YW" alt="Wellness lifestyle reference from Stitch" className="w-full h-full object-cover"/><div className="absolute bottom-3 inset-x-3 bg-pure-surface/90 rounded-lg p-2 text-[12px] font-semibold text-primary">Quiet Awareness Arc</div></div>
             <button
               disabled={!available || sensorStatus === 'measuring'}
               onClick={triggerReading}
@@ -1793,6 +1806,7 @@
               <span className={`material-symbols-outlined text-[18px] ${sensorStatus === 'measuring' ? 'animate-spin' : ''}`}>sync</span>
               <span>{!available ? 'Reconnect to take a reading' : sensorStatus === 'measuring' ? 'Simulating a reading…' : 'Simulate new reading'}</span>
             </button>
+            <button onClick={() => navigate('/history')} className="w-full h-12 rounded-xl border border-whisper-border bg-pure-surface text-primary font-semibold text-[14px]">View reading history</button>
           </main>
         </div>
       );
